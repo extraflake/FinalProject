@@ -7,5 +7,6 @@ namespace ExamOnline.Judel
 {
     public class Judel
     {
+        public string Name;
     }
 }
