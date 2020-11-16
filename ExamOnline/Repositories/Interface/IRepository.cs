@@ -1,10 +1,9 @@
-﻿using Exam.Microservices.Bases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Exam.Microservices.Repositories.Interface
+namespace ExamOnline.Repositories.Interface
 {
     public interface IRepository<T> where T : class, IEntity
     {

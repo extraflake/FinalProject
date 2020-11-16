@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Exam.Microservices.Context
+namespace ExamOnline.Context
 {
     public class MyContext : DbContext
     {

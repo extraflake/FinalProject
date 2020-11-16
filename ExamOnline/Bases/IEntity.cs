@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Exam.Microservices.Bases
+namespace ExamOnline.Bases
 {
     public interface IEntity
     {

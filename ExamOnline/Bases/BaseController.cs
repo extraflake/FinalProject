@@ -1,11 +1,11 @@
-﻿using Exam.Microservices.Repositories.Interface;
+﻿using ExamOnline.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Exam.Microservices.Bases
+namespace ExamOnline.Bases
 {
     public class BaseController<TEntity, TRepository> : ControllerBase
         where TEntity : class, IEntity
