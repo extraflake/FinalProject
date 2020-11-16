@@ -1,5 +1,4 @@
-﻿using Portal.Bases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 namespace Portal.Models
 {
     [Table("TB_M_Applicant")]
-    public class Applicant : IEntity
+    public class Applicant
     {
         [Key]
         public int Id { get; set; }
