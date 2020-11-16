@@ -1,17 +1,13 @@
-﻿using Exam.Microservices.Bases;
-using Exam.Microservices.Context;
-using Exam.Microservices.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Exam.Microservices.Repositories
+namespace ExamOnline.Repositories
 {
     public class GeneralRepository<TEntity, TContext> : IRepository<TEntity>
-        where TEntity : class, IEntity
-        where TContext : MyContext
+         where TEntity : class, IEntity
+         where TContext : MyContext
     {
         private readonly MyContext myContext;
         public GeneralRepository(MyContext myContext)
