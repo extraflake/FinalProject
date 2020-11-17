@@ -39,14 +39,14 @@ namespace UserManagement.Controllers
 
 
         [HttpPost(nameof(Get))]
-        public async Task<string> Get(UserRoleVM userroleVM)
+        public async Task<string> Get(RegisterVM userroleVM)
         {
             try
             {
                 var dbparams = new DynamicParameters();
 
                 dbparams.Add("@User_Email", userroleVM.User_Email, DbType.String);
-                var result = await Task.FromResult(_dapper.Get<UserRoleVM>("[dbo].[SP_Login_UserRole]",
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole]",
                     dbparams, commandType: CommandType.StoredProcedure));
 
                 if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result.User_Password))
@@ -77,7 +77,7 @@ namespace UserManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<int> Register(UserRoleVM data)
+        public async Task<int> Register(RegisterVM data)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace UserManagement.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        public async Task<int> ChangePassword(UserRoleVM data)
+        public async Task<int> ChangePassword(RegisterVM data)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace UserManagement.Controllers
             }
         }
         [HttpPatch]
-        public async Task<int> Forgot(UserRoleVM entity)
+        public async Task<int> Forgot(RegisterVM entity)
         {
             try
             {
