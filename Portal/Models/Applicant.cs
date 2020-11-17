@@ -28,6 +28,7 @@ namespace Portal.Models
         public string City { get; set; }
         public string Skill { get; set; }
         public string DocPath { get; set; }
+        public bool AlreadyCheck { get; set; }
         public bool AlreadyTest { get; set; }
     }
 }
