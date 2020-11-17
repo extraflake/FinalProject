@@ -85,9 +85,7 @@ namespace UserManagement.Controllers
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
 
                 var dbparams = new DynamicParameters();
-                dbparams.Add("FirstName", data.FirstName, DbType.String);
-                dbparams.Add("LastName", data.LastName, DbType.String);
-                dbparams.Add("Address", data.Address, DbType.String);
+                dbparams.Add("FirstName", data.FullName, DbType.String);                                
                 dbparams.Add("BirthDate", data.BirthDate, DbType.Date);
                 dbparams.Add("Phone", data.Phone, DbType.String);
                 dbparams.Add("User_Email", data.User_Email, DbType.String);
