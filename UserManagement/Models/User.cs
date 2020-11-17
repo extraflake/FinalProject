@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using UserManagement.Bases;
 using UserManagement.Models;
 
 namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_User")]
-    public class User
+    public class User : IEntity
     {
         [Key]
         public int Id { get; set; }

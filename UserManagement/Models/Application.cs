@@ -6,17 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Bases;
 
-namespace UserManagement.Microservices.Models
+namespace UserManagement.Models
 {
-    [Table("TB_T_UserRole")]
-    public class UserRole : IEntity
+    [Table("TB_M_Application")]
+    public class Application : IEntity
     {
+
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public ICollection<UserApplication> UserApplications { get; set; }
     }
 }

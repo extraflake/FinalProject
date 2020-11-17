@@ -1,22 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using UserManagement.Repositories.Interface;
 
 namespace UserManagement.Bases
 {
-    public class BaseController <TEntity, TRepositories> : ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BasesController<TEntity, TRepository> : ControllerBase
         where TEntity : class, IEntity
-        where TRepositories : IRepositories<TEntity>
+        where TRepository : IRepository<TEntity>
     {
-        private readonly TRepositories _repository;
+        private readonly TRepository _repository;
 
-        public BaseController(TRepositories repository) { this._repository = repository; }
+        public BasesController(TRepository repository)
+        {
+            this._repository = repository;
+        }
 
         [HttpGet]
-        public async Task<IEnumerable<TEntity>> Get() => await _repository.Get();
+        public async Task<ActionResult<TEntity>> Get()
+        {
+            var result = await _repository.Get();
+            return Ok(new { data = result });
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TEntity>> Get(int id)
@@ -26,8 +36,9 @@ namespace UserManagement.Bases
             {
                 return NotFound();
             }
-            return Ok(get);
+            return Ok(new { data = get });
         }
+
         [HttpPost]
         public async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
@@ -42,9 +53,8 @@ namespace UserManagement.Bases
             {
                 return BadRequest();
             }
-
-            var result = await _repository.Put(entity);
-            return Ok(result);
+            var update = await _repository.Put(entity);
+            return Ok(update);
         }
 
         [HttpDelete("{id}")]
