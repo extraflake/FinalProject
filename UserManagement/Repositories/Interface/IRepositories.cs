@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UserManagement.Bases;
 
 namespace UserManagement.Repositories.Interface
 {
-    public interface IRepositories <T> where T : class
+    public interface IRepositories<T> where T : class, IEntity
     {
         Task<List<T>> Get();
         Task<T> Get(int id);
