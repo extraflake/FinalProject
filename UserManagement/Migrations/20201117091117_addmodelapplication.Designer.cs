@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserManagement.Microservices.Context;
 
 namespace UserManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201117091117_addmodelapplication")]
+    partial class addmodelapplication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,21 +83,6 @@ namespace UserManagement.Migrations
                     b.ToTable("TB_T_UserRole");
                 });
 
-            modelBuilder.Entity("UserManagement.Models.Application", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TB_M_Application");
-                });
-
             modelBuilder.Entity("UserManagement.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -144,28 +131,6 @@ namespace UserManagement.Migrations
                     b.ToTable("TB_M_Employee");
                 });
 
-            modelBuilder.Entity("UserManagement.Models.UserApplication", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TB_T_UserApplication");
-                });
-
             modelBuilder.Entity("UserManagement.Microservices.Models.UserRole", b =>
                 {
                     b.HasOne("UserManagement.Microservices.Models.Role", "Role")
@@ -186,21 +151,6 @@ namespace UserManagement.Migrations
                     b.HasOne("UserManagement.Microservices.Models.User", "User")
                         .WithOne("Employee")
                         .HasForeignKey("UserManagement.Models.Employee", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("UserManagement.Models.UserApplication", b =>
-                {
-                    b.HasOne("UserManagement.Models.Application", "Application")
-                        .WithMany("UserApplications")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UserManagement.Microservices.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
