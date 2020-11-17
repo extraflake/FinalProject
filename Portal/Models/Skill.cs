@@ -8,17 +8,12 @@ using System.Threading.Tasks;
 
 namespace Portal.Models
 {
-    [Table("TB_M_Applicant")]
-    public class Applicant : IEntity
+    [Table("TB_M_Skill")]
+    public class Skill : IEntity
     {
         [Key]
         public int Id { get; set; }
-        public string DocPath { get; set; }
-        public bool AlreadyCheck { get; set; }
-        public bool AlreadyTest { get; set; }
-
-        public Position Position { get; set; }
-        public Reference Reference { get; set; }
+        public string Name { get; set; }
 
         public ICollection<ApplicantSkill> ApplicantSkills { get; set; }
     }
