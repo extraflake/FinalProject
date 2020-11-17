@@ -32,7 +32,6 @@ namespace Portal
 
             services.AddControllers();
             services.AddScoped<ApplicantRepository>();
-            //services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
         }
 
