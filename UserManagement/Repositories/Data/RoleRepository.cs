@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UserManagement.Models
+namespace UserManagement.Repositories.Data
 {
-    public class Employee
+    public class RoleRepository
     {
     }
 }
