@@ -32,6 +32,9 @@ namespace Portal
 
             services.AddControllers();
             services.AddScoped<ApplicantRepository>();
+            services.AddScoped<PositionRepository>();
+            services.AddScoped<SkillRepository>();
+            services.AddScoped<ReferenceRepository>();
 
         }
 
