@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace ExamOnline.Models
 {
-    [Table("TB_M_Segment")]
-    public class Segment : IEntity
+    [Table("TB_M_Grade")]
+    public class Grade : IEntity
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public int Duration { get; set; }
-        public int QuestionQuantity { get; set; }
+        public int Score { get; set; }
+        public string Grades { get; set; }
     }
 }

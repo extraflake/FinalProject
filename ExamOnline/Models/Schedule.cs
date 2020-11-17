@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace ExamOnline.Models
 {
-    [Table("TB_M_Segment")]
-    public class Segment : IEntity
+    [Table("TB_M_Schedule")]
+    public class Schedule : IEntity
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public int Duration { get; set; }
-        public int QuestionQuantity { get; set; }
+        public DateTime ScheduleTime { get; set; }
     }
 }

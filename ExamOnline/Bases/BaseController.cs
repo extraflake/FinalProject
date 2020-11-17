@@ -24,6 +24,7 @@ namespace ExamOnline.Bases
             var result = await this.repository.Get();
             return Ok(new { data = result });
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<TEntity>> Get(int id)
         {
