@@ -18,5 +18,6 @@ namespace ExamOnline.Models
         public DateTime EndTime { get; set; }
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
+        public ExamDetail ExamDetail { get; set; }
     }
 }

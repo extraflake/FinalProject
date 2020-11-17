@@ -15,5 +15,6 @@ namespace ExamOnline.Models
         public int Id { get; set; }
         public int Score { get; set; }
         public string Grades { get; set; }
+        public ExamDetail ExamDetail { get; set; }
     }
 }
