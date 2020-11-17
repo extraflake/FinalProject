@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UserManagement.Repositories.Data
+namespace UserManagement.Bases
 {
-    public class RoleRepository
+    public class BaseController
     {
     }
 }

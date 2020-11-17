@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserManagement.Repositories.Interface
 {
-    public interface IRepositories <T> where T : class, IEntity
+    public interface IRepositories <T> where T : class
     {
         Task<List<T>> Get();
         Task<T> Get(int id);
