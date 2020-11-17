@@ -29,10 +29,6 @@ namespace ExamOnline
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ApplicantRepository>();
-            services.AddScoped<QuestionRepository>();
-            services.AddScoped<ScoreRepository>();
-            services.AddScoped<SegmentRepository>();
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 
