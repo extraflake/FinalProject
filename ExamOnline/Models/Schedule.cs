@@ -14,5 +14,6 @@ namespace ExamOnline.Models
         [Key]
         public int Id { get; set; }
         public DateTime ScheduleTime { get; set; }
+        public Duration Duration { get; set; }
     }
 }
