@@ -4,7 +4,7 @@ using UserManagement.Bases;
 
 namespace UserManagement.Repositories.Interface
 {
-    public interface IRepositories<T> where T : class, IEntity
+    public interface IRepository<T> where T : class, IEntity
     {
         Task<List<T>> Get();
         Task<T> Get(int id);
