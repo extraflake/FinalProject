@@ -27,7 +27,12 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+<<<<<<< Updated upstream
             //services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+=======
+            services.AddScoped<ApplicantRepository>();
+
+>>>>>>> Stashed changes
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
