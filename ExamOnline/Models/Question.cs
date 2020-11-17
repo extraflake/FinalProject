@@ -19,6 +19,7 @@ namespace ExamOnline.Models
         public string AnswerC { get; set; }
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
+        public int Point { get; set; }
         public int SegmentId { get; set; }
         public Segment Segment { get; set; }
     }

@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace ExamOnline.Models
 {
-    [Table("TB_M_Applicant")]
-    public class Applicant : IEntity
+    [Table("TB_M_Duration")]
+    public class Duration : IEntity
     {
         [Key]
         public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public DateTime ExamSchedule { get; set; }
+        public string ApplicantId { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int ScheduleId { get; set; }
+        public Schedule Schedule { get; set; }
     }
 }
