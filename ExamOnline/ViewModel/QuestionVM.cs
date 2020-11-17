@@ -1,18 +1,14 @@
-﻿using ExamOnline.Bases;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExamOnline.Models
+namespace ExamOnline.ViewModel
 {
-    [Table("TB_M_Question")]
-    public class Question : IEntity
+    public class QuestionVM
     {
-        [Key]
         public int Id { get; set; }
+        //Question
         public string Quest { get; set; }
         public string AnswerA { get; set; }
         public string AnswerB { get; set; }
@@ -20,7 +16,11 @@ namespace ExamOnline.Models
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
         public int Point { get; set; }
+
+        //segment
         public int SegmentId { get; set; }
-        public Segment Segment { get; set; }
+        public string Title { get; set; }
+        public int Duration { get; set; }
+        public int QuestionQuantity { get; set; }
     }
 }
