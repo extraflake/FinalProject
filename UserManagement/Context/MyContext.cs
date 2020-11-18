@@ -18,6 +18,10 @@ namespace UserManagement.Microservices.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<UserApplication> UserApplications { get; set; }
+        public DbSet<Religion> Religions { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<University> Universities { get; set; }
+        public DbSet<UnivDept> UnivDepts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
