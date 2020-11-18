@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/_Portal.cshtml";
+}
+
+<main class="main">
+    <!-- Referensi -->
+    <div class="grid grid-ai-c">
+        <label for="reference" class="grid-item-left">Referensi : </label>
+        <select class="grid-item-right" id="reference"> </select>
+    </div>
+
+    <!-- Full Name -->
+    <div class="grid grid-ai-c">
+        <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname" disabled>
+    </div>
+
+    <!-- Alamat Email -->
+    <div class="grid grid-ai-c">
+        <label for="email" class="grid-item-left">Email : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan email anda..." id="email" disabled>
+    </div>
+
+    <!-- Handphone -->
+    <div class="grid grid-ai-c">
+        <label for="hp" class="grid-item-left">Nomor HP : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nomor handphone anda..." id="hp" disabled>
+    </div>
+
+    <!-- Tanggal lahir -->
+    <div class="grid grid-ai-c">
+        <label for="birthdate" class="grid-item-left">Tanggal lahir : </label>
+        <input class="grid-item-right" type="date" placeholder="Masukkan tanggal lahir anda..." id="birthdate" disabled>
+    </div>
+
+    <!-- Gender -->
+    <div class="grid grid-ai-c">
+        <label for="gender" class="grid-item-left">Gender : </label>
+        <select class="grid-item-right" id="gender" disabled> </select>
+    </div>
+
+    <!-- Agama -->
+    <div class="grid grid-ai-c">
+        <label for="religion" class="grid-item-left">Agama : </label>
+        <select class="grid-item-right" id="religion" disabled> </select>
+    </div>
+
+    <!-- Sekolah/ Universitas -->
+    <div class="grid grid-ai-c">
+        <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university" disabled>
+    </div>
+
+    <!-- Jurusan -->
+    <div class="grid grid-ai-c">
+        <label for="department" class="grid-item-left">Jurusan : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama jurusan anda..." id="department" disabled>
+    </div>
+
+    <!-- Jenjang -->
+    <div class="grid grid-ai-c">
+        <label for="aclevel" class="grid-item-left">Jenjang Pendidikan : </label>
+        <select class="grid-item-right" id="aclevel" disabled> </select>
+    </div>
+
+    <!-- Tahun lulus -->
+    <div class="grid grid-ai-c">
+        <label for="gradyear" class="grid-item-left">Tahun Kelulusan : </label>
+        <select class="grid-item-right" id="gradyear" disabled> </select>
+    </div>
+
+    <!-- IPK Terakhir -->
+    <div class="grid grid-ai-c">
+        <label for="gpa" class="grid-item-left">IPK Terakhir : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan IPK anda..." id="gpa" disabled>
+    </div>
+
+    <!-- Kota Asal -->
+    <div class="grid grid-ai-c">
+        <label for="hometown" class="grid-item-left">Kota Asal : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown">
+    </div>
+
+    <!-- Posisi -->
+    <div class="grid grid-ai-c">
+        <label for="position" class="grid-item-left">Posisi yang Dilamar : </label>
+        <select class="grid-item-right" id="position"> </select>
+    </div>
+
+    <!-- Keahlian -->
+    <div class="grid grid-ai-c">
+        <label for="skill" class="grid-item-left">Keahlian: </label>
+        <select class="grid-item-right" id="skill"> </select>
+    </div>
+
+    <!-- Upload CV -->
+    <div class="grid grid-ai-c">
+        <label for="cv" class="grid-item-left">Upload CV: </label>
+        <input class="grid-item-right" type="file" placeholder="Masukkan kota asal anda..." id="cv" disabled>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="grid grid-jc-c">
+        <label></label>
+        <button type="button" id="submit-btn" onclick="Alert();">Submit</button>
+    </div>
+
+</main>
+
+@section script{
+    <!-- MAIN SCRIPT -->
+    <script src="~/PortalClient/app/js/script.js"></script>
+}
+

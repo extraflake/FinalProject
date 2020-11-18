@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="witdh=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="~/PortalClient/app/scss/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <title></title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="flex flex-jc-sb flex-ai-c">
+            <a href="/" class="header__logo">
+                <img src="~/PortalClient/app/images/mtdl-logo.png" alt="Metrodata">
+            </a>
+
+            <div class="header__links">
+                <a href="./index.html">Pendaftaran</a>
+                <a href="./update.html">Update Data</a>
+            </div>
+
+            <div class="header__logout">
+                <a href="#">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody();
+
+    @RenderSection("script", required: false);
+    
+</body>
+</html>

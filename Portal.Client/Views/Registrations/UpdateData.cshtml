@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateData";
+    Layout = "~/Views/Layout/_Portal.cshtml";
+}
+
+<main class="main">
+    <!-- Full Name -->
+    <div class="grid grid-ai-c">
+        <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname">
+    </div>
+
+    <!-- Alamat Email -->
+    <div class="grid grid-ai-c">
+        <label for="email" class="grid-item-left">Email : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan email anda..." id="email">
+    </div>
+
+    <!-- Handphone -->
+    <div class="grid grid-ai-c">
+        <label for="hp" class="grid-item-left">Nomor HP : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nomor handphone anda..." id="hp">
+    </div>
+
+    <!-- Tanggal lahir -->
+    <div class="grid grid-ai-c">
+        <label for="birthdate" class="grid-item-left">Tanggal lahir : </label>
+        <input class="grid-item-right" type="date" placeholder="Masukkan tanggal lahir anda..." id="birthdate">
+    </div>
+
+    <!-- Gender -->
+    <div class="grid grid-ai-c">
+        <label for="gender" class="grid-item-left">Gender : </label>
+        <select class="grid-item-right" id="gender"> </select>
+    </div>
+
+    <!-- Agama -->
+    <div class="grid grid-ai-c">
+        <label for="religion" class="grid-item-left">Agama : </label>
+        <select class="grid-item-right" id="religion"> </select>
+    </div>
+
+    <!-- Sekolah/ Universitas -->
+    <div class="grid grid-ai-c">
+        <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">
+    </div>
+
+    <!-- Jurusan -->
+    <div class="grid grid-ai-c">
+        <label for="department" class="grid-item-left">Jurusan : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan nama jurusan anda..." id="department">
+    </div>
+
+    <!-- Jenjang -->
+    <div class="grid grid-ai-c">
+        <label for="aclevel" class="grid-item-left">Jenjang Pendidikan : </label>
+        <select class="grid-item-right" id="aclevel"> </select>
+    </div>
+
+    <!-- Tahun lulus -->
+    <div class="grid grid-ai-c">
+        <label for="gradyear" class="grid-item-left">Tahun Kelulusan : </label>
+        <select class="grid-item-right" id="gradyear"> </select>
+    </div>
+
+    <!-- IPK Terakhir -->
+    <div class="grid grid-ai-c">
+        <label for="gpa" class="grid-item-left">IPK Terakhir : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan IPK anda..." id="gpa">
+    </div>
+
+    <!-- Kota Asal -->
+    <div class="grid grid-ai-c">
+        <label for="hometown" class="grid-item-left">Kota Asal : </label>
+        <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown">
+    </div>
+
+    <!-- Submit Button -->
+    <div class="grid grid-jc-c">
+        <label></label>
+        <button type="button" id="submit-btn">Ubah Data</button>
+    </div>
+
+</main>
+
+@section script{
+<!-- MAIN SCRIPT -->
+<script src="~/PortalClient/app/js/script.js"></script>
+}
