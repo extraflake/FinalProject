@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Dapper_ORM\DataContext\" />
-    <Folder Include="Repositories\Data\" />
   </ItemGroup>
 
 
