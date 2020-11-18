@@ -12,5 +12,15 @@ namespace Portal.Client.Controllers
         {
             return View();
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Forgot()
+        {
+            return View();
+        }
     }
 }

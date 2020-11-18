@@ -11,8 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Portal.Context;
-using Portal.Repositories.Data;
 
 namespace Portal
 {
@@ -29,11 +27,6 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddScoped<ApplicantRepository>();
-            services.AddScoped<PositionRepository>();
-            services.AddScoped<SkillRepository>();
-            services.AddScoped<ReferenceRepository>();
 
         }
 

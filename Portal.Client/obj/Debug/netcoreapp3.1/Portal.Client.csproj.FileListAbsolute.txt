@@ -108,6 +108,12 @@ D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Porta
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Portal.Client.dll
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Portal.Client.pdb
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Portal.Client.genruntimeconfig.cache
-D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Portal.cshtml.g.cs
-D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Registrations\Index.cshtml.g.cs
-D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Registrations\UpdateData.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Layout.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Registration\Index.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Registration\Update.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Login.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Index.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Register.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Register.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Forgot.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Forgot.cshtml.g.cs
