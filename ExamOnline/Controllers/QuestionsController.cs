@@ -42,9 +42,9 @@ namespace ExamOnline.Controllers
                 commandType: CommandType.StoredProcedure));
             return result;
         }
-
-        [HttpGet]
-        public Task<List<QuestionVM>> Get(QuestionVM questionVM)
+        
+        [HttpPost(nameof(GetRandom))]
+        public Task<List<QuestionVM>> GetRandom(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
             dbparams.Add("@SegmentId", questionVM.SegmentId, DbType.Int32);
@@ -54,7 +54,7 @@ namespace ExamOnline.Controllers
             return result;
         }
 
-        [HttpGet(nameof(GetAllQuestion))]
+        [HttpGet]
         public Task<List<QuestionVM>> GetAllQuestion()
         {
             var dbparams = new DynamicParameters();
