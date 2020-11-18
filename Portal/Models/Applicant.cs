@@ -20,6 +20,8 @@ namespace Portal.Models
         public Position Position { get; set; }
         public Reference Reference { get; set; }
 
-        public ICollection<ApplicantSkill> ApplicantSkills { get; set; }
+        public int EmployeeId { get; set; }
+
+        public ICollection<Skill> Skills { get; set; }
     }
 }

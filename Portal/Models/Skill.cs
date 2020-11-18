@@ -15,6 +15,6 @@ namespace Portal.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<ApplicantSkill> ApplicantSkills { get; set; }
+        public ICollection<Applicant> Applicants { get; set; }
     }
 }

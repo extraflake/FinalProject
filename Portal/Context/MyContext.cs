@@ -16,7 +16,6 @@ namespace Portal.Context
         public DbSet<Position> Positions { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Reference> References { get; set; }
-        public DbSet<ApplicantSkill> ApplicantSkills { get; set; }
 
     }
 }

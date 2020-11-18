@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Portal.Context;
+using Portal.Dapper_ORM;
 using Portal.Repositories.Data;
 
 namespace Portal
@@ -35,7 +36,10 @@ namespace Portal
             services.AddScoped<PositionRepository>();
             services.AddScoped<SkillRepository>();
             services.AddScoped<ReferenceRepository>();
-
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
