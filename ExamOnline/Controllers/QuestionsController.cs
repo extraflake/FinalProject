@@ -42,8 +42,8 @@ namespace ExamOnline.Controllers
                 commandType: CommandType.StoredProcedure));
             return result;
         }
-
-        [HttpGet]
+        
+        [HttpPost(nameof(Get))]
         public Task<List<QuestionVM>> Get(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
@@ -54,7 +54,7 @@ namespace ExamOnline.Controllers
             return result;
         }
 
-        [HttpGet(nameof(GetAllQuestion))]
+        [HttpGet]
         public Task<List<QuestionVM>> GetAllQuestion()
         {
             var dbparams = new DynamicParameters();
