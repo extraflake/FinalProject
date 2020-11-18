@@ -20,7 +20,7 @@ namespace ExamOnline.ViewModel
         public int DurationId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string ApplicantId { get; set; }
+        public int ApplicantId { get; set; }
 
         //Schedule
         public int ScheduleId { get; set; }
