@@ -1,0 +1,10 @@
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\bin\Debug\netcoreapp3.1\appsettings.json
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\bin\Debug\netcoreapp3.1\GatewayAPI.exe
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\GatewayAPI.csprojAssemblyReference.cache
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\GatewayAPI.AssemblyInfoInputs.cache
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\GatewayAPI.AssemblyInfo.cs
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\GatewayAPI.RazorTargetAssemblyInfo.cache
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\staticwebassets\GatewayAPI.StaticWebAssets.Manifest.cache
+D:\bootcamp\github\New folder\FinalProject\GatewayAPI\obj\Debug\netcoreapp3.1\staticwebassets\GatewayAPI.StaticWebAssets.xml
