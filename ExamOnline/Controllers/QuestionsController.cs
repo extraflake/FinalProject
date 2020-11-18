@@ -43,8 +43,8 @@ namespace ExamOnline.Controllers
             return result;
         }
         
-        [HttpPost(nameof(Get))]
-        public Task<List<QuestionVM>> Get(QuestionVM questionVM)
+        [HttpPost(nameof(GetRandom))]
+        public Task<List<QuestionVM>> GetRandom(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
             dbparams.Add("@SegmentId", questionVM.SegmentId, DbType.Int32);
