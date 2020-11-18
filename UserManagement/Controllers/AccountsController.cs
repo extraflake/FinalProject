@@ -85,19 +85,20 @@ namespace UserManagement.Controllers
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
 
                 var dbparams = new DynamicParameters();
-                dbparams.Add("FirstName", data.FullName, DbType.String);                                
-                dbparams.Add("BirthDate", data.BirthDate, DbType.Date);
-                dbparams.Add("Phone", data.Phone, DbType.String);
+                dbparams.Add("FullName", data.FullName, DbType.String);
                 dbparams.Add("User_Email", data.User_Email, DbType.String);
                 dbparams.Add("User_Password", data.User_Password, DbType.String);
-                dbparams.Add("Role_RoleId", data.Role_RoleId, DbType.Int32);
+                dbparams.Add("Phone", data.Phone, DbType.String);
+                dbparams.Add("BirthDate", data.BirthDate, DbType.Date);
+                dbparams.Add("Gender", data.Gender, DbType.String);
+                dbparams.Add("ReligionID", data.ReligionID, DbType.Int32);
                 var result = await Task.FromResult(_dapper.Insert<int>("[dbo].[SP_InsertRegister]", dbparams, commandType: CommandType.StoredProcedure));
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                var result = 404;
-                return result;
+                //var result = 404;
+                return ex.Message.Length;
             }
         }
 

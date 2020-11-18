@@ -19,6 +19,6 @@ namespace UserManagement.ViewModel
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
-        public string Religion { get; set; }
+        public int ReligionID { get; set; }        
     }
 }
