@@ -17,15 +17,14 @@ namespace UserManagement.Models
         public int Id { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
+        public int ReligionID { get; set; }
+        public Religion Religion { get; set; }
+        public int UnivDeptID { get; set; }
+        public UnivDept UnivDept{ get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Gender { get; set; }
-        public string Religion { get; set; }
-        public string University { get; set; }
-        public string Majors { get; set; }
-        public string Level { get; set; }
-        public string GraduateYear { get; set; }
-        public string GPA { get; set; }
+        public string Gender { get; set; }        
+
     }
 }

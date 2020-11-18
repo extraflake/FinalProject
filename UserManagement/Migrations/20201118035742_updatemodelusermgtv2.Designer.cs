@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserManagement.Microservices.Context;
 
 namespace UserManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201118035742_updatemodelusermgtv2")]
+    partial class updatemodelusermgtv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,6 +177,9 @@ namespace UserManagement.Migrations
                     b.Property<string>("DepartmentId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("DeptID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("GPA")
                         .HasColumnType("nvarchar(max)");
 
@@ -182,6 +187,9 @@ namespace UserManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UnivID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UniversityId")
