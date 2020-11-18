@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portal.Context;
 
 namespace Portal.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201118014401_updateModelsApplicant")]
+    partial class updateModelsApplicant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("ApplicantSkill", b =>
-                {
-                    b.Property<int>("ApplicantsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicantsId", "SkillsId");
-
-                    b.HasIndex("SkillsId");
-
-                    b.ToTable("ApplicantSkill");
-                });
 
             modelBuilder.Entity("Portal.Models.Applicant", b =>
                 {
@@ -66,6 +53,28 @@ namespace Portal.Migrations
                     b.HasIndex("ReferenceId");
 
                     b.ToTable("TB_M_Applicant");
+                });
+
+            modelBuilder.Entity("Portal.Models.ApplicantSkill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("TB_T_ApplicantSkill");
                 });
 
             modelBuilder.Entity("Portal.Models.Position", b =>
@@ -113,21 +122,6 @@ namespace Portal.Migrations
                     b.ToTable("TB_M_Skill");
                 });
 
-            modelBuilder.Entity("ApplicantSkill", b =>
-                {
-                    b.HasOne("Portal.Models.Applicant", null)
-                        .WithMany()
-                        .HasForeignKey("ApplicantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Portal.Models.Skill", null)
-                        .WithMany()
-                        .HasForeignKey("SkillsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Portal.Models.Applicant", b =>
                 {
                     b.HasOne("Portal.Models.Position", "Position")
@@ -143,6 +137,30 @@ namespace Portal.Migrations
                     b.Navigation("Reference");
                 });
 
+            modelBuilder.Entity("Portal.Models.ApplicantSkill", b =>
+                {
+                    b.HasOne("Portal.Models.Applicant", "Applicant")
+                        .WithMany("ApplicantSkills")
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Portal.Models.Skill", "Skill")
+                        .WithMany("ApplicantSkills")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Skill");
+                });
+
+            modelBuilder.Entity("Portal.Models.Applicant", b =>
+                {
+                    b.Navigation("ApplicantSkills");
+                });
+
             modelBuilder.Entity("Portal.Models.Position", b =>
                 {
                     b.Navigation("Applicants");
@@ -151,6 +169,11 @@ namespace Portal.Migrations
             modelBuilder.Entity("Portal.Models.Reference", b =>
                 {
                     b.Navigation("Applicants");
+                });
+
+            modelBuilder.Entity("Portal.Models.Skill", b =>
+                {
+                    b.Navigation("ApplicantSkills");
                 });
 #pragma warning restore 612, 618
         }
