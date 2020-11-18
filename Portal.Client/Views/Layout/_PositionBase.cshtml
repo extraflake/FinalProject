@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Voler Admin Dashboard</title>
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/vendors/chartjs/Chart.min.css">
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/voler-master/dist/assets/css/app.css">
+    <link rel="shortcut icon" href="~/voler-master/dist/assets/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div id="app">
+        <div id="sidebar" class='active'>
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <img src="~/voler-master/dist/assets/images/logo.svg" alt="" srcset="">
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+
+                        <li class='sidebar-title'>Admin Menu</li>
+
+                        <li class="sidebar-item ">
+                            <a href="index.html" class='sidebar-link'>
+                                <i data-feather="layout" width="20"></i>
+                                <span>Reference</span>
+                            </a>
+
+                        </li>
+
+
+
+                        <li class="sidebar-item  ">
+                            <a href="form-layout.html" class='sidebar-link'>
+                                <i data-feather="book" width="20"></i>
+                                <span>Skill</span>
+                            </a>
+
+                        </li>
+
+
+
+
+                        <li class="sidebar-item active">
+                            <a href="form-editor.html" class='sidebar-link'>
+                                <i data-feather="layers" width="20"></i>
+                                <span>Position</span>
+                            </a>
+
+                        </li>
+
+
+
+
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        @RenderBody();
+    </div>
+    @RenderSection("script", required: false);
+</body>
+</html>
+

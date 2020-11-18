@@ -6,24 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Portal.Client.Controllers
 {
-    public class AccountsController : Controller
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Register()
+        public IActionResult Skill()
         {
             return View();
         }
 
-        public IActionResult Forgot()
-        {
-            return View();
-        }
-
-        public IActionResult Change()
+        public IActionResult Position()
         {
             return View();
         }

@@ -117,3 +117,10 @@ D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Register.cshtml.g.cs
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Forgot.cshtml.g.cs
 D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Forgot.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_Base.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Change.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_SkillBase.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Skill.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\_PositionBase.cshtml.g.cs
+D:\Bootcamp\Tugas Akhir\FinalProject\Portal.Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Position.cshtml.g.cs
