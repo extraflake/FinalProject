@@ -11,7 +11,7 @@ namespace UserManagement.Repositories.Data
     {
         public RoleRepository(MyContext myContext): base(myContext)
         {
-
+            
         }
     }
 }

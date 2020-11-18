@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using UserManagement.Dapper_ORM.Services;
 using UserManagement.Microservices.Context;
+using UserManagement.Repositories.Data;
 
 namespace UserManagement
 {
@@ -47,9 +48,12 @@ namespace UserManagement
             });
 
 
-            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddScoped<RoleRepository>();
             services.AddScoped<IDapper, Dapperr>();
             services.AddControllers();
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
