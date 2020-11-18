@@ -29,6 +29,12 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<ApplicantRepository>();
+            services.AddScoped<PositionRepository>();
+            services.AddScoped<SkillRepository>();
+            services.AddScoped<ReferenceRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
