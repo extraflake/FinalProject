@@ -48,15 +48,15 @@ namespace ExamOnline.Controllers
         }
 
         [HttpPut]
-        public async Task<ExamDetailVM> Update(ExamDetailVM examDetailVM)
+        public async Task<int> Update(ExamDetailVM examDetailVM)
         {
             var dbparams = new DynamicParameters();
             dbparams.Add("@Id", examDetailVM.Id, DbType.Int32);
             dbparams.Add("@ApplicantId", examDetailVM.ApplicantId, DbType.Int32);
             dbparams.Add("@ScheduleId", examDetailVM.ScheduleId, DbType.Int32);
             dbparams.Add("@StartTime", examDetailVM.StartTime, DbType.DateTime);
-
-            var result = await Task.FromResult(_dapper.Update<ExamDetailVM>("[SP_Update_Question]"
+            dbparams.Add("EndTime", examDetailVM.EndTime, DbType.DateTime);
+            var result = await Task.FromResult(_dapper.Update<int>("[SP_Update_Duration]"
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
             return result;
