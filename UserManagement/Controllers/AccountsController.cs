@@ -78,8 +78,9 @@ namespace UserManagement.Controllers
 
         [HttpPost]
         public async Task<int> Register(RegisterVM data)
-        {
-            try
+        {    
+
+         try
             {
                 var password = data.User_Password;
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
@@ -95,10 +96,10 @@ namespace UserManagement.Controllers
                 var result = await Task.FromResult(_dapper.Insert<int>("[dbo].[SP_InsertRegister]", dbparams, commandType: CommandType.StoredProcedure));
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //var result = 404;
-                return ex.Message.Length;
+                var result = 404;
+                return result;
             }
         }
 
