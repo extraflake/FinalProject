@@ -1,8 +1,8 @@
-﻿using ExamOnline.Client.ViewModel;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,18 +11,10 @@ using System.Threading.Tasks;
 
 namespace ExamOnline.Client.Controllers
 {
-    public class ExamController : Controller
+    public class SegmentController : Controller
     {
-        public IActionResult PilihUjian(ExamOnline.Models.Schedule schedule)
+        public IActionResult Index()
         {
-
-
-            //List<string> strDate = new List<string>();
-            //for(int i = 0;i<schedule.)
-            //    addingDate = addingDate.AddDays(1);
-            //    strDate.Add(addingDate.ToString("dd MMM yyyy HH:mm:ss"));
-            //}
-            //ViewBag.Schedule = strDate;
             return View();
         }
 
@@ -36,7 +28,7 @@ namespace ExamOnline.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(segment);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/segment").Result;
+                var response = client.GetAsync("api/segments").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
@@ -46,38 +38,8 @@ namespace ExamOnline.Client.Controllers
                     //var role = handler;
                     //HttpContext.Session.SetString(SessionEmail, role);
                     //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
-
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
-            }
-        }
-
-        [HttpGet]
-        public ActionResult LoadQuestion(ExamVM exam)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44301");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(exam);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/question").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    char[] trimChars = { '/', '"' };
-
-                    //var jwt = response.Content.ReadAsStringAsync().Result.ToString();
-                    //var handler = new JwtSecurityTokenHandler().ReadJwtToken(jwt.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("RoleName")).Value;
-                    //var role = handler;
-                    //HttpContext.Session.SetString(SessionEmail, role);
-                    //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
-
+                    DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(response.Content.ReadAsStringAsync().Result);
+                    Console.WriteLine(dataSet);
                     return Json(response.Content.ReadAsStringAsync().Result);
 
                 }
@@ -88,19 +50,34 @@ namespace ExamOnline.Client.Controllers
             }
         }
 
-        public ActionResult Ujian()
+        [HttpPost]
+        public ActionResult AddSegment(ExamOnline.Models.Segment segment)
         {
-            return View();
-        }
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44301");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(segment);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("api/segments", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
 
-        public ActionResult Waiting()
-        {
-            return View();
-        }
+                    //var jwt = response.Content.ReadAsStringAsync().Result.ToString();
+                    //var handler = new JwtSecurityTokenHandler().ReadJwtToken(jwt.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("RoleName")).Value;
+                    //var role = handler;
+                    //HttpContext.Session.SetString(SessionEmail, role);
+                    //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
+                    return Json(response.Content.ReadAsStringAsync().Result);
 
-        public ActionResult StartSegment()
-        {
-            return View();
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
         }
     }
 }
