@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Portal.Context;
-using Portal.Dapper_ORM;
 using Portal.Repositories.Data;
 
 namespace Portal

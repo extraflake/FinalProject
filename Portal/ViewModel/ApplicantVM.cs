@@ -9,7 +9,7 @@ namespace Portal.ViewModel
     {
         public int Id { get; set; }
         public IEnumerable<int> SkillId { get; set; }
-        public string DocPath { get; set; }
+        public int FileId { get; set; }
         public int PositionId { get; set; }
         public int ReferenceId { get; set; }
 

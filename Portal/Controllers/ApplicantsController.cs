@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -9,10 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Portal.Bases;
 using Portal.Context;
-using Portal.Dapper_ORM;
 using Portal.Models;
 using Portal.Repositories.Data;
 using Portal.ViewModel;
+using File = Portal.Models.File;
 
 namespace Portal.Controllers
 {
@@ -26,9 +27,54 @@ namespace Portal.Controllers
             this.myContext = myContext;
         }
 
+        public FileResult Download(int id)
+        {
+            var file = myContext.Files.SingleOrDefault(a => a.Id == id);
+            string fileName = file.Name;
+            byte[] pdfasBytes = file.DataFile;
+            return File(pdfasBytes, "application/pdf", fileName);
+        }
+
+
+        [HttpPost]
+        public ActionResult Index(IFormFile files)
+        {
+            if (files != null)
+            {
+                if (files.Length > 0)
+                {
+                    //Getting FileName
+                    var fileName = Path.GetFileName(files.FileName);
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                    var objfiles = new File()
+                    {
+                        Id = 0,
+                        Name = newFileName,
+                        FileType = fileExtension,
+                        CreatedOn = DateTime.Now
+                    };
+
+                    using (var target = new MemoryStream())
+                    {
+                        files.CopyTo(target);
+                        objfiles.DataFile = target.ToArray();
+                    }
+
+                    myContext.Files.Add(objfiles);
+                    myContext.SaveChanges();
+                }
+            }
+            return Ok("Sukses File");
+        }
+
         [HttpPost(nameof(Add))]
         public async Task<ActionResult> Add(ApplicantVM applicantVM)
         {
+            var Doc = await myContext.Files.FindAsync(applicantVM.FileId);
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
             var listSkills = new List<Skill>();
@@ -40,7 +86,7 @@ namespace Portal.Controllers
             }
             var data = new Applicant()
             {
-                DocPath = applicantVM.DocPath,
+                File = Doc,
                 Position = Position,
                 Reference = Reference,
                 Skills = listSkills
@@ -49,22 +95,5 @@ namespace Portal.Controllers
             var result = await myContext.SaveChangesAsync();
             return Ok(result);
         }
-        //public async Task<string> Add(ApplicantVM applicantVM)
-        //{
-        //    var dbparams = new DynamicParameters();
-        //    dbparams.Add("@DocPath", applicantVM.DocPath, DbType.String);
-        //    dbparams.Add("@PositionId", applicantVM.PositionId, DbType.Int32);
-        //    dbparams.Add("@ReferenceId", applicantVM.ReferenceId, DbType.Int32);
-        //    dbparams.Add("@SkillId", applicantVM.SkillId, DbType.Int32);
-        //    var result = await Task.FromResult(dapper.Insert<ApplicantVM>("[SP_Insert_Applicant]", dbparams, commandType: CommandType.StoredProcedure));
-
-        //    for (int x = 0; x <= 1; x++)
-        //    {
-        //        await Task.FromResult(dapper.Insert<ApplicantVM>("[SP_Insert_ApplicantSkill]", dbparams, commandType: CommandType.StoredProcedure));
-        //    }
-        //    string hasil = Convert.ToString(result);
-
-        //    return hasil;
-        //}
     }
 }
