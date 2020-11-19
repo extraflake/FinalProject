@@ -103,21 +103,20 @@
             </div>
 
             <!-- Upload CV -->
-            <form class="grid grid-ai-c" enctype="multipart/form-data" method="post">
+            <div class="grid grid-ai-c" enctype="multipart/form-data" method="post">
                 <label for="cv" class="grid-item-left">Upload CV: </label>
                 <input class="grid-item-right" id="files" name="files" type="file" onchange="Upload('files');">
-            </form>
+            </div>
 
             <!-- Submit Button -->
-            <form class="grid grid-jc-c">
+            <div class="grid grid-jc-c">
                 <label></label>
                 <button type="button" id="submit-btn" onclick="Submit();">Submit</button>
-            </form>
+            </div>
         </section>
 
     </div>
 
-    @*method="post" enctype="multipart/form-data" asp-controller="Registration" asp-action="UploadFile"*@
 </div>
 
 @section script{
