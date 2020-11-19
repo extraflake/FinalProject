@@ -35,6 +35,7 @@ namespace Portal.Controllers
             return File(pdfasBytes, "application/pdf", fileName);
         }
 
+
         [HttpPost]
         public ActionResult Index(IFormFile files)
         {
