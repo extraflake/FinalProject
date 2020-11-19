@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/vendors/chartjs/Chart.min.css">
+
+    <link rel="stylesheet" href="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/voler-master/dist/assets/css/app.css">
+    <link rel="shortcut icon" href="~/PortalClient/app/images/mtdl-logo.png" type="image/x-icon">
+
+    <!-- Portal Style -->
+    <link rel="stylesheet" href="~/PortalClient/app/scss/style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="sidebar" class='active'>
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-menu">
+                    <ul class="menu">
+
+
+                        <li class='sidebar-title'>Main Menu</li>
+
+                        <!-- Reference -->
+                        <li class="sidebar-item ">
+                            <a href="@Url." class='sidebar-link'>
+                                <i data-feather="book" width="20"></i>
+                                <span>Reference</span>
+                            </a>
+                        </li>
+
+                        <!-- Position -->
+                        <li class="sidebar-item ">
+                            <a href="index.html" class='sidebar-link'>
+                                <i data-feather="users" width="20"></i>
+                                <span>Position</span>
+                            </a>
+                        </li>
+
+                        <!-- Skill -->
+                        <li class="sidebar-item ">
+                            <a href="index.html" class='sidebar-link'>
+                                <i data-feather="award" width="20"></i>
+                                <span>Skill</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        @RenderBody();
+    </div>
+    @RenderSection("script", required: false);
+</body>
+</html>
