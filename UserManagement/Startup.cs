@@ -47,6 +47,7 @@ namespace UserManagement
                 };
             });
 
+            services.AddScoped<UniversityRepository>();
             services.AddScoped<DepartmentRepository>();
             services.AddScoped<EducationReposiitory>();
             services.AddScoped<ReligionRepository>();
