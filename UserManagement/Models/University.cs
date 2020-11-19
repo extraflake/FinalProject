@@ -10,13 +10,12 @@ using UserManagement.Microservices.Models;
 namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_University")]
-    public class University : IEntity
+    public class University : IEntityString
     {
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<Education> UnivDepts { get; set; }
-        int IEntity.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

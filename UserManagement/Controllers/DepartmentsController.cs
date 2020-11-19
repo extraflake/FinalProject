@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Bases;
 using UserManagement.Microservices.Models;
-using UserManagement.Microservices.Repositories.Data;
+using UserManagement.Repositories.Data;
 
 namespace UserManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentsController : BasesController<Department, DepartmentRepository>
+    public class DepartmentsController : BasesControllerString<Department, DepartmentRepository>
     {
-        public DepartmentsController(DepartmentRepository department) : base(department)
+        public DepartmentsController (DepartmentRepository department) :base(department)
         {
 
         }

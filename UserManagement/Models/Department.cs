@@ -10,7 +10,7 @@ using UserManagement.Models;
 namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_Department")]
-    public class Department : IEntity
+    public class Department : IEntityString
     {
         [Key]
         public string Id { get; set; }
