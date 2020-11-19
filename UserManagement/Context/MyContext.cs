@@ -21,12 +21,13 @@ namespace UserManagement.Microservices.Context
         public DbSet<Religion> Religions { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<University> Universities { get; set; }
-        public DbSet<UnivDept> UnivDepts { get; set; }
+        public DbSet<Education> Educations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            builder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            builder.Entity<User>().HasIndex(u => u.Phone).IsUnique();
         }
-
     }
 }

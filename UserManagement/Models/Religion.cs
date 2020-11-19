@@ -16,6 +16,7 @@ namespace UserManagement.Microservices.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public Employee Employee { get; set; }
+
+        public ICollection<Employee> Employees { get; set; }
     }
 }

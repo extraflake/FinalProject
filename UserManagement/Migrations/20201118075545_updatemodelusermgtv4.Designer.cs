@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserManagement.Microservices.Context;
 
 namespace UserManagement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201118075545_updatemodelusermgtv4")]
+    partial class updatemodelusermgtv4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,25 +52,11 @@ namespace UserManagement.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
-
-                    b.HasIndex("Phone")
-                        .IsUnique()
-                        .HasFilter("[Phone] IS NOT NULL");
-
-                    b.HasIndex("Username")
-                        .IsUnique()
-                        .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("TB_M_User");
                 });
@@ -123,37 +111,6 @@ namespace UserManagement.Migrations
                     b.ToTable("TB_M_Department");
                 });
 
-            modelBuilder.Entity("UserManagement.Models.Education", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Degree")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("GPA")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GraduateYear")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UniversityId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("TB_T_Education");
-                });
-
             modelBuilder.Entity("UserManagement.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -164,19 +121,19 @@ namespace UserManagement.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EducationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ReligionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnivDeptID")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
@@ -184,9 +141,9 @@ namespace UserManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EducationId");
-
                     b.HasIndex("ReligionID");
+
+                    b.HasIndex("UnivDeptID");
 
                     b.HasIndex("UserID")
                         .IsUnique();
@@ -207,6 +164,37 @@ namespace UserManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_M_Religion");
+                });
+
+            modelBuilder.Entity("UserManagement.Models.UnivDept", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DepartmentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GPA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GraduateYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniversityId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("TB_T_UnivDept");
                 });
 
             modelBuilder.Entity("UserManagement.Models.University", b =>
@@ -259,26 +247,17 @@ namespace UserManagement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UserManagement.Models.Education", b =>
-                {
-                    b.HasOne("UserManagement.Models.Department", "Department")
-                        .WithMany("UnivDepts")
-                        .HasForeignKey("DepartmentId");
-
-                    b.HasOne("UserManagement.Models.University", "University")
-                        .WithMany("UnivDepts")
-                        .HasForeignKey("UniversityId");
-                });
-
             modelBuilder.Entity("UserManagement.Models.Employee", b =>
                 {
-                    b.HasOne("UserManagement.Models.Education", "Education")
-                        .WithMany()
-                        .HasForeignKey("EducationId");
-
                     b.HasOne("UserManagement.Models.Religion", "Religion")
                         .WithMany("Employees")
                         .HasForeignKey("ReligionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UserManagement.Models.UnivDept", "UnivDept")
+                        .WithMany()
+                        .HasForeignKey("UnivDeptID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -287,6 +266,17 @@ namespace UserManagement.Migrations
                         .HasForeignKey("UserManagement.Models.Employee", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UserManagement.Models.UnivDept", b =>
+                {
+                    b.HasOne("UserManagement.Models.Department", "Department")
+                        .WithMany("UnivDepts")
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("UserManagement.Models.University", "University")
+                        .WithMany("UnivDepts")
+                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("UserManagement.Models.UserApplication", b =>

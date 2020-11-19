@@ -46,6 +46,8 @@ namespace UserManagement.Controllers
                 var dbparams = new DynamicParameters();
 
                 dbparams.Add("@User_Email", userroleVM.User_Email, DbType.String);
+                dbparams.Add("@Username", userroleVM.Username, DbType.String);
+                dbparams.Add("@Phone", userroleVM.Phone, DbType.String);
                 var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole]",
                     dbparams, commandType: CommandType.StoredProcedure));
 
@@ -76,29 +78,63 @@ namespace UserManagement.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<int> Register(RegisterVM data)
+        [HttpPost(nameof(RegisterBC))]
+        public async Task<int> RegisterBC(RegisterVM data)
+        {    
+
+         try
+            {
+                var password = data.User_Password;
+                data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
+
+                var dbparams = new DynamicParameters();
+                dbparams.Add("FirstName", data.FirstName, DbType.String);
+                dbparams.Add("LastName", data.LastName, DbType.String);
+                dbparams.Add("User_Email", data.User_Email, DbType.String);
+                dbparams.Add("User_Password", data.User_Password, DbType.String);
+                dbparams.Add("Username", data.Username, DbType.String);
+                dbparams.Add("Phone", data.Phone, DbType.String);
+                dbparams.Add("BirthDate", data.BirthDate, DbType.Date);
+                dbparams.Add("Gender", data.Gender, DbType.String);
+                dbparams.Add("ReligionID", data.ReligionID, DbType.Int32);
+                var result = await Task.FromResult(_dapper.Insert<int>("[dbo].[SP_InsertRegisterBC]", dbparams, commandType: CommandType.StoredProcedure));
+                return result;
+            }
+            catch (Exception)
+            {
+                var result = 404;
+                return result;
+            }
+        }
+
+        [HttpPost(nameof(RegisterAdmin))]
+        public async Task<int> RegisterAdmin(RegisterVM data)
         {
+
             try
             {
                 var password = data.User_Password;
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
 
                 var dbparams = new DynamicParameters();
-                dbparams.Add("FullName", data.FullName, DbType.String);
+                dbparams.Add("FirstName", data.FirstName, DbType.String);
+                dbparams.Add("LastName", data.LastName, DbType.String);
                 dbparams.Add("User_Email", data.User_Email, DbType.String);
                 dbparams.Add("User_Password", data.User_Password, DbType.String);
+                dbparams.Add("Username", data.Username, DbType.String);
                 dbparams.Add("Phone", data.Phone, DbType.String);
                 dbparams.Add("BirthDate", data.BirthDate, DbType.Date);
                 dbparams.Add("Gender", data.Gender, DbType.String);
                 dbparams.Add("ReligionID", data.ReligionID, DbType.Int32);
-                var result = await Task.FromResult(_dapper.Insert<int>("[dbo].[SP_InsertRegister]", dbparams, commandType: CommandType.StoredProcedure));
+                dbparams.Add("Role_RoleId", data.Role_RoleId, DbType.Int32);
+
+                var result = await Task.FromResult(_dapper.Insert<int>("[dbo].[SP_InsertRegisterAdmin]", dbparams, commandType: CommandType.StoredProcedure));
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //var result = 404;
-                return ex.Message.Length;
+                var result = 404;
+                return result;
             }
         }
 
@@ -115,7 +151,7 @@ namespace UserManagement.Controllers
                 }
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(data.User_Password);
                 dbparams.Add("@User_Email", data.User_Email, DbType.String);
-                dbparams.Add("@User_Password", data.User_Password, DbType.String);
+                dbparams.Add("@User_Password", data.User_Password, DbType.String);   
                 var find = await _myContext.Users.SingleOrDefaultAsync(x => x.Email == data.User_Email);
                 if (find != null)
                 {
