@@ -59,7 +59,9 @@ namespace UserManagement.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                     new Claim("User_Email", result.User_Email),
-                    new Claim("Role_Name", result.Role_Name)
+                    new Claim("Role_Name", result.Role_Name),
+                    new Claim("Username", result.Username),
+                    new Claim("Application", result.Application),
             };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -139,7 +141,7 @@ namespace UserManagement.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut]
+        [HttpPut(nameof(ChangePassword))]
         public async Task<int> ChangePassword(RegisterVM data)
         {
             try
@@ -167,6 +169,41 @@ namespace UserManagement.Controllers
                 return 404;
             }
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPut(nameof(EditProfile))]
+        public async Task<int> EditProfile(EditProfileVM data)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();                  
+                dbparams.Add("@FirstName", data.FirstName, DbType.String);
+                dbparams.Add("@LastName", data.LastName, DbType.String);
+                dbparams.Add("@BirthDate", data.BirthDate, DbType.Date);
+                dbparams.Add("@Gender", data.Gender, DbType.String);
+                dbparams.Add("@ReligionId", data.ReligionId, DbType.Int32);
+                dbparams.Add("@EmployeeId", data.EmployeeId, DbType.Int32);
+                dbparams.Add("@User_Email", data.User_Email, DbType.String);
+                dbparams.Add("@Phone", data.Phone, DbType.String);
+                dbparams.Add("@UserId", data.UserId, DbType.Int32);
+                dbparams.Add("@UniversityId", data.UniversityId, DbType.String);
+                dbparams.Add("@DepartmentId", data.DepartmentId, DbType.String);
+                dbparams.Add("@GPA", data.GPA, DbType.String);
+                dbparams.Add("@Degree", data.Degree, DbType.String);
+                dbparams.Add("@GraduateYear", data.GraduateYear, DbType.String);
+
+   
+                    var editprofile = await Task.FromResult(_dapper.Update<int>("[dbo].[SP_EditProfile]",
+                                dbparams,
+                                commandType: CommandType.StoredProcedure));
+                    return editprofile;                                
+            }
+            catch (Exception)
+            {
+                return 404;
+            }
+        }
+
         [HttpPatch]
         public async Task<int> Forgot(RegisterVM entity)
         {
