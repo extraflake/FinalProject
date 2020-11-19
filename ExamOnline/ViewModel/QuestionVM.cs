@@ -16,6 +16,7 @@ namespace ExamOnline.ViewModel
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
         public int Point { get; set; }
+        public string ApplicantAnswer { get; set; }
 
         //segment
         public int SegmentId { get; set; }

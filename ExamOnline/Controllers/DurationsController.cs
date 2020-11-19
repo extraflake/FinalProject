@@ -25,6 +25,7 @@ namespace ExamOnline.Controllers
             _dapper = dapper;
             _configuration = configuration;
         }
+
         [HttpPost]
         public async Task<int>Create(ExamDetailVM examDetailVM)
         {
@@ -61,6 +62,7 @@ namespace ExamOnline.Controllers
                 commandType: CommandType.StoredProcedure));
             return result;
         }
+
         [HttpDelete]
         public Task<int> Delete(ExamDetailVM examDetailVM)
         {
