@@ -12,9 +12,9 @@ namespace UserManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UniversitysController : BasesController<University, UniversityRepository>
+    public class EducationsController : BasesController<Education, EducationReposiitory>
     {
-        public UniversitysController(UniversityRepository university) : base(university)
+        public EducationsController(EducationReposiitory education): base(education)
         {
 
         }

@@ -14,7 +14,7 @@ namespace UserManagement.Controllers
     [ApiController]
     public class ApplicationsController : BasesController <Application, ApplicationRepository>
     {
-        ApplicationsController(ApplicationRepository application) : base(application)
+       public ApplicationsController(ApplicationRepository application) : base(application)
         {
 
         }

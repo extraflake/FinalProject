@@ -7,9 +7,9 @@ using UserManagement.Microservices.Models;
 
 namespace UserManagement.Repositories.Data
 {
-    public class UniversityRepository : GeneralRepository<University, MyContext>
+    public class EducationReposiitory : GeneralRepository<Education, MyContext>
     {
-        public UniversityRepository(MyContext myContext) : base(myContext)
+        public EducationReposiitory(MyContext myContext): base(myContext)
         {
 
         }

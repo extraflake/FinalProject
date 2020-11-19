@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UserManagement.Bases;
 using UserManagement.Models;
 
+
 namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_Application")]

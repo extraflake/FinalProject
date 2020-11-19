@@ -5,16 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Bases;
+using UserManagement.Microservices.Models;
 
-namespace UserManagement.Models
+namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_University")]
-    public class University
+    public class University : IEntity
     {
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<Education> UnivDepts { get; set; }
+        int IEntity.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
