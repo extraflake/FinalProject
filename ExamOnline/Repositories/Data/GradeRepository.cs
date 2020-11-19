@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ExamOnline.Repositories.Data
 {
-    public class QuestionRepository : GeneralRepository<Question, MyContext>
+    public class GradeRepository : GeneralRepository<Grade, MyContext>
     {
-        public QuestionRepository(MyContext myContext) : base(myContext) { }
+        public GradeRepository(MyContext myContext) : base(myContext) { }
     }
 }

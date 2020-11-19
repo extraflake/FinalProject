@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExamOnline.Context;
+using ExamOnline.Dapper_ORM;
 using ExamOnline.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,10 @@ namespace ExamOnline
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<GradeRepository>();
+            services.AddScoped<ScheduleRepository>();
+            services.AddScoped<SegmentRepository>();
+            services.AddScoped<IDapper, Dapperr>();
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 

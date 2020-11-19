@@ -9,6 +9,7 @@ namespace ExamOnline.ViewModel
     {
         public int Id { get; set; }
         //exam details
+        public int ExamId { get; set; }
         public int FinalScore { get; set; }
         //grade
         public int GradeId { get; set; }
@@ -16,10 +17,13 @@ namespace ExamOnline.ViewModel
         public string Grades { get; set; }
 
         //Duration
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public int DurationId { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int ApplicantId { get; set; }
 
         //Schedule
+        public int ScheduleId { get; set; }
         public DateTime ScheduleTime { get; set; }
     }
 }
