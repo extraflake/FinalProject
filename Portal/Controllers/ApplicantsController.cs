@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Portal.Bases;
 using Portal.Context;
-using Portal.Dapper_ORM;
 using Portal.Models;
 using Portal.Repositories.Data;
 using Portal.ViewModel;
@@ -40,7 +39,7 @@ namespace Portal.Controllers
             }
             var data = new Applicant()
             {
-                DocPath = applicantVM.DocPath,
+                //DocPath = applicantVM.DocPath,
                 Position = Position,
                 Reference = Reference,
                 Skills = listSkills
@@ -49,22 +48,5 @@ namespace Portal.Controllers
             var result = await myContext.SaveChangesAsync();
             return Ok(result);
         }
-        //public async Task<string> Add(ApplicantVM applicantVM)
-        //{
-        //    var dbparams = new DynamicParameters();
-        //    dbparams.Add("@DocPath", applicantVM.DocPath, DbType.String);
-        //    dbparams.Add("@PositionId", applicantVM.PositionId, DbType.Int32);
-        //    dbparams.Add("@ReferenceId", applicantVM.ReferenceId, DbType.Int32);
-        //    dbparams.Add("@SkillId", applicantVM.SkillId, DbType.Int32);
-        //    var result = await Task.FromResult(dapper.Insert<ApplicantVM>("[SP_Insert_Applicant]", dbparams, commandType: CommandType.StoredProcedure));
-
-        //    for (int x = 0; x <= 1; x++)
-        //    {
-        //        await Task.FromResult(dapper.Insert<ApplicantVM>("[SP_Insert_ApplicantSkill]", dbparams, commandType: CommandType.StoredProcedure));
-        //    }
-        //    string hasil = Convert.ToString(result);
-
-        //    return hasil;
-        //}
     }
 }

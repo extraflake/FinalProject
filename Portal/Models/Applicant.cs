@@ -13,10 +13,10 @@ namespace Portal.Models
     {
         [Key]
         public int Id { get; set; }
-        public string DocPath { get; set; }
         public bool AlreadyCheck { get; set; }
         public bool AlreadyTest { get; set; }
 
+        public File File { get; set; }
         public Position Position { get; set; }
         public Reference Reference { get; set; }
 

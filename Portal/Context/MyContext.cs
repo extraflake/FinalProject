@@ -17,5 +17,6 @@ namespace Portal.Context
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Reference> References { get; set; }
 
+        public DbSet<File> Files { get; set; }
     }
 }
