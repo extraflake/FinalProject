@@ -16,6 +16,7 @@ namespace Portal.Models
         public bool AlreadyCheck { get; set; }
         public bool AlreadyTest { get; set; }
 
+        public int FileId { get; set; }
         public File File { get; set; }
         public Position Position { get; set; }
         public Reference Reference { get; set; }

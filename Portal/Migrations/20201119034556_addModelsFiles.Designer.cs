@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portal.Context;
 
 namespace Portal.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201119034556_addModelsFiles")]
+    partial class addModelsFiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,9 +52,6 @@ namespace Portal.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PositionId")
                         .HasColumnType("int");
 
@@ -60,9 +59,6 @@ namespace Portal.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FileId")
-                        .IsUnique();
 
                     b.HasIndex("PositionId");
 
@@ -78,6 +74,9 @@ namespace Portal.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -91,6 +90,9 @@ namespace Portal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId")
+                        .IsUnique();
 
                     b.ToTable("TB_M_Files");
                 });
@@ -157,12 +159,6 @@ namespace Portal.Migrations
 
             modelBuilder.Entity("Portal.Models.Applicant", b =>
                 {
-                    b.HasOne("Portal.Models.File", "File")
-                        .WithOne("Applicant")
-                        .HasForeignKey("Portal.Models.Applicant", "FileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Portal.Models.Position", "Position")
                         .WithMany("Applicants")
                         .HasForeignKey("PositionId");
@@ -171,8 +167,6 @@ namespace Portal.Migrations
                         .WithMany("Applicants")
                         .HasForeignKey("ReferenceId");
 
-                    b.Navigation("File");
-
                     b.Navigation("Position");
 
                     b.Navigation("Reference");
@@ -180,7 +174,18 @@ namespace Portal.Migrations
 
             modelBuilder.Entity("Portal.Models.File", b =>
                 {
+                    b.HasOne("Portal.Models.Applicant", "Applicant")
+                        .WithOne("File")
+                        .HasForeignKey("Portal.Models.File", "ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Applicant");
+                });
+
+            modelBuilder.Entity("Portal.Models.Applicant", b =>
+                {
+                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("Portal.Models.Position", b =>
