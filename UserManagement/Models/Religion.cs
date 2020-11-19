@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using UserManagement.Bases;
+using UserManagement.Models;
 
-namespace UserManagement.Models
+namespace UserManagement.Microservices.Models
 {
     [Table("TB_M_Religion")]
-    public class Religion
+    public class Religion : IEntity
     {
 
         [Key]

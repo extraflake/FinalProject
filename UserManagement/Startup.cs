@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using UserManagement.Dapper_ORM.Services;
 using UserManagement.Microservices.Context;
+using UserManagement.Microservices.Repositories.Data;
 using UserManagement.Repositories.Data;
 
 namespace UserManagement
@@ -47,7 +48,10 @@ namespace UserManagement
                 };
             });
 
-
+            services.AddScoped<ReligionRepository>();
+            services.AddScoped<ApplicationRepository>();
+            services.AddScoped<DepartmentRepository>();
+            services.AddScoped<UserRepository>();
             services.AddScoped<RoleRepository>();
             services.AddScoped<IDapper, Dapperr>();
             services.AddControllers();
