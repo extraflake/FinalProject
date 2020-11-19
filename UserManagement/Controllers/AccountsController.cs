@@ -62,7 +62,9 @@ namespace UserManagement.Controllers
                     new Claim("Role_Name", result.Role_Name),
                     new Claim("Username", result.Username),
                     new Claim("Application", result.Application),
-            };
+                    new Claim("EmployeeId", result.EmployeeId.ToString()),
+                    new Claim("UserID", result.UserID.ToString()),
+                    };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
