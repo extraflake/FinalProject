@@ -18,11 +18,10 @@ namespace UserManagement.Models
         public int UserID { get; set; }
         public User User { get; set; }
         public int ReligionID { get; set; }
-        public Religion Religion { get; set; }
-        public int UnivDeptID { get; set; }
-        public UnivDept UnivDept{ get; set; }
-        public string FullName { get; set; }
-        public string Phone { get; set; }
+        public Religion Religion { get; set; }        
+        public Education Education { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }        
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }        
 

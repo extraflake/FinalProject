@@ -15,6 +15,6 @@ namespace UserManagement.Models
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<UnivDept> UnivDepts { get; set; }
+        public ICollection<Education> UnivDepts { get; set; }
     }
 }
