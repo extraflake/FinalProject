@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{764DFD39-B383-4B37-B6B7-C147BC23E83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{423A04D2-64D2-4822-B3E0-4055D28C991A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement", "UserManagement\UserManagement.csproj", "{423A04D2-64D2-4822-B3E0-4055D28C991A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "Portal\Portal.csproj", "{AC33A423-16E6-4475-A243-2575DE6B67A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{AC33A423-16E6-4475-A243-2575DE6B67A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamOnline", "ExamOnline\ExamOnline.csproj", "{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamOnline", "ExamOnline\ExamOnline.csproj", "{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

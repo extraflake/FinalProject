@@ -32,8 +32,6 @@ namespace ExamOnline.Controllers
             var dbparam = new DynamicParameters();
             dbparam.Add("@ApplicantId", examDetailVM.ApplicantId, DbType.Int32);
             dbparam.Add("@ScheduleId", examDetailVM.ScheduleId, DbType.Int32);
-            dbparam.Add("@StartTime", examDetailVM.StartTime, DbType.DateTime);
-            dbparam.Add("@EndTime", examDetailVM.EndTime, DbType.DateTime);
             var result = await Task.FromResult(_dapper.Insert<int>("[SP_Create_Duration]", dbparam, commandType: CommandType.StoredProcedure));
             return result;
         }
