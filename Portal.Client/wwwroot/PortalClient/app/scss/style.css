@@ -1,0 +1,209 @@
+html {
+  font-size: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  margin: 0;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  background: whitesmoke;
+}
+
+a, a:visited, a:hover {
+  text-decoration: none;
+  color: #6ca9ce;
+}
+
+button, .button {
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  font-weight: bold;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-jc-sb {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex-jc-c {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.flex-ai-c {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-ai-sa {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 4fr;
+      grid-template-columns: 2fr 4fr;
+  grid-gap: 2rem;
+  margin: 20px 0px;
+}
+
+.grid-ai-c {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.grid-jc-c {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.grid-item-left {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.grid-item-right {
+  -ms-grid-column-align: start;
+      justify-self: start;
+}
+
+.header {
+  background-color: white;
+}
+
+.header nav {
+  padding: 10px;
+}
+
+.header h1 {
+  color: #045b94;
+}
+
+.header__logo img {
+  width: 50px;
+  height: 40px;
+}
+
+.header__hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: #045b94;
+}
+
+.header__hamburger span:not(:last-child) {
+  margin-bottom: 3px;
+}
+
+.header__links a {
+  position: relative;
+  font-size: 0.875rem;
+}
+
+.header__links a:not(:last-child) {
+  margin-right: 30px;
+}
+
+.header__links a::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 3px;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  background: -webkit-gradient(linear, left top, right top, from(lime), to(#2bb7da));
+  background: linear-gradient(to right, lime, #2bb7da);
+  opacity: 0;
+  -webkit-transition: opacity 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
+}
+
+.header__links a:hover {
+  color: #1d82bd;
+}
+
+.header__links a:hover::before {
+  opacity: 80%;
+}
+
+.header__logout a {
+  font-size: 0.875rem;
+  color: #f79696;
+}
+
+.header__logout a:not(:last-child) {
+  margin-right: 30px;
+}
+
+.header__logout a:hover {
+  color: #c80e2d;
+}
+
+.main {
+  padding: 0;
+  font-size: 0.9rem;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+
+.main label {
+  font-weight: bold;
+}
+
+.main input, .main select {
+  border-radius: 3px;
+  width: 300px;
+  outline: none;
+  border: 1px solid #DDDDDD;
+  padding: 10px;
+}
+
+.main input:focus, .main select:focus {
+  -webkit-box-shadow: 0 0 5px #51cbee;
+          box-shadow: 0 0 5px #51cbee;
+  border: 1px solid #51cbee;
+}
+
+.main button {
+  width: 100px;
+}
+
+.main button:hover {
+  background-color: #cedfe8;
+}
+/*# sourceMappingURL=style.css.map */
