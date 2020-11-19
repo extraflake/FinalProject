@@ -1,12 +1,13 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Layout/_Base.cshtml";
+    Layout = "~/Views/Layout/_AdminLayout.cshtml";
 }
 
 <div id="main">
     <nav class="navbar navbar-header navbar-expand navbar-light">
         <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-        
+
     </nav>
 
     <div class="main-content container-fluid">
@@ -15,10 +16,10 @@
             <p class="text-subtitle text-muted">A good dashboard to display your statistics</p>
         </div>
         <section class="section">
-            
+
             <div class="row mb-4">
                 <div class="">
-                    
+
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Reference</h4>
@@ -37,7 +38,6 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -50,15 +50,15 @@
     </div>
 
     @*<footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-left">
-                <p>2020 &copy; Voler</p>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-left">
+                    <p>2020 &copy; Voler</p>
+                </div>
+                <div class="float-right">
+                    <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a href="http://ahmadsaugi.com">Ahmad Saugi</a></p>
+                </div>
             </div>
-            <div class="float-right">
-                <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a href="http://ahmadsaugi.com">Ahmad Saugi</a></p>
-            </div>
-        </div>
-    </footer>*@
+        </footer>*@
 </div>
 
 @section script{
@@ -72,4 +72,3 @@
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
 }
-
