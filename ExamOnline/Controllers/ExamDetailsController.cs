@@ -60,6 +60,23 @@ namespace ExamOnline.Controllers
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
 
+            //int count = myContext.Grades.ToList().Count;
+            //for (int i = count; i >= 0; i--)
+            //{
+            //    var getGrade = myContext.Grades.;
+            //    if (getScore.FinalScore > getGrade.FindIndex(i))
+            //        getScore.GradeId = i;
+            //}
+
+            var listGrade = myContext.Grades.OrderBy(x => x.Score);
+            foreach (var data in listGrade)
+            {
+                if (getScore.FinalScore >= data.Score)
+                {
+                    getScore.GradeId = data.Id;
+                }
+            }
+
             var result = myContext.SaveChangesAsync();
             return Ok(result);
         }
