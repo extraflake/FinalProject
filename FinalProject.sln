@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{764DFD39-B383-4B37-B6B7-C147BC23E83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{423A04D2-64D2-4822-B3E0-4055D28C991A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement", "UserManagement\UserManagement.csproj", "{423A04D2-64D2-4822-B3E0-4055D28C991A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "Portal\Portal.csproj", "{AC33A423-16E6-4475-A243-2575DE6B67A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{AC33A423-16E6-4475-A243-2575DE6B67A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamOnline", "ExamOnline\ExamOnline.csproj", "{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamOnline", "ExamOnline\ExamOnline.csproj", "{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D4821BAF-B86B-4F24-882D-6F04EB7F0400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Client", "Portal.Client\Portal.Client.csproj", "{449B2A72-BFB5-4B02-80B1-7CA5044156BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,10 @@ Global
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{449B2A72-BFB5-4B02-80B1-7CA5044156BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{449B2A72-BFB5-4B02-80B1-7CA5044156BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{449B2A72-BFB5-4B02-80B1-7CA5044156BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{449B2A72-BFB5-4B02-80B1-7CA5044156BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +45,7 @@ Global
 		{423A04D2-64D2-4822-B3E0-4055D28C991A} = {764DFD39-B383-4B37-B6B7-C147BC23E83F}
 		{AC33A423-16E6-4475-A243-2575DE6B67A2} = {764DFD39-B383-4B37-B6B7-C147BC23E83F}
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C} = {764DFD39-B383-4B37-B6B7-C147BC23E83F}
+		{449B2A72-BFB5-4B02-80B1-7CA5044156BE} = {D4821BAF-B86B-4F24-882D-6F04EB7F0400}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9D3F993-3482-48B0-856D-9CC983886736}

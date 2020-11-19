@@ -12,15 +12,5 @@ namespace Portal.Client.Controllers
         {
             return View();
         }
-
-        public IActionResult Skill()
-        {
-            return View();
-        }
-
-        public IActionResult Position()
-        {
-            return View();
-        }
     }
 }
