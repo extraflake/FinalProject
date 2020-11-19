@@ -13,6 +13,9 @@ namespace UserManagement.ViewModel
         public int Role_RoleId { get; set; }
         public string Role_Name { get; set; }
 
+        public int EmployeeId { get; set; }
+        public int UserID { get; set; }
+
         public string Username { get; set; }
         public string Application { get; set; }
         public string FirstName { get; set; }
