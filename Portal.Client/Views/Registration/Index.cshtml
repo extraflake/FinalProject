@@ -87,7 +87,7 @@
             <!-- Kota Asal -->
             <div class="grid grid-ai-c">
                 <label for="hometown" class="grid-item-left">Kota Asal : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown">
+                <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown" disabled>
             </div>
 
             <!-- Posisi -->
@@ -103,21 +103,21 @@
             </div>
 
             <!-- Upload CV -->
-            <div class="grid grid-ai-c">
+            <form class="grid grid-ai-c" enctype="multipart/form-data" method="post">
                 <label for="cv" class="grid-item-left">Upload CV: </label>
-                <input class="grid-item-right" type="file" placeholder="Masukkan kota asal anda..." id="cv" disabled>
-            </div>
+                <input class="grid-item-right" id="files" name="files" type="file" onchange="Upload('files');">
+            </form>
 
             <!-- Submit Button -->
-            <div class="grid grid-jc-c">
+            <form class="grid grid-jc-c">
                 <label></label>
-                <button type="button" id="submit-btn" onclick="Alert();">Submit</button>
-            </div>
+                <button type="button" id="submit-btn" onclick="Submit();">Submit</button>
+            </form>
         </section>
 
     </div>
 
-
+    @*method="post" enctype="multipart/form-data" asp-controller="Registration" asp-action="UploadFile"*@
 </div>
 
 @section script{
@@ -125,11 +125,15 @@
     <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="~/voler-master/dist/assets/js/app.js"></script>
 
-    <script src="~/voler-master/dist/assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>
+    @*<script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>*@
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
+
+    <script src="~/js/registration.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.4.1.min.js" 22"3E></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" 22"3E></script>*@
 }
 
 
