@@ -20,11 +20,19 @@
                             <div class="row">
 
 
-                                <!-- Full Name -->
+                                <!-- First Name -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="first-name-column">Full Name</label>
-                                        <input type="text" id="first-name-column" class="form-control" name="fn-column">
+                                        <label for="first-name-column">First Name</label>
+                                        <input type="text" id="first-name-column" class="form-control" name="fn-column" placeholder="Enter your First Name here ...">
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="last-name-column">Last Name</label>
+                                        <input type="text" id="last-name-column" class="form-control" name="ln-column" placeholder="Enter your Last Name here ...">
                                     </div>
                                 </div>
 
@@ -32,7 +40,15 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email-id-column">Email</label>
-                                        <input type="email" id="email-id-column" class="form-control" name="email-id-column">
+                                        <input type="email" id="email-id-column" class="form-control" name="email-id-column" placeholder="Enter your Email here ...">
+                                    </div>
+                                </div>
+
+                                <!-- User Name -->
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="username-id-column">User Name</label>
+                                        <input type="text" id="username-id-column" class="form-control" name="username-id-column" placeholder="Enter your User Name here ...">
                                     </div>
                                 </div>
 
@@ -40,7 +56,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="phone-column">Phone</label>
-                                        <input type="text" id="phone-column" class="form-control" name="phone-column">
+                                        <input type="text" id="phone-column" class="form-control" name="phone-column" placeholder="Enter your Phone Number here ...">
                                     </div>
                                 </div>
 
@@ -75,7 +91,7 @@
 
                             </div>
 
-                            <a href="@Url.Action("Index","Accounts")">Have an account? Login</a>
+                            <a href="@Url.Action("Index","Account")">Have an account? Login</a>
                             <div class="clearfix">
                                 <button class="btn btn-primary float-right">Submit</button>
                             </div>

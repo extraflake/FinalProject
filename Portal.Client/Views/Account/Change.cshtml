@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Change";
     Layout = "~/Views/Layout/_Login.cshtml";
 }
 
@@ -13,45 +13,54 @@
                     <div class="card-body">
                         <div class="text-center mb-5">
                             <img src="~/PortalClient/app/images/mtdl-logo.png" height="48" class='mb-4'>
-                            <h3>Sign In</h3>
-                            <p>Please sign in to continue to Metrodata Academy Account.</p>
+                            <h3>Change Password</h3>
+                            <p>Change Your Password Here</p>
                         </div>
                         <form action="index.html">
-                            <div class="form-group position-relative has-icon-left">
-                                <label for="username">Username</label>
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" id="username" placeholder="Type your email, username or phone number here...">
-                                    <div class="form-control-icon">
-                                        <i data-feather="user"></i>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="form-group position-relative has-icon-left">
                                 <div class="clearfix">
-                                    <label for="password">Password</label>
-                                    <a href="@Url.Action("Forgot", "Account")" class='float-right'>
-                                        <small>Forgot password?</small>
-                                    </a>
+                                    <label for="password">Old Password</label>
                                 </div>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password" placeholder="Type your password here...">
+                                    <input type="password" class="form-control" id="password">
                                     <div class="form-control-icon">
                                         <i data-feather="lock"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class='form-check clearfix my-4'>
-                                <div class="checkbox float-left">
-                                    <input type="checkbox" id="checkbox1" class='form-check-input'>
-                                    <label for="checkbox1">Remember me</label>
+                            <div class="form-group position-relative has-icon-left">
+                                <div class="clearfix">
+                                    <label for="password">New Password</label>
                                 </div>
-                                <div class="float-right">
-                                    <a href="@Url.Action("Register", "Account")">Don't have an account?</a>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="password">
+                                    <div class="form-control-icon">
+                                        <i data-feather="lock"></i>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-group position-relative has-icon-left">
+                                <div class="clearfix">
+                                    <label for="password">Confirm Password</label>
+                                </div>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="password">
+                                    <div class="form-control-icon">
+                                        <i data-feather="lock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="clearfix">
-                                <button class="btn btn-primary float-right">Submit</button>
+                                <div class="float-md-left">
+                                    <a href="@Url.Action("Index", "Registration")">Back</a>
+                                </div>
+                                <div class="float-md-right">
+                                    <button class="btn btn-primary float-right">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -68,4 +77,3 @@
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
 }
-
