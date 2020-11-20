@@ -84,9 +84,9 @@ namespace UserManagement.Controllers
 
         [HttpPost(nameof(RegisterBC))]
         public async Task<int> RegisterBC(RegisterVM data)
-        {    
+        {
 
-         try
+            try
             {
                 var password = data.User_Password;
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
@@ -155,7 +155,7 @@ namespace UserManagement.Controllers
                 }
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(data.User_Password);
                 dbparams.Add("@User_Email", data.User_Email, DbType.String);
-                dbparams.Add("@User_Password", data.User_Password, DbType.String);   
+                dbparams.Add("@User_Password", data.User_Password, DbType.String);
                 var find = await _myContext.Users.SingleOrDefaultAsync(x => x.Email == data.User_Email);
                 if (find != null)
                 {
@@ -178,7 +178,7 @@ namespace UserManagement.Controllers
         {
             try
             {
-                var dbparams = new DynamicParameters();                  
+                var dbparams = new DynamicParameters();
                 dbparams.Add("@FirstName", data.FirstName, DbType.String);
                 dbparams.Add("@LastName", data.LastName, DbType.String);
                 dbparams.Add("@BirthDate", data.BirthDate, DbType.Date);
@@ -194,11 +194,11 @@ namespace UserManagement.Controllers
                 dbparams.Add("@Degree", data.Degree, DbType.String);
                 dbparams.Add("@GraduateYear", data.GraduateYear, DbType.String);
 
-   
-                    var editprofile = await Task.FromResult(_dapper.Update<int>("[dbo].[SP_EditProfile]",
-                                dbparams,
-                                commandType: CommandType.StoredProcedure));
-                    return editprofile;                                
+
+                var editprofile = await Task.FromResult(_dapper.Update<int>("[dbo].[SP_EditProfile]",
+                            dbparams,
+                            commandType: CommandType.StoredProcedure));
+                return editprofile;
             }
             catch (Exception)
             {
@@ -246,6 +246,29 @@ namespace UserManagement.Controllers
             {
                 return 404;
             }
+        }
+        [HttpPost(nameof(CheckEmail))]
+        public async Task<string> CheckEmail(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@User_Email", userroleVM.User_Email, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckEmail]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.User_Email == userroleVM.User_Email)
+                {
+                    return "Email sudah ada. Tidak boleh memasukkan email yang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "Email bisa digunakan";
+            }
+
         }
     }
 }
