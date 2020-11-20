@@ -82,7 +82,7 @@ namespace ExamOnline.Controllers
                 }
             }
 
-            var result = myContext.SaveChangesAsync();
+            var result = await myContext.SaveChangesAsync();
             return Ok(result);
         }
 
