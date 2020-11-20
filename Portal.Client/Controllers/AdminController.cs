@@ -13,7 +13,7 @@ namespace Portal.Client.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public ActionResult Get(Portal.Models.Reference reference)
+        public ActionResult GetReference(Portal.Models.Reference reference)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -35,7 +35,7 @@ namespace Portal.Client.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Add(Portal.Models.Reference reference)
+        public ActionResult AddReference(Portal.Models.Reference reference)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -47,7 +47,7 @@ namespace Portal.Client.Controllers
                 var response = client.PostAsync("/api/references", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(new {statusCode = response.StatusCode});
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
                 }
                 else
                 {
@@ -57,7 +57,51 @@ namespace Portal.Client.Controllers
             }
         }
 
+        [HttpDelete]
+        public ActionResult DeleteReference(int Id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(Id);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.DeleteAsync("/api/references/" + Id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
 
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetByIdReference(int Id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(Id);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync("/api/references/" + Id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+
+            }
+        }
         public IActionResult Index()
         {
             return View();
