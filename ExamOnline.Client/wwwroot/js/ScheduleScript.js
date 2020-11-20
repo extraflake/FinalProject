@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var scheduleId;
+$(document).ready(function () {
     console.log("ready!");
     $.ajax({
         "type": "GET",
@@ -120,6 +121,7 @@ function DeleteSchedule(id) {
 }
 
 function GetById(id) {
+    scheduleId = id;
     $.ajax({
         url: "/Schedule/GetById/",
         type: "GET",
@@ -131,7 +133,6 @@ function GetById(id) {
             if (result != "GAGAL") {
                 const obj = JSON.parse(result);
                 $('#Id').val(obj['id']);
-                var date = new Date(obj['scheduleTime']);
                 $('#myModal').modal();
                 $('#updateBtn').show();
                 $('#saveBtn').hide();
@@ -139,10 +140,13 @@ function GetById(id) {
             else {
                 console.log(result);
             }
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+}
+
+function Save() {
+
 }
