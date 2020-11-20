@@ -13,7 +13,7 @@ namespace ExamOnline.Models
     {
         [Key]
         public int Id { get; set; }
-        public string ApplicantId { get; set; }
+        public int ApplicantId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int ScheduleId { get; set; }
