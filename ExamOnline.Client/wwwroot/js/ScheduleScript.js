@@ -37,9 +37,8 @@ $(document).ready(function () {
 function Add() {
     $('#updateBtn').hide();
     $('#saveBtn').show();
-    $('#title').val('');
-    $('#duration').val('');
-    $('#questionQty').val('');
+    $('#date').val('');
+    $('#time').val('');
 }
 
 function Save() {
@@ -133,6 +132,20 @@ function GetById(id) {
             if (result != "GAGAL") {
                 const obj = JSON.parse(result);
                 $('#Id').val(obj['id']);
+
+                var date = new Date(obj['scheduleTime']);
+
+                var day = ("0" + date.getDate()).slice(-2);
+                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+                var today = date.getFullYear() + "-" + (month) + "-" + (day);
+                var h = date.getHours();
+                var min = date.getMinutes();
+                var time = h + ":" + min;
+                console.log(time);
+                $('#date').val(today);
+                $('#time').val(time);
+
                 $('#myModal').modal();
                 $('#updateBtn').show();
                 $('#saveBtn').hide();
@@ -147,6 +160,41 @@ function GetById(id) {
     });
 }
 
-function Save() {
-
+function UpdateSchedule() {
+    var Schedule = new Object();
+    var date = new Date(document.getElementById('date').value);
+    var time = document.getElementById('time').value;
+    var y = date.getFullYear();
+    var m = date.getMonth();
+    var d = date.getDate();
+    var h = time.substring(0, 2);
+    var min = time.substring(3, 5);
+    var scheduleDatetime = new Date(y, m, d, h, min);
+    Schedule.scheduleTime = scheduleDatetime.toISOString();
+    console.log(Schedule.scheduleTime);
+    debugger;
+    $.ajax({
+        type: "PUT",
+        url: '/schedule/updateschedule',
+        data: Schedule
+    }).then((result) => {
+        if (result != "GAGAL") {
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                icon: 'success',
+                title: 'Updated successfully'
+            });
+        }
+        else {
+            Swal.fire({
+                position: 'center',
+                type: 'error',
+                icon: 'error',
+                title: 'Failed to update!'
+            });
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
 }
