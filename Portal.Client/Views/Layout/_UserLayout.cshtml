@@ -33,7 +33,7 @@
 
                         <!-- Registration -->
                         <li class="sidebar-item ">
-                            <a href="@Url." class='sidebar-link'>
+                            <a href="@Url.Action("Index", "Registration")" class='sidebar-link'>
                                 <i data-feather="file-plus" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -41,17 +41,25 @@
 
                         <!-- Update / Edit Data -->
                         <li class="sidebar-item ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="@Url.Action("Update", "Registration")" class='sidebar-link'>
                                 <i data-feather="user" width="20"></i>
                                 <span>Update / Edit Data</span>
                             </a>
                         </li>
 
-                        <li class='sidebar-title'>Logout</li>
+                        <li class='sidebar-title'>Account Menu</li>
 
-                        <!-- Registration -->
+                        <!-- Change Password -->
                         <li class="sidebar-item ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="@Url.Action("Change", "Account")" class='sidebar-link'>
+                                <i data-feather="edit" width="20"></i>
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+
+                        <!-- Logout -->
+                        <li class="sidebar-item ">
+                            <a href="@Url.Action("Index", "Account")" class='sidebar-link'>
                                 <i data-feather="log-out" width="20"></i>
                                 <span>Logout</span>
                             </a>
