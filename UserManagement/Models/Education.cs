@@ -4,15 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using UserManagement.Bases;
-using UserManagement.Microservices.Models;
-using UserManagement.Models;
 
-namespace UserManagement.Microservices.Models
+namespace UserManagement.Models
 {
     [Table("TB_T_Education")]
-    public class Education : IEntity
-    { 
+    public class Education
+    {
         [Key]
         public int Id { get; set; }        
         public University University { get; set; }        

@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Bases;
-using UserManagement.Microservices.Models;
 
-namespace UserManagement.Microservices.Models
+namespace UserManagement.Models
 {
     [Table("TB_M_University")]
-    public class University : IEntityString
+    public class University
     {
         [Key]
         public string Id { get; set; }
