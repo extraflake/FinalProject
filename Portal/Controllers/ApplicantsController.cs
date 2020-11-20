@@ -28,15 +28,6 @@ namespace Portal.Controllers
             this.myContext = myContext;
         }
 
-        public FileResult Download(int id)
-        {
-            var file = myContext.Files.SingleOrDefault(a => a.Id == id);
-            string fileName = file.Name;
-            byte[] pdfasBytes = file.DataFile;
-            return File(pdfasBytes, "application/pdf", fileName);
-        }
-
-
         [HttpPost(nameof(AddFile))]
         public async Task<ActionResult> AddFile(ApplicantVM applicantVM)
         {
@@ -57,7 +48,14 @@ namespace Portal.Controllers
         [HttpPost(nameof(Add))]
         public async Task<ActionResult> Add(ApplicantVM applicantVM)
         {
-            var Doc = await myContext.Files.SingleOrDefaultAsync(x=>x.CreatedOn == applicantVM.CreatedOn);
+            //var query = from x in myContext.Files
+            //            where x.CreatedOn == applicantVM.CreatedOn
+            //            select x;
+            //var Doc = await query.FirstOrDefaultAsync();
+
+            var Doc = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
+            //var Doc = myContext.Files.OrderBy(x => x.Id).Last();
+
             //var Doc = await myContext.Files.FindAsync(applicantVM.FileId);
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
@@ -77,7 +75,20 @@ namespace Portal.Controllers
             };
             await myContext.Applicants.AddAsync(data);
             var result = await myContext.SaveChangesAsync();
+
+            var getFile = Download(Doc.Id);
+
             return Ok(result);
+        }
+
+
+
+        public FileResult Download(int id)
+        {
+            var file = myContext.Files.SingleOrDefault(a => a.Id == id);
+            string fileName = file.Name;
+            byte[] pdfasBytes = file.DataFile;
+            return File(pdfasBytes, "application/pdf", fileName);
         }
     }
 }
