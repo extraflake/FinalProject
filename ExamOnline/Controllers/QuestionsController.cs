@@ -58,7 +58,7 @@ namespace ExamOnline.Controllers
         public Task<QuestionVM> GetById(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
-            dbparams.Add("@Id", questionVM.SegmentId, DbType.Int32);
+            dbparams.Add("@Id", questionVM.Id, DbType.Int32);
             var result = Task.FromResult(dapper.Get<QuestionVM>("[SP_GetById_Question]"
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
@@ -94,7 +94,7 @@ namespace ExamOnline.Controllers
             return result;
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost(nameof(Delete))]
         public Task<int> Delete(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
