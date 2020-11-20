@@ -316,5 +316,23 @@ namespace UserManagement.Controllers
             }
 
         }
+        [HttpGet(nameof(CountUniversity))]
+        public List<CountVM> CountUniversity()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select u.Name as University, count(e.UniversityId) as Total from TB_T_Education e join TB_M_University u on e.UniversityId = u.Id group by u.Name", null, commandType: CommandType.Text));
+            return result;
+        }
+        [HttpGet(nameof(CountDepartment))]
+        public List<CountVM> CountDepartment()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select d.Name as Department, count(e.DepartmentId) as Total from TB_T_Education e join TB_M_Department d on e.DepartmentId = d.Id group by d.Name", null, commandType: CommandType.Text));
+            return result;
+        }
+        [HttpGet(nameof(CountUser))]
+        public List<CountVM> CountUser()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select count(Id) as Total from TB_M_User", null, commandType: CommandType.Text));
+            return result;
+        }
     }
 }
