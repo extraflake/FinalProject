@@ -1,8 +1,6 @@
-﻿//Global Variables
-var ApplicantVM = new Object();
-
-function Upload(inputId) {
+﻿function Submit() {
     debugger;
+    var ApplicantVM = new Object();
     var input = $('#files').get(0);
     var files = input.files;
     var formData = new FormData();
@@ -18,26 +16,20 @@ function Upload(inputId) {
         processData: false,
         contentType: false
     }).then((result) => {
-        ApplicantVM.FileName = result.name;
-        ApplicantVM.FileType = result.type;
+        console.log(result.date);
         ApplicantVM.CreatedOn = result.date;
-        ApplicantVM.DataFile = result.files;
+
+        ApplicantVM.PositionId = document.getElementById('position').value;
+        ApplicantVM.SkillId = document.getElementById('skill').value;
+        ApplicantVM.ReferenceId = document.getElementById('reference').value;
+        debugger;
+        $.ajax({
+            type: "Post",
+            url: '/Registration/Register',
+            data: ApplicantVM
+        }).then((result) => {
+            console.log(result.data);
+        });
     });
 }
 
-function Submit() {
-    ApplicantVM.PositionId = 1;
-    ApplicantVM.SkillId = 1;
-    ApplicantVM.ReferenceId = 1;
-    debugger;
-    $.ajax({
-        type: "Post",
-        url: '/Registration/Register',
-        data: ApplicantVM
-    }).then((result) => {
-        if (result.result == 'Redirect') {
-            window.location = result.url;
-        }
-    });
-
-}

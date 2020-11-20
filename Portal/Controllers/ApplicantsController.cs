@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Portal.Bases;
 using Portal.Context;
@@ -36,45 +37,28 @@ namespace Portal.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult Index(IFormFile files)
+        [HttpPost(nameof(AddFile))]
+        public async Task<ActionResult> AddFile(ApplicantVM applicantVM)
         {
-            if (files != null)
+
+            var data = new File()
             {
-                if (files.Length > 0)
-                {
-                    //Getting FileName
-                    var fileName = Path.GetFileName(files.FileName);
-                    //Getting file Extension
-                    var fileExtension = Path.GetExtension(fileName);
-                    // concatenating  FileName + FileExtension
-                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+                Name = applicantVM.FileName,
+                FileType = applicantVM.FileType,
+                CreatedOn = applicantVM.CreatedOn,
+                DataFile = applicantVM.DataFile
+            };
+            await myContext.Files.AddAsync(data);
+            var result = await myContext.SaveChangesAsync();
 
-                    var objfiles = new File()
-                    {
-                        Id = 0,
-                        Name = newFileName,
-                        FileType = fileExtension,
-                        CreatedOn = DateTime.Now
-                    };
-
-                    using (var target = new MemoryStream())
-                    {
-                        files.CopyTo(target);
-                        objfiles.DataFile = target.ToArray();
-                    }
-
-                    myContext.Files.Add(objfiles);
-                    myContext.SaveChanges();
-                }
-            }
-            return Ok("Sukses File");
+            return Ok(result);
         }
 
         [HttpPost(nameof(Add))]
         public async Task<ActionResult> Add(ApplicantVM applicantVM)
         {
-            var Doc = await myContext.Files.FindAsync(applicantVM.FileId);
+            var Doc = await myContext.Files.SingleOrDefaultAsync(x=>x.CreatedOn == applicantVM.CreatedOn);
+            //var Doc = await myContext.Files.FindAsync(applicantVM.FileId);
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
             var listSkills = new List<Skill>();
