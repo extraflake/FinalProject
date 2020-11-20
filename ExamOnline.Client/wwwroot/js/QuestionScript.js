@@ -163,5 +163,34 @@ function DeleteQuestion(id) {
 }
 
 function GetById(id) {
+    $.ajax({
+        url: "/Question/GetById/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        data: { Id: id },
+        async: false,
+        success: function (result) {
+            if (result != "GAGAL") {
+                const obj = JSON.parse(result);
+                $('#Id').val(obj['id']);
+                $('#question').val(obj['quest']);
+                $('#answerA').val(obj['answerA']);
+                $('#answerB').val(obj['answerB']);
+                $('#answerC').val(obj['answerC']);
+                $('#answerD').val(obj['answerD']);
+                $('#point').val(obj['point']);
+                $('#myModal').modal();
+                $('#updateBtn').show();
+                $('#saveBtn').hide();
+            }
+            else {
+                console.log(result);
+            }
 
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
