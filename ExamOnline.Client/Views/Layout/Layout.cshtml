@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up - Voler Admin Dashboard</title>
+    <link href="~/voler-master/dist/assets/css/bootstrap.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/voler-master/dist/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="~/voler-master/dist/assets/css/app.css" />
+    <link href="~/voler-master/dist/assets/vendors/simple-datatables/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/voler-master/dist/assets/vendors/chartjs/Chart.css" rel="stylesheet" />
+    <link href="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/voler-master/dist/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+</head>
+<body>
+    @RenderBody();
+    @RenderSection("script", required: false);
+</body>
+</html>
