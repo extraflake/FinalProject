@@ -270,5 +270,51 @@ namespace UserManagement.Controllers
             }
 
         }
+        [HttpPost(nameof(CheckUsername))]
+        public async Task<string> CheckUsername(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@Username", userroleVM.Username, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckUsername]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.Username == userroleVM.Username)
+                {
+                    return "Username sudah ada. Tidak boleh memasukkan username yang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "Username bisa digunakan";
+            }
+
+        }
+        [HttpPost(nameof(CheckPhone))]
+        public async Task<string> CheckPhone(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@Phone", userroleVM.Phone, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckPhone]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.Phone == userroleVM.Phone)
+                {
+                    return "No HP sudah ada. Tidak boleh memasukkan No HPyang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "No HP bisa digunakan";
+            }
+
+        }
     }
 }
