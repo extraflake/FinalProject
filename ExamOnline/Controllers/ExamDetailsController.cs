@@ -33,11 +33,13 @@ namespace ExamOnline.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ExamDetailVM examDetailVM)
         {
+            var listGrade = myContext.Grades.Last();
+            var getDuration = myContext.Durations.Find(examDetailVM.ApplicantId);
             var data = new ExamDetail()
             {
-                DurationId = examDetailVM.DurationId,
-                FinalScore = examDetailVM.FinalScore,
-                GradeId = examDetailVM.GradeId
+                DurationId = getDuration.Id,
+                FinalScore = 0,
+                GradeId = listGrade.Id
             };
             await myContext.ExamDetails.AddAsync(data);
             var result = await myContext.SaveChangesAsync();
