@@ -19,7 +19,9 @@
                         <div class="form-group position-relative">
                             <label for="examTime">Exam Schedule</label>
                             <div class="form-group">
-                                <select class="form-select" @*asp-items="new SelectList(ViewBag.Schedule)"*@ id="examTime"></select>
+                                <select class="form-select" @*asp-items="new SelectList(ViewBag.Schedule)"*@ id="examTime">
+                                    <option value="" disabled selected>---Select Schedule--</option>
+                                </select>
                             </div>
                         </div>
 
@@ -41,6 +43,6 @@
     <script src="~/voler-master/dist/assets/js/app.js"></script>
     <script src="~/voler-master/dist/assets/js/main.js"></script>
     <!-- Exam Online Script -->
-    <script src="~/js/ScheduleScript.js"></script>
+    <script src="~/js/ChooseScheduleScript.js"></script>
     <script src="~/js/sweetAlert.js"></script>
 }

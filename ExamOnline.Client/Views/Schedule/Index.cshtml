@@ -14,32 +14,19 @@
                 <ul class="menu">
                     <li class='sidebar-title'>Main Menu</li>
                     <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
+                        <a href="/question/index" class='sidebar-link'>
                             <i data-feather="help-circle" width="20"></i>
                             <span>Questions</span>
                         </a>
-                        <ul class="submenu ">
-                            <li class="active">
-                                <a href="component-alert.html">Create</a>
-                            </li>
-                            <li>
-                                <a href="component-badge.html">Delete</a>
-                            </li>
-
-                            <li>
-                                <a href="component-breadcrumb.html">Update</a>
-                            </li>
-
-                        </ul>
                     </li>
-                    <li class="sidebar-item active">
+                    <li class="sidebar-item">
                         <a href="/segment/index" class='sidebar-link'>
                             <i data-feather="triangle" width="20"></i>
                             <span>Segments</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="/schedule/index" class='sidebar-link'>
+                    <li class="sidebar-item active">
+                        <a href="/schedules/index" class='sidebar-link'>
                             <i data-feather="calendar" width="20"></i>
                             <span>Schedules</span>
                         </a>
@@ -116,8 +103,8 @@
 
         <div class="main-content container-fluid">
             <div class="page-title">
-                <h3 id="segment">Segments</h3>
-                <p class="text-subtitle text-muted">Create, Read, Update and Delete the Exam Segments here!</p>
+                <h3 id="segment">Schedules</h3>
+                <p class="text-subtitle text-muted">Create, Read, Update and Delete the Exam Schedules here!</p>
             </div>
             <section class="section">
                 <div class="card">
@@ -136,9 +123,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>ID</th>
-                                    <th>Segment Name</th>
-                                    <th>Duration</th>
-                                    <th>Question Quantity</th>
+                                    <th>Schedule Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -163,16 +148,16 @@
                                                    hidden>
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Segment Name</label>
-                                            <input type="text" class="form-control" placeholder="Insert the segment name here" id="title" />
+                                            <label for="schedule">Date</label>
+                                            <div class='input-group date'>
+                                                <input type='date' class="form-control" id="date" />
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="duration">Duration</label>
-                                            <input type="text" class="form-control" placeholder="Insert the duration here" id="duration" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="questionQty">Questions Quantity to Display</label>
-                                            <input class="form-control" placeholder="Insert the quantity of the question here" type="text" id="questionQty" />
+                                            <label for="schedule">Time</label>
+                                            <div class='input-group date'>
+                                                <input type='time' class="form-control" id="time" />
+                                            </div>
                                         </div>
                                         @*</form>*@
                                     </div>
@@ -183,7 +168,7 @@
                                         Insert
                                     </button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal" id="updateBtn"
-                                            onclick="UpdateSegment();">
+                                            onclick="UpdateSchedules();">
                                         Update
                                     </button>
                                     <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
@@ -221,5 +206,6 @@
     <script src="~/voler-master/dist/assets/js/main.js"></script>
     <script src="~/voler-master/dist/assets/js/vendors.js"></script>
     <script src="~/js/sweetAlert.js"></script>
-    <script src="~/js/SegmentScript.js"></script>
+    <script src="~/js/ScheduleScript.js"></script>
 }
+

@@ -156,3 +156,9 @@ C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcore
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\ExamOnline.pdb
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\ExamOnline.Client.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateQuestion.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Exam\StartSegment.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Schedule\Choose.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Segment\Index.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Schedule\Index.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Question\Index.cshtml.g.cs
