@@ -53,7 +53,7 @@ namespace ExamOnline.Controllers
         {
             var dbparams = new DynamicParameters();
             dbparams.Add("@Id", examDetailVM.Id, DbType.Int32);
-            dbparams.Add("EndTime", examDetailVM.EndTime, DbType.DateTime);
+            dbparams.Add("@EndTime", examDetailVM.EndTime, DbType.DateTime);
             var result = await Task.FromResult(_dapper.Update<int>("[SP_UpdateEnd_Duration]"
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
