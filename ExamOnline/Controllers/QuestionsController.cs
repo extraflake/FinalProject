@@ -94,7 +94,7 @@ namespace ExamOnline.Controllers
             return result;
         }
 
-        [HttpDelete]
+        [HttpPost(nameof(Delete))]
         public Task<int> Delete(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();
