@@ -32,7 +32,7 @@ namespace ExamOnline.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ExamDetailVM examDetailVM)
         {
-            var listGrade = myContext.Grades.Last();
+            var listGrade = myContext.Grades.OrderBy(x => x.Id).Last();
             var getDuration = myContext.Durations.Find(examDetailVM.ApplicantId);
             var data = new ExamDetail()
             {
