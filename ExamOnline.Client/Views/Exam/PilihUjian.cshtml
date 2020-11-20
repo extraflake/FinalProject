@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "PilihUjian";
+    Layout = "~/Views/Layout/Layout.cshtml";
+}
+
+<div id="auth">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 mx-auto">
+                <div class="card py-4">
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <img src="~/voler-master/dist/assets/images/favicon.svg" height="48" class='mb-4'>
+                            <h3>Select exam time.</h3>
+                            <p>Select your exam time!</p>
+                        </div>
+                        @*<form action="index.html">*@
+                        <div class="form-group position-relative">
+                            <label for="examTime">Exam Schedule</label>
+                            <div class="form-group">
+                                <select class="form-select" asp-items="new SelectList(ViewBag.Schedule)" id="examTime"></select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            <button class="btn btn-primary float-right" onclick="Choose()">Submit</button>
+                        </div>
+                        @*</form>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/feather-icons/feather.js"></script>
+    <script src="~/voler-master/dist/assets/js/feather-icons.js"></script>
+    <script src="~/voler-master/dist/assets/js/app.js"></script>
+    <script src="~/voler-master/dist/assets/js/main.js"></script>
+    <!-- Exam Online Script -->
+    <script src="~/js/ExamOnlineScript.js"></script>
+    <script src="~/js/sweetAlert.js"></script>
+}
+

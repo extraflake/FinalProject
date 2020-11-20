@@ -54,6 +54,17 @@ namespace ExamOnline.Controllers
             return result;
         }
 
+        [HttpPost(nameof(GetById))]
+        public Task<QuestionVM> GetById(QuestionVM questionVM)
+        {
+            var dbparams = new DynamicParameters();
+            dbparams.Add("@Id", questionVM.Id, DbType.Int32);
+            var result = Task.FromResult(dapper.Get<QuestionVM>("[SP_GetById_Question]"
+                , dbparams,
+                commandType: CommandType.StoredProcedure));
+            return result;
+        }
+
         [HttpGet]
         public Task<List<QuestionVM>> GetAllQuestion()
         {
@@ -83,7 +94,7 @@ namespace ExamOnline.Controllers
             return result;
         }
 
-        [HttpDelete]
+        [HttpPost(nameof(Delete))]
         public Task<int> Delete(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();

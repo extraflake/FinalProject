@@ -33,11 +33,17 @@ namespace ExamOnline.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ExamDetailVM examDetailVM)
         {
+            //var getDuration = myContext.Durations.Where(x => x.ApplicantId == examDetailVM.ApplicantId).First();
+            var query = from x in myContext.Durations
+                        where x.ApplicantId == examDetailVM.ApplicantId
+                        select x.Id;
+            var getDurationId = query.FirstOrDefault();
+            var listGrade = myContext.Grades.OrderBy(x => x.Id).Last();
             var data = new ExamDetail()
             {
-                DurationId = examDetailVM.DurationId,
-                FinalScore = examDetailVM.FinalScore,
-                GradeId = examDetailVM.GradeId
+                DurationId = getDurationId,
+                FinalScore = 0,
+                GradeId = listGrade.Id
             };
             await myContext.ExamDetails.AddAsync(data);
             var result = await myContext.SaveChangesAsync();
@@ -59,6 +65,23 @@ namespace ExamOnline.Controllers
         {
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
+
+            //int count = myContext.Grades.ToList().Count;
+            //for (int i = count; i >= 0; i--)
+            //{
+            //    var getGrade = myContext.Grades.;
+            //    if (getScore.FinalScore > getGrade.FindIndex(i))
+            //        getScore.GradeId = i;
+            //}
+
+            var listGrade = myContext.Grades.OrderBy(x => x.Score);
+            foreach (var data in listGrade)
+            {
+                if (getScore.FinalScore >= data.Score)
+                {
+                    getScore.GradeId = data.Id;
+                }
+            }
 
             var result = myContext.SaveChangesAsync();
             return Ok(result);
