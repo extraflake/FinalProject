@@ -15,22 +15,8 @@ var x = setInterval(function() {
   + minutes + "m " + seconds + "s ";
 
   if (distance < 0) {
-    clearInterval(x);
-      //DeleteSchedule(id);
-      window.sessionStorage.setItem("question", "");
+      clearInterval(x);
       window.location = "/exam/ujian";
   }
 }, 1000);
 
-function DeleteSchedule(id) {
-    $.ajax({
-        type: "DELETE",
-        url: '/Schedule/DeleteSchedule',
-        data: { Id: id }
-    }).then((result) => {
-        debugger;
-        console.log(result);
-    }).catch((error) => {
-        console.log(error);
-    });
-}
