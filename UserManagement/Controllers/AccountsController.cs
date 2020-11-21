@@ -58,8 +58,12 @@ namespace UserManagement.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                     new Claim("User_Email", result.User_Email),
-                    new Claim("Role_Name", result.Role_Name)
-            };
+                    new Claim("Role_Name", result.Role_Name),
+                    new Claim("Username", result.Username),
+                    new Claim("Application", result.Application),
+                    new Claim("EmployeeId", result.EmployeeId.ToString()),
+                    new Claim("UserID", result.UserID.ToString()),
+                    };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
@@ -79,9 +83,9 @@ namespace UserManagement.Controllers
 
         [HttpPost(nameof(RegisterBC))]
         public async Task<int> RegisterBC(RegisterVM data)
-        {    
+        {
 
-         try
+            try
             {
                 var password = data.User_Password;
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(password);
@@ -138,7 +142,7 @@ namespace UserManagement.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut]
+        [HttpPut(nameof(ChangePassword))]
         public async Task<int> ChangePassword(RegisterVM data)
         {
             try
@@ -150,7 +154,7 @@ namespace UserManagement.Controllers
                 }
                 data.User_Password = BCrypt.Net.BCrypt.HashPassword(data.User_Password);
                 dbparams.Add("@User_Email", data.User_Email, DbType.String);
-                dbparams.Add("@User_Password", data.User_Password, DbType.String);   
+                dbparams.Add("@User_Password", data.User_Password, DbType.String);
                 var find = await _myContext.Users.SingleOrDefaultAsync(x => x.Email == data.User_Email);
                 if (find != null)
                 {
@@ -166,6 +170,41 @@ namespace UserManagement.Controllers
                 return 404;
             }
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPut(nameof(EditProfile))]
+        public async Task<int> EditProfile(EditProfileVM data)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+                dbparams.Add("@FirstName", data.FirstName, DbType.String);
+                dbparams.Add("@LastName", data.LastName, DbType.String);
+                dbparams.Add("@BirthDate", data.BirthDate, DbType.Date);
+                dbparams.Add("@Gender", data.Gender, DbType.String);
+                dbparams.Add("@ReligionId", data.ReligionId, DbType.Int32);
+                dbparams.Add("@EmployeeId", data.EmployeeId, DbType.Int32);
+                dbparams.Add("@User_Email", data.User_Email, DbType.String);
+                dbparams.Add("@Phone", data.Phone, DbType.String);
+                dbparams.Add("@UserId", data.UserId, DbType.Int32);
+                dbparams.Add("@UniversityId", data.UniversityId, DbType.String);
+                dbparams.Add("@DepartmentId", data.DepartmentId, DbType.String);
+                dbparams.Add("@GPA", data.GPA, DbType.String);
+                dbparams.Add("@Degree", data.Degree, DbType.String);
+                dbparams.Add("@GraduateYear", data.GraduateYear, DbType.String);
+
+
+                var editprofile = await Task.FromResult(_dapper.Update<int>("[dbo].[SP_EditProfile]",
+                            dbparams,
+                            commandType: CommandType.StoredProcedure));
+                return editprofile;
+            }
+            catch (Exception)
+            {
+                return 404;
+            }
+        }
+
         [HttpPatch]
         public async Task<int> Forgot(RegisterVM entity)
         {
@@ -206,6 +245,93 @@ namespace UserManagement.Controllers
             {
                 return 404;
             }
+        }
+        [HttpPost(nameof(CheckEmail))]
+        public async Task<string> CheckEmail(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@User_Email", userroleVM.User_Email, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckEmail]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.User_Email == userroleVM.User_Email)
+                {
+                    return "Email sudah ada. Tidak boleh memasukkan email yang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "Email bisa digunakan";
+            }
+
+        }
+        [HttpPost(nameof(CheckUsername))]
+        public async Task<string> CheckUsername(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@Username", userroleVM.Username, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckUsername]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.Username == userroleVM.Username)
+                {
+                    return "Username sudah ada. Tidak boleh memasukkan username yang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "Username bisa digunakan";
+            }
+
+        }
+        [HttpPost(nameof(CheckPhone))]
+        public async Task<string> CheckPhone(RegisterVM userroleVM)
+        {
+            try
+            {
+                var dbparams = new DynamicParameters();
+
+                dbparams.Add("@Phone", userroleVM.Phone, DbType.String);
+                var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_CheckPhone]",
+                    dbparams, commandType: CommandType.StoredProcedure));
+
+                if (result.Phone == userroleVM.Phone)
+                {
+                    return "No HP sudah ada. Tidak boleh memasukkan No HPyang sama!";
+                }
+                return "Error";
+            }
+            catch (Exception)
+            {
+                return "No HP bisa digunakan";
+            }
+
+        }
+        [HttpGet(nameof(CountUniversity))]
+        public List<CountVM> CountUniversity()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select u.Name as University, count(e.UniversityId) as Total from TB_T_Education e join TB_M_University u on e.UniversityId = u.Id group by u.Name", null, commandType: CommandType.Text));
+            return result;
+        }
+        [HttpGet(nameof(CountDepartment))]
+        public List<CountVM> CountDepartment()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select d.Name as Department, count(e.DepartmentId) as Total from TB_T_Education e join TB_M_Department d on e.DepartmentId = d.Id group by d.Name", null, commandType: CommandType.Text));
+            return result;
+        }
+        [HttpGet(nameof(CountUser))]
+        public List<CountVM> CountUser()
+        {
+            var result = (_dapper.GetAll<CountVM>($"select count(Id) as Total from TB_M_User", null, commandType: CommandType.Text));
+            return result;
         }
     }
 }

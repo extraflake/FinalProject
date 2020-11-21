@@ -13,11 +13,15 @@ namespace UserManagement.ViewModel
         public int Role_RoleId { get; set; }
         public string Role_Name { get; set; }
 
+        public int EmployeeId { get; set; }
+        public int UserID { get; set; }
+
+        public string Username { get; set; }
+        public string Application { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string User_Email { get; set; }
-        public string User_Password { get; set; }
-        public string Username { get; set; }
+        public string User_Password { get; set; }        
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }

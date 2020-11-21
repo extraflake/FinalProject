@@ -9,7 +9,7 @@ using UserManagement.Repositories.Interface;
 
 namespace UserManagement.Repositories
 {
-    public class GeneralRepository<TEntity, IContext> : IRepository<TEntity>
+    public class GeneralRepository<TEntity, IContext> : IRepository <TEntity>
          where TEntity : class, IEntity
          where IContext : MyContext
     {

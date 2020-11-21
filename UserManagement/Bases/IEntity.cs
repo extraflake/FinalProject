@@ -10,6 +10,5 @@ namespace UserManagement.Bases
     {
         [Key]
         int Id { get; set; }
-
     }
 }
