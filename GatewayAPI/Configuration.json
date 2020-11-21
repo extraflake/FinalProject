@@ -100,7 +100,7 @@
       "UpstreamPathTemplate": "/gateway/Educations",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
     },
-    //Accounts
+    ////Accounts
     {
 
       "DownstreamPathTemplate": "/api/Accounts/RegisterBC",
