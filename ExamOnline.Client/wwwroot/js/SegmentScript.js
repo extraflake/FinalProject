@@ -32,11 +32,14 @@ $(document).ready(function () {
                             return data + " minutes";
                         }
                     },
-                    { "data": "questionQuantity" },
+                    {
+                        "data": "questionQuantity",
+                        "className": "text-center"
+                    },
                     {
                         "render": function (data, type, row) {
-                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i data-feather="edit"></i></button >' + '&nbsp;' +
-                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSegment(' + row.id + ');"><i data-feather="trash-2"></i></button>'
+                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSegment(' + row.id + ');"><i class="fa fa-trash"></i></button>'
                         }
                     }]
             });
@@ -142,7 +145,7 @@ function UpdateSegment() {
     debugger;
     $.ajax({
         type: "PUT",
-        url: '/segment/updatesegment',
+        url: '/Segment/UpdateSegment',
         data: Segment
     }).then((result) => {
         debugger;
