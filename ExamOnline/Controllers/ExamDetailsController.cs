@@ -33,6 +33,7 @@ namespace ExamOnline.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ExamDetailVM examDetailVM)
         {
+            //use entity framework
             //var getDuration = myContext.Durations.Where(x => x.ApplicantId == examDetailVM.ApplicantId).First();
             var query = from x in myContext.Durations
                         where x.ApplicantId == examDetailVM.ApplicantId
@@ -63,6 +64,7 @@ namespace ExamOnline.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(ExamDetailVM examDetailVM)
         {
+            //use entity framework
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
 
