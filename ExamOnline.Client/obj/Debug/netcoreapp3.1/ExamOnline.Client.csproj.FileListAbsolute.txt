@@ -109,7 +109,6 @@ C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcore
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\ExamOnline.Client.pdb
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\ExamOnline.Client.genruntimeconfig.cache
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Layout\Layout.cshtml.g.cs
-C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Exam\PilihUjian.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Exam\Ujian.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Exam\Waiting.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\ExamOnline.exe
@@ -155,10 +154,12 @@ C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcore
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\ExamOnline.dll
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\ExamOnline.pdb
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\ExamOnline.Client.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateQuestion.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\Dapper.dll
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Exam\StartSegment.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Schedule\Choose.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Segment\Index.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Schedule\Index.cshtml.g.cs
 C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\obj\Debug\netcoreapp3.1\Razor\Views\Question\Index.cshtml.g.cs
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\juanb\Documents\GitHub\FinalProject\ExamOnline.Client\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

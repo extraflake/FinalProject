@@ -16,7 +16,8 @@ var x = setInterval(function() {
 
   if (distance < 0) {
     clearInterval(x);
-      DeleteSchedule(id);
+      //DeleteSchedule(id);
+      window.sessionStorage.setItem("question", "");
       window.location = "/exam/ujian";
   }
 }, 1000);
