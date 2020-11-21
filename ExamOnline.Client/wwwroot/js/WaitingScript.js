@@ -14,9 +14,10 @@ var x = setInterval(function() {
   document.getElementById("demo").innerHTML = days + "d " + hours + "h "
   + minutes + "m " + seconds + "s ";
 
-  if (distance < 0) {
-      clearInterval(x);
-      window.location = "/exam/ujian";
-  }
+    if (distance < 0) {
+        clearInterval(x);
+        window.sessionStorage.setItem("question", "");
+        window.location = "/exam/ujian";
+    }
 }, 1000);
 
