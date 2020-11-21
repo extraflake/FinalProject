@@ -26,8 +26,8 @@ namespace ExamOnline.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ApplicantId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -135,6 +135,9 @@ namespace ExamOnline.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ScheduleTime")
                         .HasColumnType("datetime2");

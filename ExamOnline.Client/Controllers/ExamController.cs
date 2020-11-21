@@ -13,19 +13,6 @@ namespace ExamOnline.Client.Controllers
 {
     public class ExamController : Controller
     {
-        public IActionResult PilihUjian(ExamOnline.Models.Schedule schedule)
-        {
-
-
-            //List<string> strDate = new List<string>();
-            //for(int i = 0;i<schedule.)
-            //    addingDate = addingDate.AddDays(1);
-            //    strDate.Add(addingDate.ToString("dd MMM yyyy HH:mm:ss"));
-            //}
-            //ViewBag.Schedule = strDate;
-            return View();
-        }
-
         [HttpGet]
         public ActionResult LoadSegment(ExamOnline.Models.Segment segment)
         {
