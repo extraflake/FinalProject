@@ -25,7 +25,7 @@ namespace Portal.Client.Controllers
         }
 
         // Register Page Controller
-
+        // Update Position DropDown
         [HttpGet]
         public ActionResult GetNamePosition(Portal.Models.Position position)
         {
@@ -49,6 +49,7 @@ namespace Portal.Client.Controllers
             }
         }
 
+        //Update Reference Dropdown
         [HttpGet]
         public ActionResult GetNameReference(Portal.Models.Reference reference)
         {
@@ -72,6 +73,7 @@ namespace Portal.Client.Controllers
             }
         }
 
+        //Update Skill Dropdown
         [HttpGet]
         public ActionResult GetNameSkill(Portal.Models.Skill skill)
         {
@@ -100,6 +102,7 @@ namespace Portal.Client.Controllers
             return View();
         }
 
+        // Update Data
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
@@ -125,6 +128,7 @@ namespace Portal.Client.Controllers
             }
         }
 
+        // Upload File
         [HttpPost]
         public ActionResult Upload(IList<IFormFile> files)
         {

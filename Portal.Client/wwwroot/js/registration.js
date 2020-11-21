@@ -29,6 +29,7 @@
             data: ApplicantVM
         }).then((result) => {
             console.log(result.data);
+            $('#files').value('');
         });
     });
 }
