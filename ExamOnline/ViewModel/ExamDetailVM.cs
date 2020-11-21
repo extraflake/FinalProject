@@ -25,5 +25,6 @@ namespace ExamOnline.ViewModel
         //Schedule
         public int ScheduleId { get; set; }
         public DateTime ScheduleTime { get; set; }
+        public bool IsActive { get; set; }
     }
 }
