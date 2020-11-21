@@ -10,11 +10,9 @@
             debugger;
             console.log(qt.data);
             for (var i = 0; i < qt.data.length; i++) {
-                if (qt.data[i]["isActive"] == true) {
-                    var scheduleDatetime = new Date(qt.data[i]['scheduleTime']).toUTCString();
-                    dropdown.innerHTML = dropdown.innerHTML +
-                        '<option value="' + qt.data[i]['id'] + '">' + scheduleDatetime + '</option>';
-                }
+                var scheduleDatetime = new Date(qt.data[i]['scheduleTime']);
+                dropdown.innerHTML = dropdown.innerHTML +
+                    '<option value="' + qt.data[i]['id'] + '">' + scheduleDatetime + '</option>';
             }
         }
     }); 
