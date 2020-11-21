@@ -25,8 +25,8 @@ $(document).ready(function () {
                     { "data": "scheduleTime" },
                     {
                         "render": function (data, type, row) {
-                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i data-feather="edit"></i></button >' + '&nbsp;' +
-                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSchedule(' + row.id + ');"><i data-feather="trash-2"></i></button>'
+                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSchedule(' + row.id + ');"><i class="fa fa-trash"></i></button>'
                         }
                     }]
             });
@@ -162,6 +162,7 @@ function GetById(id) {
 
 function UpdateSchedule() {
     var Schedule = new Object();
+    Schedule.Id = $("#Id").val();
     var date = new Date(document.getElementById('date').value);
     var time = document.getElementById('time').value;
     var y = date.getFullYear();
@@ -175,7 +176,7 @@ function UpdateSchedule() {
     debugger;
     $.ajax({
         type: "PUT",
-        url: '/schedule/updateschedule',
+        url: '/Schedule/UpdateSchedule',
         data: Schedule
     }).then((result) => {
         if (result != "GAGAL") {
