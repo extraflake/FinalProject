@@ -1,4 +1,13 @@
-﻿function Submit() {
+﻿var uploadField = document.getElementById("files");
+
+uploadField.onchange = function () {
+    if (this.files[0].size > 1024000) {
+        alert("File is too big!");
+        this.value = "";
+    };
+};
+
+function Submit() {
     //debugger;
     //Add ApplicantVM as a new Object
     //swal("Good job!", "You clicked the button!", "success");
