@@ -115,10 +115,10 @@ namespace Portal.Controllers
             mm.To.Add(myEmail);
             mm.Subject = "Applicant Data";
             mm.IsBodyHtml = true;
-            mm.Body = body;
+            mm.Body = $"Applicant data for {data.Position.Name}";
 
             //mm.Attachments.Add(new Attachment(memorystream, data.File.Name, mediaType: MediaTypeNames.Application.Pdf));
-            mm.Attachments.Add(new Attachment(fileMM, "Applicant File.pdf", mediaType: MediaTypeNames.Application.Pdf));
+            mm.Attachments.Add(new Attachment(fileMM, $"{data.Position.Name}_{Doc.Name}.pdf", mediaType: MediaTypeNames.Application.Pdf));
 
             mm.BodyEncoding = UTF8Encoding.UTF8;
             mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
@@ -142,7 +142,7 @@ namespace Portal.Controllers
             {
                 PagesCount = true,
                 HtmlContent = html,
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "PDFGeneratorTemplate", "app", "scss", "style.css") },
                 HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                 FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
             };

@@ -1,59 +1,10 @@
-﻿using Portal.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Utility
-{
-    public class HTMLTemplateGenerator
-    {
-        private Applicant _applicant;
-        public HTMLTemplateGenerator(Applicant applicant)
-        {
-            _applicant = applicant;
-        }
-
-        //public string GetHTMLString()
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.Append(@"
-        //                <html>
-        //                    <head>
-        //                    </head>
-        //                    <body>
-        //                        <div class='header'><h1>This is the generated PDF report!!!</h1></div>
-        //                        <table align='center'>");
-
-        //    sb.AppendFormat(@"
-        //                        <p>
-        //                        Posisi      : {0}<br>
-        //                        Referensi   : {1}<br>
-        //                        Skill       : ", _applicant.Position.Name, _applicant.Reference.Name);
-
-
-        //    foreach (var item in _applicant.Skills)
-        //    {
-        //        sb.AppendFormat(@"{0}, ", item.Name);
-        //    }
-
-        //    sb.Append(@"</p>
-        //                        </table>
-        //                    </body>
-        //                </html>");
-        //    return sb.ToString();
-        //}
-
-        public string GetHTMLString()
-        {
-            var sb = new StringBuilder();
-            sb.Append(@"
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='witdh=device-width, initial-scale=1.0'>
         <meta http-equiv='X-UA-Compatible' content='ie-edge'>
+        <link rel='stylesheet' href='./scss/style.css'>
 
         <link rel='preconnect' href='https://fonts.gstatic.com'>
         <link href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap' rel='stylesheet'> 
@@ -64,11 +15,8 @@ namespace Portal.Utility
     </head>
     <body>
         <div class='header'>
-            <div class='header_name'>Dionisius Yose Deofili Abadi</div>");
-
-            sb.AppendFormat(@"<div class='header_position'>{0}</div>", _applicant.Position.Name);
-
-            sb.Append(@"
+            <div class='header_name'>Dionisius Yose Deofili Abadi</div>
+            <div class='header_position'>Bootcamp Junior Programmer</div>
         </div>
 
         <div class='flex '>
@@ -125,27 +73,17 @@ namespace Portal.Utility
         <div class='personal'>
             <h2>Informasi Lain</h2>
             <div class='flex flex_-container'>
-                <div class='personal_label personal__container'>Referensi</div>");
-
-            sb.AppendFormat(@"<div>: {0} </div>", _applicant.Reference.Name);
-
-            sb.Append(@"
-                
+                <div class='personal_label personal__container'>Referensi</div>
+                <div>: Website </div>
             </div>
             <div class='flex flex_-container personal__list'>
                 <div class='personal_label personal__container'>Keahlian</div>
                 <div>: </div>
             </div>
-            <ul class='personal'>");
-
-
-
-            foreach (var item in _applicant.Skills)
-            {
-                sb.AppendFormat(@"<li>{0}</li> ", item.Name);
-            }
-
-            sb.Append(@"
+            <ul class='personal'>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Javascript</li>
             </ul> 
         </div>
     </body>	
@@ -153,8 +91,4 @@ namespace Portal.Utility
     <script>
         feather.replace()
       </script>
-</html>");
-            return sb.ToString();
-        }
-    }
-}
+</html>
