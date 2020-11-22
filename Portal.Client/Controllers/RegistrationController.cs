@@ -114,15 +114,15 @@ namespace Portal.Client.Controllers
                 string data = JsonConvert.SerializeObject(applicantVM);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
                 var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
-                //var upload = client.PostAsync("/API/Applicants");
                 if (response.IsSuccessStatusCode)
                 {
-
-                    return Json(new { data = "Berhasil" });
+                    string message = SendEmail(applicantVM).ToLower();
+                    if(message.Equals("sukses")) return Json(new { data = "berhasil" });
+                    else return Json(new { data = "gagal" });
                 }
                 else
                 {
-                    return Json(new { data = "Gagal" });
+                    return Json(new { data = "gagal" });
                 }
                 //return View();
             }
@@ -139,7 +139,6 @@ namespace Portal.Client.Controllers
                 //Getting file Extension
                  var fileExtension = Path.GetExtension(fileName);
                 // concatenating  FileName + FileExtension
-                //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
                 var objfiles = new ApplicantVM()
                 {
@@ -165,19 +164,50 @@ namespace Portal.Client.Controllers
                     //var upload = client.PostAsync("/API/Applicants");
                     if (response.IsSuccessStatusCode)
                     {
-
-                        return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile });
+                        return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
                     }
                     else
                     {
-                        return Json(new { data = "Gagal" });
+                        return Json(new { data = "Upload Gagal" });
                     }
                     //return View();
                 }
             }
-            return Json(new {data = "success" });
+            return Json(new {data = "Error" });
         }
 
+        [HttpPost]
+        private string SendEmail(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                try
+                {
+                    var response = client.PostAsync("/API/Applicants/SendEmail", contentData).Result;
+                    //var upload = client.PostAsync("/API/Applicants");
+                    return "sukses";
+                    //if (response.IsSuccessStatusCode)
+                    //{
+                    //    return "sukses";
+                    //}
+                    //else
+                    //{
+                    //    return "gagal";
+                    //}
+                }
+                catch(Exception)
+                {
+                    return "sukses";
+                }
+                
+                //return View();
+            }
+        }
 
         // Update Page Controller
         public IActionResult Update()

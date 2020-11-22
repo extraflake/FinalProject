@@ -31,6 +31,7 @@ namespace Portal.Controllers
     {
         private IConverter _converter;
         private readonly MyContext myContext;
+
         public ApplicantsController(ApplicantRepository repository, MyContext myContext, IConverter converter) : base(repository)
         {
             this.myContext = myContext;
@@ -41,7 +42,6 @@ namespace Portal.Controllers
         [HttpPost(nameof(AddFile))]
         public async Task<ActionResult> AddFile(ApplicantVM applicantVM)
         {
-
             var data = new File()
             {
                 Name = applicantVM.FileName,
@@ -60,7 +60,6 @@ namespace Portal.Controllers
         public async Task<ActionResult> Add(ApplicantVM applicantVM)
         {
             var Doc = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
-
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
             var listSkills = new List<Skill>();
@@ -77,56 +76,14 @@ namespace Portal.Controllers
                 Reference = Reference,
                 Skills = listSkills
             };
+
             await myContext.Applicants.AddAsync(data);
             var result = await myContext.SaveChangesAsync();
-
-
-            var htmlTemplate = new HTMLTemplateGenerator(data);
-            string body = htmlTemplate.GetHTMLString();
-
-            byte[] file = CreatePDF(body);
-
-            MemoryStream fileMM = new MemoryStream(file);
-            MemoryStream memorystream = new MemoryStream(data.File.DataFile);
-
-            string myEmail = "dionisiusyose11@gmail.com"; // Email dimasukkan terlebih dahulu
-
-            var msgbody = new System.Text.StringBuilder();
-            msgbody.AppendLine("<html><body>");
-            msgbody.AppendLine("<h4>Tes Applicant Data</h4>");
-            msgbody.AppendLine($"<p>Posisi      : {data.Position.Name}<br>");
-            msgbody.AppendLine($"Referensi   : {data.Reference.Name}<br>");
-            msgbody.AppendLine($"Nama file   : {data.File.Name}</p>");
-            msgbody.AppendLine("</body></html>");
-
-            string htmlBody = msgbody.ToString();
-
-            SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-            client.Timeout = 10000;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(myEmail, "gmaildion1997"); // Password harus dimasukkan terlebih dahulua
-            //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
-            MailMessage mm = new MailMessage();
-            mm.From = new MailAddress("donotreply@gmail.com");
-            mm.To.Add(myEmail);
-            mm.Subject = "Applicant Data";
-            mm.IsBodyHtml = true;
-            mm.Body = $"Applicant data for {data.Position.Name}";
-
-            //mm.Attachments.Add(new Attachment(memorystream, data.File.Name, mediaType: MediaTypeNames.Application.Pdf));
-            mm.Attachments.Add(new Attachment(fileMM, $"{data.Position.Name}_{Doc.Name}.pdf", mediaType: MediaTypeNames.Application.Pdf));
-
-            mm.BodyEncoding = UTF8Encoding.UTF8;
-            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-            client.Send(mm);
 
             return Ok(result);
         }
 
+        // Generate PDF
         [HttpGet]
         public byte[] CreatePDF(string html)
         {
@@ -154,6 +111,69 @@ namespace Portal.Controllers
             var file =  _converter.Convert(pdf);
 
             return file;
+        }
+
+        [HttpPost(nameof(SendEmail))]
+        public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
+        {
+            var Doc = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
+            var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
+            var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
+            var listSkills = new List<Skill>();
+            foreach (var item in applicantVM.SkillId)
+            {
+                var getSkill = await myContext.Skills.FindAsync(item);
+                if (getSkill != null)
+                    listSkills.Add(getSkill);
+            }
+            var data = new Applicant()
+            {
+                File = Doc,
+                Position = Position,
+                Reference = Reference,
+                Skills = listSkills
+            };
+
+            // Sending email
+            var htmlTemplate = new HTMLTemplateGenerator(data);
+            string body = htmlTemplate.GetHTMLString();
+
+            byte[] file = CreatePDF(body);
+
+            MemoryStream fileMM = new MemoryStream(file);
+            MemoryStream memorystream = new MemoryStream(data.File.DataFile);
+
+            string myEmail = "dionisiusyose11@gmail.com"; // Email dimasukkan terlebih dahulu
+
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(myEmail, "gmaildion1997"); // Password harus dimasukkan terlebih dahulua
+            //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
+            MailMessage mm = new MailMessage();
+            mm.From = new MailAddress("donotreply@gmail.com");
+            mm.To.Add(myEmail);
+            mm.Subject = "Applicant Data";
+            mm.IsBodyHtml = true;
+            mm.Body = $"Applicant data for {data.Position.Name}";
+
+            //foreach(var attachment in )
+
+            //mm.Attachments.Add(new Attachment(memorystream, data.File.Name, mediaType: MediaTypeNames.Application.Pdf));
+            mm.Attachments.Add(new Attachment(fileMM, $"{data.Position.Name}_generated.pdf", mediaType: MediaTypeNames.Application.Pdf));
+            //fileMM.Dispose();
+            mm.Attachments.Add(new Attachment(memorystream, $"{data.File.Name}_attachment.pdf", mediaType: MediaTypeNames.Application.Pdf));
+            //memorystream.Dispose();
+
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            client.Send(mm);
+
+            return Ok();
         }
     }
 }

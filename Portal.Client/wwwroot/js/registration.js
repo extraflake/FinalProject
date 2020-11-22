@@ -1,6 +1,7 @@
 ﻿function Submit() {
     //debugger;
     //Add ApplicantVM as a new Object
+    //swal("Good job!", "You clicked the button!", "success");
     var ApplicantVM = new Object();
 
     //Get file
@@ -23,7 +24,7 @@
         contentType: false
     }).then((result) => {
         //debugger;
-        console.log(result.date);
+        //console.log(result.date);
         ApplicantVM.CreatedOn = result.date;
         ApplicantVM.PositionId = document.getElementById('position').value;
         ApplicantVM.ReferenceId = document.getElementById('reference').value;
@@ -39,8 +40,20 @@
             data: ApplicantVM
         }).then((result) => {
             console.log(result.data);
-            $('#files').value('');
+            //$('#files').value('');
+            if (result.data == "gagal") {
+                swal("Error!", "Please try again in a moment!", "error");
+            }
+            else if (result.data == "berhasil") {
+                swal("Success!", "Your Registration is Success!", "success");
+                ClearScreen();
+            }
         });
     });
+}
+
+function ClearScreen() {
+    document.getElementById('files').value = null;
+    document.getElementById('skill').value = null;
 }
 
