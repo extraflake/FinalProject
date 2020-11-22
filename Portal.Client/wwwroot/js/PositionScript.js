@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    debugger;
+    //debugger;
     $.ajax({
         url: "/Registration/GetNamePosition/",
         type: "GET",

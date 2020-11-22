@@ -5,6 +5,7 @@
 }
 
 <div class="main" id="main">
+
     <nav class="navbar navbar-header navbar-expand navbar-light">
         <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
 
@@ -97,15 +98,15 @@
             </div>
 
             <!-- Keahlian -->
-            <div class="grid grid-ai-c">
+            <div class="grid grid-ai-c btn-select2">
                 <label for="skill" class="grid-item-left">Keahlian: </label>
-                <select class="grid-item-right" id="skill"> </select>
+                <select class="grid-item-right" id="skill" multiple="multiple"> </select>
             </div>
 
             <!-- Upload CV -->
             <div class="grid grid-ai-c" enctype="multipart/form-data" method="post">
                 <label for="cv" class="grid-item-left">Upload CV: </label>
-                <input class="grid-item-right" id="files" name="files" type="file">
+                <input class="grid-item-right" id="files" name="files" type="file" >
             </div>
             @*onchange="Upload('files');"*@
 
@@ -123,8 +124,10 @@
 @section script{
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
 
     <script src="~/voler-master/dist/assets/js/feather-icons/feather.min.js"></script>
     @*<script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>*@
@@ -134,18 +137,22 @@
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
 
+
+
     <!--  registration -->
     <script src="~/js/registration.js"></script>
 
-
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     <!-- Dropdown -->
     <script src="~/js/PositionScript.js"></script>
     <script src="~/js/ReferenceScript.js"></script>
     <script src="~/js/SkillScript.js"></script>
 
-    <!-- Register -->
-    <!--<script src="~/js/registration.js"></script>-->
+
+
+
 }
 
 
