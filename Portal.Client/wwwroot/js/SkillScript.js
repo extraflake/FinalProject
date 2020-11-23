@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     //debugger;
-    $('#skill').select2();
+    $('#skill').select2({
+        placeholder: "Pilih kemampuan yang anda miliki"
+    });
 
     $.ajax({
         url: "/Registration/GetNameSkill/",

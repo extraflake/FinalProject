@@ -149,10 +149,11 @@ namespace Portal.Controllers
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            client.Timeout = 10000;
+            client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(myEmail, "gmaildion1997"); // Password harus dimasukkan terlebih dahulua
+            client.Credentials = new NetworkCredential(myEmail, ""); // Password harus dimasukkan terlebih dahulu
+            //client.Timeout = int.MaxValue;
             //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
             MailMessage mm = new MailMessage();
             mm.From = new MailAddress("donotreply@gmail.com");
@@ -171,6 +172,7 @@ namespace Portal.Controllers
 
             mm.BodyEncoding = UTF8Encoding.UTF8;
             mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            
             client.Send(mm);
 
             return Ok();

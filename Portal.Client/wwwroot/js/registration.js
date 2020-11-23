@@ -2,7 +2,8 @@
 
 uploadField.onchange = function () {
     if (this.files[0].size > 1024000) {
-        alert("File is too big!");
+        //alert("File is too big!");
+        swal("Warning!", "File terlalu besar!", "warning");
         this.value = "";
     };
 };
@@ -10,7 +11,6 @@ uploadField.onchange = function () {
 function Submit() {
     //debugger;
     //Add ApplicantVM as a new Object
-    //swal("Good job!", "You clicked the button!", "success");
     var ApplicantVM = new Object();
 
     //Get file
@@ -62,7 +62,7 @@ function Submit() {
 }
 
 function ClearScreen() {
-    document.getElementById('files').value = null;
-    document.getElementById('skill').value = null;
+    document.getElementById('files').value = "";
+    document.getElementById('skill').value = "";
 }
 

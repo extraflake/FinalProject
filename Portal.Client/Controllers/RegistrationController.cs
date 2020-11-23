@@ -190,15 +190,15 @@ namespace Portal.Client.Controllers
                 {
                     var response = client.PostAsync("/API/Applicants/SendEmail", contentData).Result;
                     //var upload = client.PostAsync("/API/Applicants");
-                    return "sukses";
-                    //if (response.IsSuccessStatusCode)
-                    //{
-                    //    return "sukses";
-                    //}
-                    //else
-                    //{
-                    //    return "gagal";
-                    //}
+                    //return "sukses";
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return "sukses";
+                    }
+                    else
+                    {
+                        return "gagal";
+                    }
                 }
                 catch(Exception)
                 {
