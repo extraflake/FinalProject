@@ -14,16 +14,61 @@
     <div class="main-content container-fluid">
         <div class="page-title">
             <h3>Dashboard</h3>
-            <p class="text-subtitle text-muted">A good dashboard to display your statistics</p>
+            <p class="text-subtitle text-muted">Data Admin Panel</p>
         </div>
         <section class="section">
 
             <div class="row mb-4">
-                <div class="">
-
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Reference</h4>
+                <div class="col-md-6 col-4 align-self-center">
+                    <span data-toggle="modal" data-target="#myModal" onclick="ClearScreen();">
+                        <button class="btn pull-left hidden-sm-down btn-success" data-placement="right" data-toggle="tooltip"
+                                title="Add Reference">
+                            <i data-feather="plus-circle"></i>
+                        </button>
+                    </span>
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Reference</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="Id" name="Id"
+                                                           hidden>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Name">Reference Name:</label>
+                                                    <input type="text" class="form-control" Id="Name"
+                                                           placeholder="Enter Referance" name="Name">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" id="Save"
+                                                onclick="Save();" data-toggle="tooltip" title="Save">
+                                            <i data-feather="save"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal" id="Update"
+                                                onclick="Update();" data-toggle="tooltip" title="Edit">
+                                            <i data-feather="edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body px-0 pb-0">
                             <div class="table-responsive">
@@ -31,7 +76,9 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Name</th>
+                                            <th>Id</th>
+                                            <th>Reference Name</th>
+                                            <th>Applicants</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,17 +108,15 @@
 </div>
 
 @section script{
-    <script src="~/voler-master/dist/assets/js/feather-icons/feather.min.js"></script>
-    <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="~/voler-master/dist/assets/js/app.js"></script>
-
-    <script src="~/voler-master/dist/assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>
-
+    <script src="~/voler-master/dist/assets/vendors/simple-datatables/jquery.dataTables.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/feather-icons/feather.js"></script>
     <script src="~/voler-master/dist/assets/js/main.js"></script>
-
-    
+    <script src="~/voler-master/dist/assets/js/vendors.js"></script>
+    <script src="~/js/ReferenceAdminScript.js"></script>
+    <script src="~/js/sweetalert2@10.js"></script>
 }
 
 
