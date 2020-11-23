@@ -12,7 +12,6 @@ function SignUp() {
 
     if (fName.classList.contains('is-valid') && lName.classList.contains('is-valid') && email.classList.contains('is-valid') && password.classList.contains('is-valid')) {
         if (confirm.classList.contains('is-valid') && userName.classList.contains('is-valid') && phone.classList.contains('is-valid') && birthdate.classList.contains('is-valid')) {
-            swal("Success!", "Registrasi anda berhasil!", "success");
 
             if (confirm.value != password.value) {
                 swal("Error!", "Silahkan konfirmasi password yang anda masukkan!", "error");
@@ -50,26 +49,13 @@ function Register() {
         data: RegisterVM
     }).then((result) => {
         //console.log(result.data);
-        if (result.data == 200) {
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Login Success',
-                showConfirmButton: false,
-                timer: 3000
-            }).then(() => {
-                window.location = result.url;
-            });
+        if (result.data == "berhasil") {
+            swal("Success!", "Registrasi anda berhasil!", "success").
+                then(() => {
+                    window.location = result.url;
+                });
         }
-    }).catch((error) => {
-        Swal.fire({
-            position: 'top-center',
-            icon: 'error',
-            title: 'Login Error',
-            showConfirmButton: true,
-            timer: 3000
-        });
-        ClearScreen();
+        else swal("Error!", result.data, "error")
     });
 }
 
