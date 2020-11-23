@@ -4,14 +4,15 @@
     //User
     {
 
-      "DownstreamPathTemplate": "/api/Users",
+      "DownstreamPathTemplate": "/api/accounts",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44358
+          "Port": 44355
         }
       ],
+
       "UpstreamPathTemplate": "/gateway/Users",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
     },
@@ -165,6 +166,7 @@
       ],
       "UpstreamPathTemplate": "/gateway/Accounts/RegisterAdmin",
       "UpstreamHttpMethod": [ "PUT" ]
+
     }
 
 
