@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamOnline.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20201120085354_updateSchedule")]
-    partial class updateSchedule
+    [Migration("20201123043848_add-IsActive-Segment")]
+    partial class addIsActiveSegment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,6 +158,9 @@ namespace ExamOnline.Migrations
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsSegmentActive")
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuestionQuantity")
                         .HasColumnType("int");

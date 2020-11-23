@@ -157,6 +157,9 @@ namespace ExamOnline.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsSegmentActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionQuantity")
                         .HasColumnType("int");
 
