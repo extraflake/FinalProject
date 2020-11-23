@@ -37,7 +37,6 @@ namespace UserManagement.Controllers
             _dapper = dapper;
         }
 
-
         [HttpPost(nameof(Get))]
         public async Task<string> Get(RegisterVM userroleVM)
         {
@@ -114,7 +113,6 @@ namespace UserManagement.Controllers
         [HttpPost(nameof(RegisterAdmin))]
         public async Task<int> RegisterAdmin(RegisterVM data)
         {
-
             try
             {
                 var password = data.User_Password;
