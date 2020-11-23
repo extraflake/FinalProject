@@ -124,6 +124,7 @@ function Save() {
 function Add() {
     $('#updateBtn').hide();
     $('#saveBtn').show();
+    ClearScreen();
 }
 
 function DeleteQuestion(id) {
@@ -206,10 +207,22 @@ function GetById(id) {
             $('#myModal').modal();
             $('#updateBtn').show();
             $('#saveBtn').hide();
+            
         }
     }).catch((error) => {
         console.log(error);
     });
+}
+function ClearScreen() {
+    $('#Id').val('');
+    $('#segmentName').val('');
+    $('#question').val('');
+    $('#answerA').val('');
+    $('#answerB').val('');
+    $('#answerC').val('');
+    $('#answerD').val('');
+    $('#point').val('');
+    $('#segment').val('');
 }
 
 function UpdateQuestion() {
@@ -241,7 +254,7 @@ function UpdateQuestion() {
                 title: 'Updated successfully!'
             });
             $('#tableQuestion').DataTable(ajax.reload());
-
+            ClearScreen();
         }
         else {
             Swal.fire({

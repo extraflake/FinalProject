@@ -241,18 +241,29 @@ function intialAnswer() {
 
 function finishSegment() {
     var score = 0;
-    for (var i = 0; i < answer.length; i++) {
-        console.log(answer[i]);
-        console.log(qt[i]['correctAnswer']);
-        if (answer[i] == qt[i]['correctAnswer']) {
+    var ExamDetail = new Object();
+    ExamDetail.FinalScore = score;
+    debugger;
+    $.ajax({
+        type: "PUT",
+        url: '/Exam/UpdateExamDetail',
+        data: ExamDetail
+    }).then((result) => {
+        debugger;
+        console.log(ExamDetail);
+        for (var i = 0; i < answer.length; i++) {
+            console.log(answer[i]);
+            console.log(qt[i]['correctAnswer']);
+            if (answer[i] == qt[i]['correctAnswer']) {
 
-            score += qt[i]['point'];
+                score += qt[i]['point'];
+            }
         }
-    }
-    Swal.fire({
-        position: 'center',
-        type: 'info',
-        icon: 'info',
-        title: 'Your score : ' + score
-    });;
+        Swal.fire({
+            position: 'center',
+            type: 'info',
+            icon: 'info',
+            title: 'Your score : ' + score
+        });;
+    });
 }
