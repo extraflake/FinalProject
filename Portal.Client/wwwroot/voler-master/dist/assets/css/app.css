@@ -809,12 +809,12 @@ footer {
   transition: left 0.6s ease-out;
 }
 .sidebar-wrapper .sidebar-header {
-  padding: 2rem 2rem 1rem;
+  padding: 2rem 2rem 0.5rem;
   font-size: 2rem;
   font-weight: bold;
 }
 .sidebar-wrapper .sidebar-header img {
-  height: 2.5rem;
+  height: 150px;
 }
 .sidebar-wrapper .sidebar-toggler.x {
   position: absolute;
