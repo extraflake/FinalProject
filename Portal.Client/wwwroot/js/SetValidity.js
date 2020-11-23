@@ -1,4 +1,5 @@
-﻿var fName = document.getElementById('fname-column');
+﻿debugger;
+var fName = document.getElementById('fname-column');
 var lName = document.getElementById('last-name-column');
 var email = document.getElementById('email-column');
 var password = document.getElementById('password-column');

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Portal.Client.ViewModels;
 using UserManagement.Microservices.Models;
 
 namespace Portal.Client.Controllers
@@ -42,6 +43,30 @@ namespace Portal.Client.Controllers
         public IActionResult Forgot()
         {
             return View();
+        }
+
+        //Register
+        [HttpPost]
+        public ActionResult Register(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Accounts/RegisterBC", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { data = "berhasil" });
+                }
+                else
+                {
+                    return Json(new { data = "gagal" });
+                }
+                //return View();
+            }
         }
         public IActionResult Register()
         {

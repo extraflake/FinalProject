@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Portal\Portal.csproj" />
+    <ProjectReference Include="..\UserManagement\UserManagement.csproj" />
   </ItemGroup>
 
 </Project>

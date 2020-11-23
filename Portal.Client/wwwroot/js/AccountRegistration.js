@@ -27,36 +27,6 @@ function SignUp() {
     }
 
     else swal("Error!", "Cek kembali data yang anda masukkan!", "error");
-
-    
-
-    //$.ajax({
-    //    type: "POST",
-    //    url: '/Accounts/Get',
-    //    data: RegisterVM
-    //}).then((result) => {
-    //    //console.log(result.data);
-    //    if (result.data == 200) {
-    //        Swal.fire({
-    //            position: 'center',
-    //            icon: 'success',
-    //            title: 'Login Success',
-    //            showConfirmButton: false,
-    //            timer: 3000
-    //        }).then(() => {
-    //            window.location = result.url;
-    //        });
-    //    }
-    //}).catch((error) => {
-    //    Swal.fire({
-    //        position: 'top-center',
-    //        icon: 'error',
-    //        title: 'Login Error',
-    //        showConfirmButton: true,
-    //        timer: 3000
-    //    });
-    //    ClearScreen();
-    //});
 }
 
 function Register() {
@@ -68,7 +38,39 @@ function Register() {
     RegisterVM.User_Password = password.value;
     RegisterVM.Phone = phone.value;
     RegisterVM.BirthDate = birthdate.value;
-    RegisterVM.Gender = document.getElementById('gender').value;
+    RegisterVM.Gender = document.getElementById('gender-floating').value;
+    RegisterVM.ReligionId = document.getElementById('religion-floating').value;
+
+    console.log(RegisterVM.ReligionId);
+    console.log(RegisterVM.Gender);
+
+    $.ajax({
+        type: "POST",
+        url: '/Account/Register',
+        data: RegisterVM
+    }).then((result) => {
+        //console.log(result.data);
+        if (result.data == 200) {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Login Success',
+                showConfirmButton: false,
+                timer: 3000
+            }).then(() => {
+                window.location = result.url;
+            });
+        }
+    }).catch((error) => {
+        Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            title: 'Login Error',
+            showConfirmButton: true,
+            timer: 3000
+        });
+        ClearScreen();
+    });
 }
 
 function ClearScreen() {
