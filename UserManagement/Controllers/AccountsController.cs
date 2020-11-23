@@ -44,7 +44,6 @@ namespace UserManagement.Controllers
             try
             {
                 var dbparams = new DynamicParameters();
-
                 dbparams.Add("@User_Email", userroleVM.User_Email, DbType.String);
                 dbparams.Add("@Username", userroleVM.Username, DbType.String);
                 dbparams.Add("@Phone", userroleVM.Phone, DbType.String);

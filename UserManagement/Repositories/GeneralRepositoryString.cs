@@ -9,17 +9,17 @@ using UserManagement.Repositories.Interface;
 
 namespace UserManagement.Repositories
 {
-    public class GeneralRepository<TEntity, IContext> : IRepository<TEntity>
-         where TEntity : class, IEntity
+    public class GeneralRepositoryString<TEntity, IContext> : IRepositoryString<TEntity>
+         where TEntity : class, IEntityString
          where IContext : MyContext
     {
         private readonly MyContext _myContext;
 
-        public GeneralRepository(MyContext myContext)
+        public GeneralRepositoryString(MyContext myContext)
         {
             _myContext = myContext;
         }
-        public async Task<TEntity> Delete(int id)
+        public async Task<TEntity> Delete(string id)
         {
             var entity = await Get(id);
             if (entity == null)
@@ -36,7 +36,7 @@ namespace UserManagement.Repositories
             return await _myContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> Get(int id)
+        public async Task<TEntity> Get(string id)
         {
             return await _myContext.Set<TEntity>().FindAsync(id);
         }
