@@ -10,5 +10,6 @@ namespace UserManagement.ViewModel
         public int Total { get; set; }
         public string University { get; set; }
         public string Department { get; set; }
+
     }
 }
