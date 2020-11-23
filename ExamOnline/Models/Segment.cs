@@ -16,5 +16,6 @@ namespace ExamOnline.Models
         public string Title { get; set; }
         public int Duration { get; set; }
         public int QuestionQuantity { get; set; }
+        public bool IsSegmentActive { get; set; }
     }
 }

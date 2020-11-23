@@ -4,12 +4,12 @@ var answer = [];
 var isDoubt = [];
 var totalQuestion = 0;
 
-window.console.log = function () {
-    console.error("sepertinya anda mengerti cara ngoding!");
-    window.console.log = function () {
-        return false;
-    }
-}
+//window.console.log = function () {
+//    console.error("sepertinya anda mengerti cara ngoding!");
+//    window.console.log = function () {
+//        return false;
+//    }
+//}
 
 $(document).ready(function () {
     if (num == 1) {
@@ -30,11 +30,22 @@ $(document).ready(function () {
                 window.sessionStorage.setItem("question", data);
             }
             qt = JSON.parse(window.sessionStorage.getItem("question"));
-            console.log(window.sessionStorage.getItem("question"));
+            //console.log(window.sessionStorage.getItem("question"));
             console.log(qt);
+
+            window.sessionStorage.setItem("questionSave", JSON.stringify(qt));
+            //console.log(window.sessionStorage.setItem("questionSave", qt));
+
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
-            console.log(qt.length);
-            listChoices = shuffle(listChoices);
+            //console.log(qt.length);
+            if (window.sessionStorage.getItem("listShuffled" + num) == null) {
+                listChoices = shuffle(listChoices);
+                window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
+            } else {
+                listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled" + num));
+            }
+            //console.log(window.sessionStorage.getItem("listShuffled" + num));
+            console.log(listChoices);
             document.getElementById("question").innerHTML = qt[num - 1]['quest'];
             document.getElementById('segmentName').innerHTML = qt[num - 1]['title'];
             document.getElementById('segmentDuration').innerHTML = "Duration          : " + qt[num - 1]['duration'] + " minutes";
@@ -49,7 +60,7 @@ $(document).ready(function () {
 
             for (var i = 0; i < qt.length; i++) {
                 div.innerHTML = div.innerHTML +
-                    '<button class="btn btn-light btn-sm mt-1 ml-2" value="' + i + '" id="'+i+'" onclick="return NavigateToQuestion(' + i + ');">' + (i+1) + '</button>';
+                    '<button class="btn btn-light btn-sm mt-1 ml-2" value="' + i + '" id="' + i + '" onclick="return NavigateToQuestion(' + i + ');">' + (i + 1) + '</button>';
             }
         }
     })
@@ -76,9 +87,17 @@ function nextQuestion() {
         isNotFirstQuestion(num);
 
         $(document).ready(function () {
+            debugger;
             document.getElementById('number').innerHTML = num;
+            //var lq = JSON.parse(window.sessionStorage.getItem("questionSave"));
+            //var listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled"));
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
-            listChoices = shuffle(listChoices);
+            if (window.sessionStorage.getItem("listShuffled" + num) == null) {
+                listChoices = shuffle(listChoices);
+                window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
+            } else {
+                listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled" + num));
+            }
             document.getElementById("question").innerHTML = qt[num - 1]['quest'];
             document.getElementById("answerA").innerHTML = listChoices[0];
             document.getElementById("answerB").innerHTML = listChoices[1];
@@ -94,7 +113,15 @@ function previousQuestion() {
     isFinalQuestion(num);
     document.getElementById('number').innerHTML = num;
     $(document).ready(function () {
+        //var lq = window.sessionStorage.getItem("questionSave");
+        //var listChoices = window.sessionStorage.getItem("listShuffled");
         var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
+        if (window.sessionStorage.getItem("listShuffled" + num) == null) {
+            listChoices = shuffle(listChoices);
+            window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
+        } else {
+            listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled" + num));
+        }
         document.getElementById("question").innerHTML = qt[num - 1]['quest'];
         document.getElementById("answerA").innerHTML = listChoices[0];
         document.getElementById("answerB").innerHTML = listChoices[1];
@@ -102,9 +129,9 @@ function previousQuestion() {
         document.getElementById("answerD").innerHTML = listChoices[3];
         var radios = document.getElementsByName("choices");
         for (var i = 0; i < listChoices.length; i++) {
-            if (listChoices[i] == answer[num-1]) {
+            if (listChoices[i] == answer[num - 1]) {
                 radios[i].checked = true;
-            }  
+            }
         }
     });
 }
@@ -141,10 +168,18 @@ function getRadioCheckedValue(radio_name) {
 function NavigateToQuestion(number) {
     num = number + 1;
     isNotFirstQuestion((number + 1));
-    isFinalQuestion(number+1);
-    document.getElementById('number').innerHTML = number+1;
+    isFinalQuestion(number + 1);
+    document.getElementById('number').innerHTML = number + 1;
     $(document).ready(function () {
+        //var lq = window.sessionStorage.getItem("questionSave");
+        //var listChoices = window.sessionStorage.getItem("listShuffled");
         var listChoices = [qt[number]['answerA'], qt[number]['answerB'], qt[number]['answerC'], qt[number]['answerD']];
+        if (window.sessionStorage.getItem("listShuffled" + num) == null) {
+            listChoices = shuffle(listChoices);
+            window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
+        } else {
+            listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled" + num));
+        }
         document.getElementById("question").innerHTML = qt[number]['quest'];
         document.getElementById("answerA").innerHTML = listChoices[0];
         document.getElementById("answerB").innerHTML = listChoices[1];
