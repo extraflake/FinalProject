@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace UserManagement.Bases
 {
-    public interface IEntity
+    public interface IEntityString
     {
-        [Key]
-        int Id { get; set; }
-
+        string Id { get; set; }
     }
 }
