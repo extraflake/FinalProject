@@ -16,15 +16,16 @@
                             <h3>Sign Up</h3>
                             <p>Please fill the form to register.</p>
                         </div>
-                        <form action="index.html">
+                        <div>
                             <div class="row">
-
 
                                 <!-- First Name -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="first-name-column">First Name</label>
-                                        <input type="text" id="first-name-column" class="form-control" name="fn-column" placeholder="Enter your First Name here ...">
+                                        <label for="fname-column">First Name</label>
+                                        <input type="text" id="fname-column" class="form-control" name="fn-column" placeholder="Enter your First Name here ..."
+                                               onchange="validfName();"
+                                               onfocus="validfName();">
                                     </div>
                                 </div>
 
@@ -32,15 +33,19 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="last-name-column">Last Name</label>
-                                        <input type="text" id="last-name-column" class="form-control" name="ln-column" placeholder="Enter your Last Name here ...">
+                                        <input onchange="validlName();"
+                                               onfocus="validlName();"
+                                               type="text" id="last-name-column" class="form-control" name="ln-column" placeholder="Enter your Last Name here ...">
                                     </div>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="email-id-column">Email</label>
-                                        <input type="email" id="email-id-column" class="form-control" name="email-id-column" placeholder="Enter your Email here ...">
+                                        <label for="email-column">Email</label>
+                                        <input onchange="ValidateEmail();"
+                                               onfocus="ValidateEmail();"
+                                               type="email" id="email-column" class="form-control" name="email-id-column" placeholder="Enter your Email here ...">
                                     </div>
                                 </div>
 
@@ -48,7 +53,9 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="username-id-column">User Name</label>
-                                        <input type="text" id="username-id-column" class="form-control" name="username-id-column" placeholder="Enter your User Name here ...">
+                                        <input onchange="validUserName();"
+                                               onfocus="validUserName();"
+                                               type="text" id="username-column" class="form-control" name="username-id-column" placeholder="Enter your User Name here ...">
                                     </div>
                                 </div>
 
@@ -56,15 +63,20 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="password-id-column">Password</label>
-                                        <input type="password" id="password-id-column" class="form-control" name="password-id-column" placeholder="Enter your Password here ...">
+                                        <input type="password" 
+                                               onchange="validPassword();"
+                                               onfocus="validPassword();"
+                                               id="password-column" class="form-control" name="password-id-column" placeholder="Enter your Password here ...">
                                     </div>
                                 </div>
 
                                 <!-- Confirm -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="confirm-id-column">Confirm Password</label>
-                                        <input type="password" id="confirm-id-column" class="form-control" name="confirm-id-column" placeholder="Enter your Password here ...">
+                                        <label for="confirm-column">Confirm Password</label>
+                                        <input onchange="Confirm();"
+                                               onfocus="Confirm();"
+                                               type="password" id="confirm-column" class="form-control" name="confirm-id-column" placeholder="Enter your Password here ...">
                                     </div>
                                 </div>
 
@@ -72,7 +84,9 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="phone-column">Phone</label>
-                                        <input type="text" id="phone-column" class="form-control" name="phone-column" placeholder="Enter your Phone Number here ...">
+                                        <input onchange="validPhone();"
+                                               onfocus="validPhone();"
+                                               type="text" id="phone-column" class="form-control" name="phone-column" placeholder="Enter your Phone Number here ...">
                                     </div>
                                 </div>
 
@@ -80,17 +94,19 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="birthdate-column">BirthDate</label>
-                                        <input type="date" id="birthdate-column" class="form-control" name="birthdate-column">
+                                        <input onchange="validBirth();"
+                                               onfocus="validBirth();"
+                                               type="date" id="birthdate-column" class="form-control" name="birthdate-column">
                                     </div>
                                 </div>
 
                                 <!-- Gender -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="gender-floating">Gender</label>
-                                        <select id="gender-floating" class="extra">
-                                            <option value="L">L</option>
-                                            <option value="P">P</option>
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" class="extra">
+                                            <option value="Pria">L</option>
+                                            <option value="Wanita">P</option>
                                             <option value="none">Tidak disebutkan</option>
                                         </select>
                                     </div>
@@ -111,7 +127,7 @@
                             <div class="clearfix">
                                 <button class="btn btn-primary float-right" onclick="SignUp();">Submit</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,9 +137,21 @@
 </div>
 
 @section script{
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
     <script src="~/voler-master/dist/assets/js/feather-icons/feather.min.js"></script>
     <script src="~/voler-master/dist/assets/js/app.js"></script>
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
+
+    <!-- Registration -->
+    <script src="~/js/AccountRegistration.js"></script>
+
+    <!-- SetValidity -->
+    <script src="~/js/SetValidity.js"></script>
 }
 
