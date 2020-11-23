@@ -25,7 +25,7 @@ namespace Portal.Client.Controllers
         }
 
         // Register Page Controller
-
+        // Update Position DropDown
         [HttpGet]
         public ActionResult GetNamePosition(Portal.Models.Position position)
         {
@@ -49,6 +49,7 @@ namespace Portal.Client.Controllers
             }
         }
 
+        //Update Reference Dropdown
         [HttpGet]
         public ActionResult GetNameReference(Portal.Models.Reference reference)
         {
@@ -72,6 +73,7 @@ namespace Portal.Client.Controllers
             }
         }
 
+        //Update Skill Dropdown
         [HttpGet]
         public ActionResult GetNameSkill(Portal.Models.Skill skill)
         {
@@ -100,6 +102,7 @@ namespace Portal.Client.Controllers
             return View();
         }
 
+        // Update Data
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
@@ -111,20 +114,21 @@ namespace Portal.Client.Controllers
                 string data = JsonConvert.SerializeObject(applicantVM);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
                 var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
-                //var upload = client.PostAsync("/API/Applicants");
                 if (response.IsSuccessStatusCode)
                 {
-
-                    return Json(new { data = "Berhasil" });
+                    string message = SendEmail(applicantVM).ToLower();
+                    if(message.Equals("sukses")) return Json(new { data = "berhasil" });
+                    else return Json(new { data = "gagal" });
                 }
                 else
                 {
-                    return Content("GAGAL");
+                    return Json(new { data = "gagal" });
                 }
                 //return View();
             }
         }
 
+        // Upload File
         [HttpPost]
         public ActionResult Upload(IList<IFormFile> files)
         {
@@ -135,11 +139,10 @@ namespace Portal.Client.Controllers
                 //Getting file Extension
                  var fileExtension = Path.GetExtension(fileName);
                 // concatenating  FileName + FileExtension
-                //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
-                var objfiles = new FileVM()
+                var objfiles = new ApplicantVM()
                 {
-                    Name = fileName,
+                    FileName = fileName,
                     FileType = fileExtension,
                     CreatedOn = DateTime.Now
                 };
@@ -149,12 +152,62 @@ namespace Portal.Client.Controllers
                     source.CopyTo(target);
                     objfiles.DataFile = target.ToArray();
                 }
-                return Json(new { name = objfiles.Name, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile });
-            }
 
-            return Json(new {data = "success" });
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44307");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    string data = JsonConvert.SerializeObject(objfiles);
+                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.PostAsync("/API/Applicants/AddFile", contentData).Result;
+                    //var upload = client.PostAsync("/API/Applicants");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
+                    }
+                    else
+                    {
+                        return Json(new { data = "Upload Gagal" });
+                    }
+                    //return View();
+                }
+            }
+            return Json(new {data = "Error" });
         }
 
+        [HttpPost]
+        private string SendEmail(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                try
+                {
+                    var response = client.PostAsync("/API/Applicants/SendEmail", contentData).Result;
+                    //var upload = client.PostAsync("/API/Applicants");
+                    //return "sukses";
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return "sukses";
+                    }
+                    else
+                    {
+                        return "gagal";
+                    }
+                }
+                catch(Exception)
+                {
+                    return "sukses";
+                }
+                
+                //return View();
+            }
+        }
 
         // Update Page Controller
         public IActionResult Update()

@@ -203,7 +203,14 @@ button, .button {
   width: 100px;
 }
 
+
+
 .main button:hover {
   background-color: #cedfe8;
+}
+
+/* Select2 button style */
+.btn-select2 button{
+    width:20px;
 }
 /*# sourceMappingURL=style.css.map */
