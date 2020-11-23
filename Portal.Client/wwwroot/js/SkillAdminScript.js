@@ -3,7 +3,7 @@ $(document).ready(function () {
     console.log("ready!");
     $.ajax({
         "type": "GET",
-        "url": "/Admin/GetReference",
+        "url": "/Admin/GetSkill",
         "contentType": "application/json; charset=utf-8",
         "dataType": "json",
         "success": function (data) {
@@ -41,16 +41,16 @@ $(document).ready(function () {
 
 function Save() {
     debugger;
-    var Reference = new Object();
-    Reference.Name = $('#Name').val();
-    if (Reference.Name == '') {
-        Swal.fire('Error', 'Please Input Reference Name', 'error');
+    var Skill = new Object();
+    Skill.Name = $('#Name').val();
+    if (Skill.Name == '') {
+        Swal.fire('Error', 'Please Input Position Name', 'error');
         ClearScreen();
     } else {
         $.ajax({
             type: 'POST',
-            url: '/Admin/AddReference',
-            data: Reference
+            url: '/Admin/AddSkill',
+            data: Skill
         }).then((result) => {
             debugger;
             if (result != "GAGAL") {
@@ -58,7 +58,7 @@ function Save() {
                     position: 'center',
                     type: 'success',
                     icon: 'success',
-                    title: 'Reference Added Successfully'
+                    title: 'Skill Added Successfully'
                 });
                 table.ajax.reload();
             } else {
@@ -77,7 +77,7 @@ function GetById(Id) {
     $('#Save').hide();
     debugger;
     $.ajax({
-        url: "/Admin/GetByIdReference/" + Id,
+        url: "/Admin/GetByIdSkill/" + Id,
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -95,14 +95,14 @@ function GetById(Id) {
 }
 
 function Update() {
-    var Reference = new Object();
-    Reference.Id = $("#Id").val();
-    Reference.Name = $('#Name').val();
+    var Skill = new Object();
+    Skill.Id = $("#Id").val();
+    Skill.Name = $('#Name').val();
     debugger;
     $.ajax({
         type: "PUT",
-        url: '/Admin/UpdateReference',
-        data: Reference
+        url: '/Admin/UpdateSkill',
+        data: Skill
     }).then((result) => {
         debugger;
         console.log(result);
@@ -138,12 +138,12 @@ function Delete(Id) {
         if (result.value) {
             debugger;
             $.ajax({
-                url: "/Admin/DeleteReference/",
+                url: "/Admin/DeleteSkill/",
                 data: { Id: Id },
                 type: "DELETE",
             }).then((result) => {
                 debugger;
-                if (result!= "GAGAL") {
+                if (result != "GAGAL") {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
