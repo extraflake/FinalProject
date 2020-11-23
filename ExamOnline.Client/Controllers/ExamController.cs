@@ -23,7 +23,7 @@ namespace ExamOnline.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(segment);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/segment").Result;
+                var response = client.GetAsync("api/segments").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
