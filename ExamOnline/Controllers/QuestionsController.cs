@@ -62,7 +62,7 @@ namespace ExamOnline.Controllers
             var result = Task.FromResult(dapper.Get<QuestionVM>("[SP_GetById_Question]"
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
-            return result;
+                return result;
         }
 
         [HttpGet]
@@ -102,7 +102,7 @@ namespace ExamOnline.Controllers
             var result = Task.FromResult(dapper.Execute("[SP_Delete_Question]"
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
-            return result;
+                return result;
         }
     }
 }
