@@ -49,6 +49,12 @@ namespace Portal.Client.Controllers
             }
         }
 
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("~/Account/Index");
+        }
+
         //Update Reference Dropdown
         [HttpGet]
         public ActionResult GetNameReference(Portal.Models.Reference reference)
