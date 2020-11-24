@@ -37,7 +37,6 @@ namespace UserManagement.Controllers
             _dapper = dapper;
         }
 
-
         [HttpPost(nameof(Get))]
         public async Task<string> Get(RegisterVM userroleVM)
         {
@@ -113,7 +112,6 @@ namespace UserManagement.Controllers
         [HttpPost(nameof(RegisterAdmin))]
         public async Task<int> RegisterAdmin(RegisterVM data)
         {
-
             try
             {
                 var password = data.User_Password;
@@ -246,6 +244,7 @@ namespace UserManagement.Controllers
                 return 404;
             }
         }
+
         [HttpPost(nameof(CheckEmail))]
         public async Task<string> CheckEmail(RegisterVM userroleVM)
         {
@@ -269,6 +268,7 @@ namespace UserManagement.Controllers
             }
 
         }
+
         [HttpPost(nameof(CheckUsername))]
         public async Task<string> CheckUsername(RegisterVM userroleVM)
         {
@@ -292,6 +292,7 @@ namespace UserManagement.Controllers
             }
 
         }
+
         [HttpPost(nameof(CheckPhone))]
         public async Task<string> CheckPhone(RegisterVM userroleVM)
         {
@@ -315,18 +316,24 @@ namespace UserManagement.Controllers
             }
 
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountUniversity))]
         public List<CountVM> CountUniversity()
         {
             var result = (_dapper.GetAll<CountVM>($"select u.Name as University, count(e.UniversityId) as Total from TB_T_Education e join TB_M_University u on e.UniversityId = u.Id group by u.Name", null, commandType: CommandType.Text));
             return result;
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountDepartment))]
         public List<CountVM> CountDepartment()
         {
             var result = (_dapper.GetAll<CountVM>($"select d.Name as Department, count(e.DepartmentId) as Total from TB_T_Education e join TB_M_Department d on e.DepartmentId = d.Id group by d.Name", null, commandType: CommandType.Text));
             return result;
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountUser))]
         public List<CountVM> CountUser()
         {
