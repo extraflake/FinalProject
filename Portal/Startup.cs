@@ -33,6 +33,9 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             var context = new CustomAssemblyLoadContext();
+
+
+
             context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "PDFHelper", "libwkhtmltox.dll"));
 
 

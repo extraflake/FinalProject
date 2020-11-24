@@ -20,7 +20,6 @@ function SignUp() {
             else {
                 Register();
             }
-            
         }
         else swal("Error!", "Cek kembali data yang anda masukkan!", "error");
     }

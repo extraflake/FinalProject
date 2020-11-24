@@ -24,11 +24,11 @@ namespace Portal.Client.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        // Register Page Controller
         // Update Position DropDown
         [HttpGet]
         public ActionResult GetNamePosition(Portal.Models.Position position)
         {
+
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44307");
@@ -99,7 +99,11 @@ namespace Portal.Client.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetString("Application").Equals("Portal"))
+            {
+                return View();
+            }
+            else return Redirect("~/Account/Index");
         }
 
         // Update Data
@@ -212,7 +216,11 @@ namespace Portal.Client.Controllers
         // Update Page Controller
         public IActionResult Update()
         {
-            return View();
+            if (HttpContext.Session.GetString("Application").Equals("Portal"))
+            {
+                return View();
+            }
+            else return Redirect("~/Account/Index");
         }
     }
 }

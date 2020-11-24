@@ -58,15 +58,17 @@ namespace Portal.Client.Controllers
                 {
                     char[] trimChars = { '/', '"' };
                     var token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars);
-                    var decodeToken = GetRole(token);
 
-                    string Application = decodeToken.FirstOrDefault(x => x.Type.Equals("Application")).Value;
-                    string Username = decodeToken.FirstOrDefault(x => x.Type.Equals("Username")).Value;
-                    string UserID = decodeToken.FirstOrDefault(x => x.Type.Equals("UserID")).Value;
+                    string Application = GetApplication(token);
+                    string Username = GetUsername(token);
+                    string UserID = GetUserID(token);
+                    string Email = GetEmail(token);
 
                     HttpContext.Session.SetString("Application", Application);
                     HttpContext.Session.SetString("Username", Username);
                     HttpContext.Session.SetString("UserId", UserID);
+                    HttpContext.Session.SetString("Token", token);
+                    HttpContext.Session.SetString("Email", Email);
 
                     if (token.Equals("Error"))
                     {
@@ -82,11 +84,35 @@ namespace Portal.Client.Controllers
             }
         }
 
-        protected IEnumerable<System.Security.Claims.Claim> GetRole(string token)
+        protected string GetEmail(string token)
         {
             char[] trimChars = { '/', '"' };
 
-            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims;
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("User_Email")).Value;
+            return handler;
+        }
+
+        protected string GetApplication(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("Application")).Value;
+            return handler;
+        }
+
+        protected string GetUsername(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("Username")).Value;
+            return handler;
+        }
+
+        protected string GetUserID(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserID")).Value;
             return handler;
         }
 
@@ -261,6 +287,35 @@ namespace Portal.Client.Controllers
         public IActionResult Change()
         {
             return View();
+        }
+
+        [HttpPut]
+        public ActionResult Change(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+
+                var token = HttpContext.Session.GetString("Token");
+                char[] trimChars = { '/', '"' };
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim(trimChars));
+                registerVM.User_Email = HttpContext.Session.GetString("Email");
+
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PutAsync("/API/Accounts/ChangePassword", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { data = "berhasil" });
+                }
+                else
+                {
+                    return Json(new { data = "gagal" });
+                }
+                //return View();
+            }
         }
     }
 }
