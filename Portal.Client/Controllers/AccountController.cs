@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Portal.Client.ViewModels;
@@ -55,7 +57,22 @@ namespace Portal.Client.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
-                    return Json(new { data = "berhasil", token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars) });
+                    var token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars);
+                    var decodeToken = GetRole(token);
+
+                    string Application = decodeToken.FirstOrDefault(x => x.Type.Equals("Application")).Value;
+                    string Username = decodeToken.FirstOrDefault(x => x.Type.Equals("Username")).Value;
+                    string UserID = decodeToken.FirstOrDefault(x => x.Type.Equals("UserID")).Value;
+
+                    HttpContext.Session.SetString("Application", Application);
+                    HttpContext.Session.SetString("Username", Username);
+                    HttpContext.Session.SetString("UserId", UserID);
+
+                    if (token.Equals("Error"))
+                    {
+                        return Json(new { data = "gagal" });
+                    }
+                    return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
                 }
                 else
                 {
@@ -65,10 +82,49 @@ namespace Portal.Client.Controllers
             }
         }
 
+        protected IEnumerable<System.Security.Claims.Claim> GetRole(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims;
+            return handler;
+        }
+
+        //Forgot
         public IActionResult Forgot()
         {
             return View();
         }
+
+        [HttpPatch]
+        public ActionResult Forgot(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PatchAsync("/API/Accounts", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
+                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
+                    {
+                        return Json(new { data = "gagal" });
+                    }
+                    return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
+                }
+                else
+                {
+                    return Json(new { data = "gagal" });
+                }
+                //return View();
+            }
+        }
+
+        
 
         //Register
         [HttpPost]
@@ -109,6 +165,8 @@ namespace Portal.Client.Controllers
             }
             else return Json(new { data = "Email sudah digunakan" });
         }
+
+        
 
         //Cek Email
         [HttpPost]
@@ -164,7 +222,6 @@ namespace Portal.Client.Controllers
                 {
                     return "gagal";
                 }
-                //return View();
             }
         }
 

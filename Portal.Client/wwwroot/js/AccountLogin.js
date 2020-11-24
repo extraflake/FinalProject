@@ -16,7 +16,8 @@ function SignIn() {
         //console.log(result.data);
         if (result.data == "berhasil") {
             console.log(result.token);
-            swal("Success!", "Registrasi anda berhasil!", "success");
+            //swal("Success!", "Registrasi anda berhasil!", "success");
+            window.location = result.url;
         }
         else swal("Error!", result.data, "error")
     });
