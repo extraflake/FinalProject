@@ -1,0 +1,178 @@
+{
+  "Routes": [
+
+    //User
+    {
+
+      "DownstreamPathTemplate": "/api/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44355
+        }
+      ],
+
+      "UpstreamPathTemplate": "/gateway/Users",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+
+    //University
+    {
+
+      "DownstreamPathTemplate": "/api/Universitys",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Universitys",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    //Departments
+    {
+
+      "DownstreamPathTemplate": "/api/Departments",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Departments",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    //Role
+    {
+
+      "DownstreamPathTemplate": "/api/Roles",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Roles",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    //Applications
+    {
+
+      "DownstreamPathTemplate": "/api/Applications",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Applications",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    //Religions
+    {
+
+      "DownstreamPathTemplate": "/api/Religions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Religions",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    //Educations
+    {
+
+      "DownstreamPathTemplate": "/api/Educations",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Educations",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
+    },
+    ////Accounts
+    {
+
+      "DownstreamPathTemplate": "/api/Accounts/RegisterBC",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/RegisterBC",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/Accounts/Forgot",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/Forgot",
+      "UpstreamHttpMethod": [ "PATCH" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/accounts/get",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/accounts/get",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/Accounts/ChangePassword",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/ChangePassword",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/Accounts/RegisterAdmin",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44358
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/RegisterAdmin",
+      "UpstreamHttpMethod": [ "PUT" ]
+
+    }
+
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:44363/"
+  }
+
+}
