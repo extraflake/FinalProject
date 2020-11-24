@@ -46,42 +46,50 @@ namespace Portal.Client.Controllers
         [HttpPost]
         public ActionResult Login(RegisterVM registerVM)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(registerVM);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("/API/Accounts/Get", contentData).Result;
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    char[] trimChars = { '/', '"' };
-                    var token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars);
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    string data = JsonConvert.SerializeObject(registerVM);
+                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.PostAsync("/API/Accounts/Get", contentData).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        char[] trimChars = { '/', '"' };
+                        var token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars);
 
-                    string Application = GetApplication(token);
-                    string Username = GetUsername(token);
-                    string UserID = GetUserID(token);
-                    string Email = GetEmail(token);
+                        string Application = GetApplication(token);
+                        string Username = GetUsername(token);
+                        string UserID = GetUserID(token);
+                        string Email = GetEmail(token);
 
-                    HttpContext.Session.SetString("Application", Application);
-                    HttpContext.Session.SetString("Username", Username);
-                    HttpContext.Session.SetString("UserId", UserID);
-                    HttpContext.Session.SetString("Token", token);
-                    HttpContext.Session.SetString("Email", Email);
+                        HttpContext.Session.SetString("Application", Application);
+                        HttpContext.Session.SetString("Username", Username);
+                        HttpContext.Session.SetString("UserId", UserID);
+                        HttpContext.Session.SetString("Token", token);
+                        HttpContext.Session.SetString("Email", Email);
 
-                    if (token.Equals("Error"))
+                        if (token.Equals("Error"))
+                        {
+                            return Json(new { data = "gagal" });
+                        }
+                        return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
+                    }
+                    else
                     {
                         return Json(new { data = "gagal" });
                     }
-                    return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
+                    //return View();
                 }
-                else
-                {
-                    return Json(new { data = "gagal" });
-                }
-                //return View();
             }
+            catch (Exception)
+            {
+                return Json(new { data = "gagal" });
+            }
+            
         }
 
         protected string GetEmail(string token)
@@ -308,7 +316,7 @@ namespace Portal.Client.Controllers
                 var response = client.PutAsync("/API/Accounts/ChangePassword", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(new { data = "berhasil" });
+                    return Json(new { data = "berhasil", url = Url.Action("Index", "Registration") });
                 }
                 else
                 {

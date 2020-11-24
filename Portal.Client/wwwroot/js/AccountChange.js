@@ -14,7 +14,14 @@ function Change() {
             url: '/Account/Change',
             data: RegisterVM
         }).then((result) => {
-            console.log(result.data);
+            if (result.data == "berhasil") {
+                //console.log(result.token);
+                swal("Success!", "Password anda telah berubah", "success").
+                    then(() => {
+                        window.location = result.url;
+                    });
+            }
+            else swal("Error!", result.data, "error")
         });
     }
 }
