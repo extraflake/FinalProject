@@ -19,10 +19,16 @@
                 <select class="grid-item-right" id="reference"> </select>
             </div>
 
-            <!-- Full Name -->
+            <!-- First Name -->
             <div class="grid grid-ai-c">
                 <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname" disabled>
+                <input class="grid-item-right" type="text" placeholder="Masukkan nama depan anda..." id="firstname" disabled>
+            </div>
+
+            <!-- Last Name -->
+            <div class="grid grid-ai-c">
+                <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
+                <input class="grid-item-right" type="text" placeholder="Masukkan nama belakang anda..." id="lastname" disabled>
             </div>
 
             <!-- Alamat Email -->
@@ -108,7 +114,6 @@
                 <label for="cv" class="grid-item-left">Upload CV: </label>
                 <input class="grid-item-right" id="files" name="files" type="file">
             </div>
-            @*onchange="Upload('files');"*@
 
             <!-- Submit Button -->
             <div class="grid grid-jc-c">
