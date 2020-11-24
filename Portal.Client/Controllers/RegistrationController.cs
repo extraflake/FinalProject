@@ -105,14 +105,24 @@ namespace Portal.Client.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Application").Equals("Portal"))
+            try
             {
-                return View();
+                if (HttpContext.Session.GetString("Application").Equals("Portal"))
+                {
+                    return View();
+                }
+                else return Redirect("~/Account/Index");
             }
-            else return Redirect("~/Account/Index");
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
-        // Update Data
+        // Registration Page
+
+
+
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {

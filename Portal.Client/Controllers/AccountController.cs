@@ -65,12 +65,14 @@ namespace Portal.Client.Controllers
                         string Username = GetUsername(token);
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
+                        string EmployeeId = GetEmployeeId(token);
 
                         HttpContext.Session.SetString("Application", Application);
                         HttpContext.Session.SetString("Username", Username);
                         HttpContext.Session.SetString("UserId", UserID);
                         HttpContext.Session.SetString("Token", token);
                         HttpContext.Session.SetString("Email", Email);
+                        HttpContext.Session.SetString("EmployeeId", EmployeeId);
 
                         if (token.Equals("Error"))
                         {
@@ -90,6 +92,14 @@ namespace Portal.Client.Controllers
                 return Json(new { data = "gagal" });
             }
             
+        }
+
+        protected string GetEmployeeId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EmployeeId")).Value;
+            return handler;
         }
 
         protected string GetEmail(string token)
