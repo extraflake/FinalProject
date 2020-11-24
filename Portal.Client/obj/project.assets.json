@@ -2,15 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "BCrypt.Net-Next/4.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/BCrypt.Net-Next.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/BCrypt.Net-Next.dll": {}
-        }
-      },
       "Dapper/2.0.35": {
         "type": "package",
         "dependencies": {
@@ -21,24 +12,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Dapper.dll": {}
-        }
-      },
-      "DinkToPdf/1.0.8": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Threading.Thread": "4.0.0"
-        },
-        "compile": {
-          "lib/netstandard1.6/DinkToPdf.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.6/DinkToPdf.dll": {}
         }
       },
       "MaterialDesignColors/1.2.7": {
@@ -64,21 +37,6 @@
         "build": {
           "build/MaterialDesignThemes.targets": {}
         }
-      },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.8": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
-        },
-        "compile": {
-          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       },
       "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
         "type": "package",
@@ -1990,7 +1948,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.5/System.Reflection.TypeExtensions.dll": {}
+          "ref/netstandard1.5/_._": {}
         },
         "runtime": {
           "lib/netstandard1.5/System.Reflection.TypeExtensions.dll": {}
@@ -2558,18 +2516,6 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Threading.Thread/4.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.1.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.Thread.dll": {}
-        }
-      },
       "System.Threading.Timer/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2702,7 +2648,6 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Dapper": "2.0.35",
-          "DinkToPdf": "1.0.8",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.0",
           "Microsoft.EntityFrameworkCore": "5.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0"
@@ -2716,59 +2661,10 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
-      },
-      "UserManagement/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "BCrypt.Net-Next": "4.0.0",
-          "Dapper": "2.0.35",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.8",
-          "Microsoft.EntityFrameworkCore": "3.1.9",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.9"
-        },
-        "compile": {
-          "bin/placeholder/UserManagement.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UserManagement.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
   "libraries": {
-    "BCrypt.Net-Next/4.0.0": {
-      "sha512": "1rjyVK+/YJnCElALjVNt/aUPIIRoFocFZzblsiFo2giA3WVYExk/E5UT6i4RqEHwIwEwoQHt02I1llaEIQ59eQ==",
-      "type": "package",
-      "path": "bcrypt.net-next/4.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bcrypt.net-next.4.0.0.nupkg.sha512",
-        "bcrypt.net-next.nuspec",
-        "lib/net20/BCrypt.Net-Next.dll",
-        "lib/net20/BCrypt.Net-Next.xml",
-        "lib/net35/BCrypt.Net-Next.dll",
-        "lib/net35/BCrypt.Net-Next.xml",
-        "lib/net40/BCrypt.Net-Next.dll",
-        "lib/net40/BCrypt.Net-Next.xml",
-        "lib/net452/BCrypt.Net-Next.dll",
-        "lib/net452/BCrypt.Net-Next.xml",
-        "lib/net462/BCrypt.Net-Next.dll",
-        "lib/net462/BCrypt.Net-Next.xml",
-        "lib/net472/BCrypt.Net-Next.dll",
-        "lib/net472/BCrypt.Net-Next.xml",
-        "lib/net48/BCrypt.Net-Next.dll",
-        "lib/net48/BCrypt.Net-Next.xml",
-        "lib/netstandard2.0/BCrypt.Net-Next.dll",
-        "lib/netstandard2.0/BCrypt.Net-Next.xml",
-        "lib/netstandard2.1/BCrypt.Net-Next.dll",
-        "lib/netstandard2.1/BCrypt.Net-Next.xml"
-      ]
-    },
     "Dapper/2.0.35": {
       "sha512": "/xAgd8BO8EDnJ0sURWEV8LptHHvTKxoYiT63YUF2U/yWE2VyUCqR2jcrtEyNngT9Kjzppecz95UKiBla3PnR7g==",
       "type": "package",
@@ -2782,20 +2678,6 @@
         "lib/net461/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
-      ]
-    },
-    "DinkToPdf/1.0.8": {
-      "sha512": "wJDlcNXjQ+OnBFwh3LBeAXgrXqlKl0RsgN60XpxEFbyqzdaG9ASb5HTXQjXQPaBguSCOrGZZESPnpcng34TEkw==",
-      "type": "package",
-      "path": "dinktopdf/1.0.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dinktopdf.1.0.8.nupkg.sha512",
-        "dinktopdf.nuspec",
-        "lib/netstandard1.6/DinkToPdf.dll",
-        "lib/netstandard1.6/DinkToPdf.pdb",
-        "lib/netstandard1.6/DinkToPdf.xml"
       ]
     },
     "MaterialDesignColors/1.2.7": {
@@ -2851,21 +2733,6 @@
         "materialdesignthemes.3.2.0.nupkg.sha512",
         "materialdesignthemes.nuspec",
         "tools/VisualStudioToolsManifest.xml"
-      ]
-    },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.8": {
-      "sha512": "sAXFFgsSEYd6PTFCzBKYBlXnb+ncclrQPMyMzARELxBv94Onqtr/JTWKih+NUr/3xR5BAs1xE6boao0Us6xcPA==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
-        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.3.1.8.nupkg.sha512",
-        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
@@ -8516,46 +8383,6 @@
         "version.txt"
       ]
     },
-    "System.Threading.Thread/4.0.0": {
-      "sha512": "gIdJqDXlOr5W9zeqFErLw3dsOsiShSCYtF9SEHitACycmvNvY8odf9kiKvp6V7aibc8C4HzzNBkWXjyfn7plbQ==",
-      "type": "package",
-      "path": "system.threading.thread/4.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Threading.Thread.dll",
-        "lib/netcore50/_._",
-        "lib/netstandard1.3/System.Threading.Thread.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.xml",
-        "ref/netstandard1.3/de/System.Threading.Thread.xml",
-        "ref/netstandard1.3/es/System.Threading.Thread.xml",
-        "ref/netstandard1.3/fr/System.Threading.Thread.xml",
-        "ref/netstandard1.3/it/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ja/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ko/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ru/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hans/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hant/System.Threading.Thread.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.threading.thread.4.0.0.nupkg.sha512",
-        "system.threading.thread.nuspec"
-      ]
-    },
     "System.Threading.Timer/4.3.0": {
       "sha512": "Z6YfyYTCg7lOZjJzBjONJTFKGN9/NIYKSxhU5GRd+DTwHSZyvWp1xuI5aR+dLg+ayyC5Xv57KiY4oJ0tMO89fQ==",
       "type": "package",
@@ -8886,35 +8713,33 @@
       "type": "project",
       "path": "../Portal/Portal.csproj",
       "msbuildProject": "../Portal/Portal.csproj"
-    },
-    "UserManagement/1.0.0": {
-      "type": "project",
-      "path": "../UserManagement/UserManagement.csproj",
-      "msbuildProject": "../UserManagement/UserManagement.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "MaterialDesignThemes >= 3.2.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
-      "Portal >= 1.0.0",
-      "UserManagement >= 1.0.0"
+      "Portal >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dionisius\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\Portal.Client\\Portal.Client.csproj",
+      "projectUniqueName": "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj",
       "projectName": "Portal.Client",
-      "projectPath": "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\Portal.Client\\Portal.Client.csproj",
-      "packagesPath": "C:\\Users\\dionisius\\.nuget\\packages\\",
-      "outputPath": "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\Portal.Client\\obj\\",
+      "projectPath": "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Tugas MII\\FinalProject\\Portal.Client\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\dionisius\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8927,11 +8752,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\Portal\\Portal.csproj": {
-              "projectPath": "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\Portal\\Portal.csproj"
-            },
-            "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\UserManagement\\UserManagement.csproj": {
-              "projectPath": "D:\\Bootcamp\\Tugas Akhir\\FinalProject\\UserManagement\\UserManagement.csproj"
+            "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj": {
+              "projectPath": "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj"
             }
           }
         }
@@ -8972,7 +8794,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
