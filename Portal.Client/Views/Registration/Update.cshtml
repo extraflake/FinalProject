@@ -15,49 +15,54 @@
             <!-- Full Name -->
             <div class="grid grid-ai-c">
                 <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname">
+                <input onchange="validfName();" class="form-control" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname">
             </div>
 
             <!-- Alamat Email -->
             <div class="grid grid-ai-c">
                 <label for="email" class="grid-item-left">Email : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan email anda..." id="email">
+                <input onchange="ValidateEmail();" class="form-control" type="text" placeholder="Masukkan email anda..." id="email">
             </div>
 
             <!-- Handphone -->
             <div class="grid grid-ai-c">
                 <label for="hp" class="grid-item-left">Nomor HP : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nomor handphone anda..." id="hp">
+                <input onchange="validPhone();" class="form-control" type="number" placeholder="Masukkan nomor handphone anda..." id="hp">
             </div>
 
             <!-- Tanggal lahir -->
             <div class="grid grid-ai-c">
                 <label for="birthdate" class="grid-item-left">Tanggal lahir : </label>
-                <input class="grid-item-right" type="date" placeholder="Masukkan tanggal lahir anda..." id="birthdate">
+                <input onchange="validBirth();" class="form-control" type="date" placeholder="Masukkan tanggal lahir anda..." id="birthdate">
             </div>
 
             <!-- Gender -->
             <div class="grid grid-ai-c">
                 <label for="gender" class="grid-item-left">Gender : </label>
-                <select class="grid-item-right" id="gender"> </select>
+                <select class="grid-item-right" id="gender">
+                    <option value="Pria">L</option>
+                    <option value="Wanita">P</option>
+                    <option value="none">Tidak disebutkan</option>
+                </select>
             </div>
 
             <!-- Agama -->
             <div class="grid grid-ai-c">
                 <label for="religion" class="grid-item-left">Agama : </label>
-                <select class="grid-item-right" id="religion"> </select>
+                <select class="grid-item-right" id="religion">
+                </select>
             </div>
 
             <!-- Sekolah/ Universitas -->
             <div class="grid grid-ai-c">
                 <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">
+                <input onchange="validUniv();" class="form-control" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">
             </div>
 
             <!-- Jurusan -->
             <div class="grid grid-ai-c">
                 <label for="department" class="grid-item-left">Jurusan : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama jurusan anda..." id="department">
+                <input onchange="validDept();" class="form-control" type="text" placeholder="Masukkan nama jurusan anda..." id="department">
             </div>
 
             <!-- Jenjang -->
@@ -89,13 +94,13 @@
             <!-- IPK Terakhir -->
             <div class="grid grid-ai-c">
                 <label for="gpa" class="grid-item-left">IPK Terakhir : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan IPK anda..." id="gpa">
+                <input onchange="validIpk();" class="form-control" type="number" placeholder="Masukkan IPK anda... (Skala 4.00)" id="gpa">
             </div>
 
             <!-- Kota Asal -->
             <div class="grid grid-ai-c">
                 <label for="hometown" class="grid-item-left">Kota Asal : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown">
+                <input onchange="validKota();" class="form-control" type="text" placeholder="Masukkan kota asal anda..." id="hometown">
             </div>
 
             <!-- Submit Button -->
@@ -119,5 +124,6 @@
     <script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>
 
     <script src="~/voler-master/dist/assets/js/main.js"></script>
+    <script src="~/js/UpdateValidateScript.js"></script>
 }
 
