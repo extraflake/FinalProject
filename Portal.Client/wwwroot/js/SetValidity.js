@@ -64,13 +64,21 @@ function validPassword() {
 }
 
 function Confirm() {
+    debugger
     if (confirm.value == '') {
         confirm.classList.remove("is-valid");
         confirm.classList.add("is-invalid");
     }
     else {
-        confirm.classList.remove("is-invalid");
-        confirm.classList.add("is-valid");
+        if (password.value == confirm.value) {
+            confirm.classList.remove("is-invalid");
+            confirm.classList.add("is-valid");
+        }
+        else
+        {
+            confirm.classList.remove("is-valid");
+            confirm.classList.add("is-invalid");
+        }
     }
 }
 

@@ -65,6 +65,7 @@ function ClearScreen() {
 }
 
 function SignIn() {
+    debugger
     var user = document.getElementById('user');
     var password = document.getElementById('password');
 
@@ -74,19 +75,29 @@ function SignIn() {
     RegisterVM.Phone = user.value;
     RegisterVM.User_Password = password.value;
 
-    $.ajax({
-        type: "POST",
-        url: '/Account/Login',
-        data: RegisterVM
-    }).then((result) => {
-        //console.log(result.data);
-        if (result.data == "berhasil") {
-            console.log(result.token);
-            //swal("Success!", "Registrasi anda berhasil!", "success");
-            window.location = result.url;
-        }
-        else swal("Error!", result.data, "error")
-    });
+    if (user.value == '') {
+        swal("Error!", "Silahkan Masukan Username/Phone/Email", "error");
+    }
+    else if (password.value == '')
+    {
+        swal("Error!", "Silahkan Masukan Password", "error");
+    }
+    else
+    {
+        $.ajax({
+            type: "POST",
+            url: '/Account/Login',
+            data: RegisterVM
+        }).then((result) => {
+            //console.log(result.data);
+            if (result.data == "berhasil") {
+                console.log(result.token);
+                //swal("Success!", "Registrasi anda berhasil!", "success");
+                window.location = result.url;
+            }
+            else swal("Error!", result.data, "error")
+        });
+    }   
 }
 
 function Forgot() {
