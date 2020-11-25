@@ -28,10 +28,24 @@ namespace Portal.Client.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error([Bind(Prefix ="id")] int statusCode = 0)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            switch (statusCode)
+            {
+                case 404:
+                    return Redirect("~/Error/E404");
+                case 403:
+                    return Redirect("~/Error/E403");
+                case 405:
+                    return Redirect("~/Error/E405");
+                case 400:
+                    return Redirect("~/Error/E400");
+                default:
+                    return Redirect("~/Error/E500");
+            }
+
+            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

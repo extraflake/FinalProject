@@ -78,7 +78,7 @@ namespace Portal.Client.Controllers
                         {
                             return Json(new { data = "gagal" });
                         }
-                        return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
+                        return Json(new { data = "berhasil", token = token, url = Url.Action("Index", "Registration") });
                     }
                     else
                     {

@@ -9,7 +9,6 @@
         success: function (data) {
             var qt = JSON.parse(data);
             console.log(qt);
-            //console.log(qt.data['phone']);
             var email = $("#email").val(qt.data['email']);
             var phone = $("#hp").val(qt.data['phone']);
         },
