@@ -49,6 +49,16 @@ namespace UserManagement.Controllers
                 var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole]",
                     dbparams, commandType: CommandType.StoredProcedure));
 
+                var getApplication = _myContext.UserApplications.Where(x => x.UserId == result.UserID).ToList();
+                List<string> arrayApp = new List<string>();
+                foreach(var item in getApplication)
+                {
+                    var getApplicationName = _myContext.Applications.Where(x => x.Id == i9mtem.ApplicationId).FirstOrDefault();
+                    arrayApp.Add(getApplicationName.Name);
+                }
+
+                string Applications = string.Join(",", arrayApp);
+
                 if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result.User_Password))
                 {
                     var claims = new[]
@@ -59,9 +69,9 @@ namespace UserManagement.Controllers
                     new Claim("User_Email", result.User_Email),
                     new Claim("Role_Name", result.Role_Name),
                     new Claim("Username", result.Username),
-                    new Claim("Application", result.Application),
+                    new Claim("UserApplication", Applications),
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
-                    new Claim("UserID", result.UserID.ToString()),
+                    new Claim("UserID", result.UserID.ToString())
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -317,7 +327,7 @@ namespace UserManagement.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountUniversity))]
         public List<CountVM> CountUniversity()
         {
@@ -325,7 +335,7 @@ namespace UserManagement.Controllers
             return result;
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountDepartment))]
         public List<CountVM> CountDepartment()
         {
