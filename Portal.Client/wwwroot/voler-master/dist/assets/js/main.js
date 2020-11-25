@@ -129,10 +129,10 @@ if (typeof PerfectScrollbar == 'function') {
 window.onload = function () {
   var w = window.innerWidth;
 
-  if (w < 768) {
-    console.log('widthnya ', w);
-    document.getElementById('sidebar').classList.remove('active');
-  }
+  //if (w < 768) {
+  //  console.log('widthnya ', w);
+  //  document.getElementById('sidebar').classList.remove('active');
+  //}
 };
 
 feather.replace();

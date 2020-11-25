@@ -12,10 +12,19 @@
 
     <div class="main-content container-fluid">
         <section class="section">
-            <!-- Full Name -->
+
+            <!-- First Name -->
             <div class="grid grid-ai-c">
-                <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
-                <input onchange="validfName();" class="form-control" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname">
+                <label for="fullname" class="grid-item-left">Nama Depan : </label>
+                <input onchange="validFirstName();"
+                       class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="firstname">
+            </div>
+
+            <!-- Last Name -->
+            <div class="grid grid-ai-c">
+                <label for="fullname" class="grid-item-left">Nama Belakang : </label>
+                <input onchange="validLastName();"
+                       class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="lastname" >
             </div>
 
             <!-- Alamat Email -->

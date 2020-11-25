@@ -1,5 +1,6 @@
 ﻿debugger;
-var fName = document.getElementById('fullname');
+var firstname = document.getElementById('firstname');
+var lastname = document.getElementById('lastname');
 var email = document.getElementById('email');
 var univ = document.getElementById('university');
 var dept = document.getElementById('department');
@@ -11,14 +12,25 @@ var birthdate = document.getElementById('birthdate');
 var validNumber = /[0-9]|\./;
 //var validIpk = /^ (([0 - 4]{ 1}\s)| ([0 - 3]{ 1 } \.\d{ 0, 2 } \s))| [4]\.[0]{ 0, 2 } \s/;
 
-function validfName() {
-    if (fName.value == '') {
-        fName.classList.remove("is-valid");
-        fName.classList.add("is-invalid");
+function validFirstName() {
+    if (firstname.value == '') {
+        firstname.classList.remove("is-valid");
+        firstname.classList.add("is-invalid");
     }
     else {
-        fName.classList.remove("is-invalid");
-        fName.classList.add("is-valid");
+        firstname.classList.remove("is-invalid");
+        firstname.classList.add("is-valid");
+    }
+}
+
+function validLastName() {
+    if (lastname.value == '') {
+        lastname.classList.remove("is-valid");
+        lastname.classList.add("is-invalid");
+    }
+    else {
+        lastname.classList.remove("is-invalid");
+        lastname.classList.add("is-valid");
     }
 }
 
