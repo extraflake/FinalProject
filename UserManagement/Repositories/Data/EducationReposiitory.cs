@@ -7,11 +7,11 @@ using UserManagement.Microservices.Models;
 
 namespace UserManagement.Repositories.Data
 {
-    public class RoleRepository : GeneralRepository<Role, MyContext>
+    public class EducationReposiitory : GeneralRepository<Education, MyContext>
     {
-        public RoleRepository(MyContext myContext): base(myContext)
+        public EducationReposiitory(MyContext myContext): base(myContext)
         {
-            
+
         }
     }
 }

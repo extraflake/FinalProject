@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Microservices.Context;
-using UserManagement.Microservices.Models;
+using UserManagement.Models;
 
 namespace UserManagement.Repositories.Data
 {
-    public class RoleRepository : GeneralRepository<Role, MyContext>
+    public class EmployeeRepository : GeneralRepository<Employee, MyContext>
     {
-        public RoleRepository(MyContext myContext): base(myContext)
+        public EmployeeRepository(MyContext myContext) : base(myContext)
         {
-            
+
         }
     }
 }
