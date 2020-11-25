@@ -13,6 +13,7 @@ var validNumber = /[0-9]|\./;
 //var validIpk = /^ (([0 - 4]{ 1}\s)| ([0 - 3]{ 1 } \.\d{ 0, 2 } \s))| [4]\.[0]{ 0, 2 } \s/;
 
 function validFirstName() {
+    debugger;
     if (firstname.value == '') {
         firstname.classList.remove("is-valid");
         firstname.classList.add("is-invalid");
@@ -24,6 +25,7 @@ function validFirstName() {
 }
 
 function validLastName() {
+    debugger;
     if (lastname.value == '') {
         lastname.classList.remove("is-valid");
         lastname.classList.add("is-invalid");

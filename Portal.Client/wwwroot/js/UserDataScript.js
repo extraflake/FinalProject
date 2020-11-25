@@ -42,42 +42,81 @@
             //var dateString = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
             var birthdate = $('#birthdate').val(dateString);
 
+            //debugger;
             var gender = document.getElementById("gender");
             var genderValue = qt.data['gender'];
-            var genderInnerHTML = null;
             if (genderValue == 'Pria') {
-                genderInnerHTML = 'L'
+                gender.selectedIndex = "0";
+            }
+            else if (genderValue == 'Wanita') {
+                gender.selectedIndex = "1";
             }
             else {
-                genderInnerHTML = 'P'
+                gender.selectedIndex = "2";
             }
-            gender.innerHTML = gender.innerHTML +
-                '<option>' + genderInnerHTML + '</option>';
 
 
             // Get Religion
-            debugger;
+            //debugger;
             var RegisterVM = new Object();
             RegisterVM.ReligionId = qt.data['religionID'];
 
-            $.ajax({
-                type: "Get",
-                url: '/Registration/GetReligion',
-                data: RegisterVM,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    debugger;
-                    var qt = JSON.parse(data);
+            $(document).ready(function () {
+                //debugger;
+                $.ajax({
+                    url: "/Account/GetNameReligion/",
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
 
-                    var religion = document.getElementById("religion");
-                    var religionValue = qt.data['name'];
                         
-                    religion.innerHTML = religion.innerHTML +
-                        '<option>' + religionValue + '</option>';
-                }
+                        //debugger;
+                        var qt = JSON.parse(data);
+                        //console.log(qt);
+                        var dropDown = document.getElementById("religion");
+                        for (var i = 0; i < qt.data.length; i++) {
+
+                            dropDown.innerHTML = dropDown.innerHTML +
+                                '<option value="' + qt.data[i]['id'] + '" id="' + qt.data[i]['name'] + '">' + qt.data[i]['name'] + '</option>';
+                            //debugger;
+                            //console.log(document.getElementById(qt.data[i]['name']));
+                        }
+                        //var agama = qt.data[2]['name'];
+                        //console.log(document.getElementById(qt.data[2]['name'] ).index);
+
+                        $.ajax({
+                            type: "Get",
+                            url: '/Registration/GetReligion',
+                            data: RegisterVM,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            async: false,
+                            success: function (religion) {
+                                //debugger;
+                                var qt = JSON.parse(religion);
+
+                                var dropDown = document.getElementById("religion");
+
+                                //console.log(document.getElementById('Islam').value);
+
+                                var ReligionData = qt.data['name'];
+                                //console.log(ReligionData);
+                                //console.log(document.getElementById(ReligionData).index);
+                                //console.log((document.getElementById(ReligionData).index).toString());
+                                //var religionValue = document.getElementById("religion");
+                                dropDown.selectedIndex = (document.getElementById(ReligionData).index).toString();
+                            }
+                        });
+
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
             });
+
             
         },
         error: function (errormessage) {

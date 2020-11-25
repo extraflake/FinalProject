@@ -11,7 +11,7 @@
         dataType: "json",
         async: false,
         success: function (data) {
-            debugger;
+            //debugger;
             var qt = JSON.parse(data);
             console.log(qt);
             var dropDown = document.getElementById("skill");
