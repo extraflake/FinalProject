@@ -8,6 +8,9 @@ var kota = document.getElementById('hometown');
 var phone = document.getElementById('hp');
 var birthdate = document.getElementById('birthdate');
 
+var validNumber = /[0-9]|\./;
+//var validIpk = /^ (([0 - 4]{ 1}\s)| ([0 - 3]{ 1 } \.\d{ 0, 2 } \s))| [4]\.[0]{ 0, 2 } \s/;
+
 function validfName() {
     if (fName.value == '') {
         fName.classList.remove("is-valid");
@@ -25,8 +28,15 @@ function validPhone() {
         phone.classList.add("is-invalid");
     }
     else {
-        phone.classList.remove("is-invalid");
-        phone.classList.add("is-valid");
+        if (phone.value.match(validNumber)) {
+            phone.classList.remove("is-invalid");
+            phone.classList.add("is-valid");
+        }
+        else
+        {
+            phone.classList.remove("is-valid");
+            phone.classList.add("is-invalid");
+        }
     }
 }
 
@@ -70,8 +80,13 @@ function validIpk() {
         ipk.classList.add("is-invalid");
     }
     else {
-            confirm.classList.remove("is-invalid");
-            confirm.classList.add("is-valid");
+        //if (ipk.value.match(validIpk))
+        //{
+            ipk.classList.remove("is-invalid");
+            ipk.classList.add("is-valid");
+        //}
+        //ipk.classList.remove("is-valid");
+        //ipk.classList.add("is-invalid");
     }
 }
 
