@@ -76,20 +76,20 @@ namespace Portal.Client.Controllers
 
                         if (token.Equals("Error"))
                         {
-                            return Json(new { data = "gagal" });
+                            return Json(new { data = "Login Gagal" });
                         }
                         return Json(new { data = "berhasil", token = token, url = Url.Action("Index", "Registration") });
                     }
                     else
                     {
-                        return Json(new { data = "gagal" });
+                        return Json(new { data = "Login Gagal" });
                     }
                     //return View();
                 }
             }
             catch (Exception)
             {
-                return Json(new { data = "gagal" });
+                return Json(new { data = "Account Tidak Terdaftar" });
             }
             
         }
@@ -156,13 +156,13 @@ namespace Portal.Client.Controllers
                     char[] trimChars = { '/', '"' };
                     if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
                     {
-                        return Json(new { data = "gagal" });
+                        return Json(new { data = "Email Invalid" });
                     }
                     return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
                 }
                 else
                 {
-                    return Json(new { data = "gagal" });
+                    return Json(new { data = "Email Tidak Terdaftar" });
                 }
                 //return View();
             }
@@ -235,7 +235,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Email Invalid";
                 }
                 //return View();
             }
@@ -264,7 +264,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Username Invalid";
                 }
             }
         }
@@ -292,7 +292,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Phone Invalid";
                 }
                 //return View();
             }
