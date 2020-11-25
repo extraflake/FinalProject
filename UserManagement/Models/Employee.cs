@@ -18,7 +18,7 @@ namespace UserManagement.Models
         public int UserID { get; set; }
         public User User { get; set; }
         public int ReligionID { get; set; }
-        public Religion Religion { get; set; }     
+        public Religion Religion { get; set; }  
         public Education Education { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

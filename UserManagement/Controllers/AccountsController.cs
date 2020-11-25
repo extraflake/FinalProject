@@ -53,7 +53,7 @@ namespace UserManagement.Controllers
                 List<string> arrayApp = new List<string>();
                 foreach(var item in getApplication)
                 {
-                    var getApplicationName = _myContext.Applications.Where(x => x.Id == i9mtem.ApplicationId).FirstOrDefault();
+                    var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
                     arrayApp.Add(getApplicationName.Name);
                 }
 
