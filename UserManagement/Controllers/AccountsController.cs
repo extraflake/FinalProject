@@ -37,7 +37,6 @@ namespace UserManagement.Controllers
             _dapper = dapper;
         }
 
-
         [HttpPost(nameof(Get))]
         public async Task<string> Get(RegisterVM userroleVM)
         {
@@ -50,6 +49,16 @@ namespace UserManagement.Controllers
                 var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole]",
                     dbparams, commandType: CommandType.StoredProcedure));
 
+                var getApplication = _myContext.UserApplications.Where(x => x.UserId == result.UserID).ToList();
+                List<string> arrayApp = new List<string>();
+                foreach(var item in getApplication)
+                {
+                    var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
+                    arrayApp.Add(getApplicationName.Name);
+                }
+
+                string Applications = string.Join(",", arrayApp);
+
                 if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result.User_Password))
                 {
                     var claims = new[]
@@ -60,9 +69,9 @@ namespace UserManagement.Controllers
                     new Claim("User_Email", result.User_Email),
                     new Claim("Role_Name", result.Role_Name),
                     new Claim("Username", result.Username),
-                    new Claim("Application", result.Application),
+                    new Claim("UserApplication", Applications),
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
-                    new Claim("UserID", result.UserID.ToString()),
+                    new Claim("UserID", result.UserID.ToString())
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -113,7 +122,6 @@ namespace UserManagement.Controllers
         [HttpPost(nameof(RegisterAdmin))]
         public async Task<int> RegisterAdmin(RegisterVM data)
         {
-
             try
             {
                 var password = data.User_Password;
@@ -246,6 +254,7 @@ namespace UserManagement.Controllers
                 return 404;
             }
         }
+
         [HttpPost(nameof(CheckEmail))]
         public async Task<string> CheckEmail(RegisterVM userroleVM)
         {
@@ -269,6 +278,7 @@ namespace UserManagement.Controllers
             }
 
         }
+
         [HttpPost(nameof(CheckUsername))]
         public async Task<string> CheckUsername(RegisterVM userroleVM)
         {
@@ -292,6 +302,7 @@ namespace UserManagement.Controllers
             }
 
         }
+
         [HttpPost(nameof(CheckPhone))]
         public async Task<string> CheckPhone(RegisterVM userroleVM)
         {
@@ -315,18 +326,24 @@ namespace UserManagement.Controllers
             }
 
         }
+
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountUniversity))]
         public List<CountVM> CountUniversity()
         {
             var result = (_dapper.GetAll<CountVM>($"select u.Name as University, count(e.UniversityId) as Total from TB_T_Education e join TB_M_University u on e.UniversityId = u.Id group by u.Name", null, commandType: CommandType.Text));
             return result;
         }
+
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountDepartment))]
         public List<CountVM> CountDepartment()
         {
             var result = (_dapper.GetAll<CountVM>($"select d.Name as Department, count(e.DepartmentId) as Total from TB_T_Education e join TB_M_Department d on e.DepartmentId = d.Id group by d.Name", null, commandType: CommandType.Text));
             return result;
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet(nameof(CountUser))]
         public List<CountVM> CountUser()
         {
