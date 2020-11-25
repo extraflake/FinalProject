@@ -114,8 +114,13 @@ namespace Portal.Client.Controllers
         {
             char[] trimChars = { '/', '"' };
 
-            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("Application")).Value;
-            return handler;
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserApplication")).Value;
+            
+            string[] words = handler.Split(',');
+
+            string application = words[0];
+
+            return application;
         }
 
         protected string GetUsername(string token)
