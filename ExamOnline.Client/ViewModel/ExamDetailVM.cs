@@ -17,6 +17,10 @@ namespace ExamOnline.Client.ViewModel
         public int Score { get; set; }
         public string Grades { get; set; }
 
+        //Record
+        public int RecordId { get; set; }
+        public byte[] VideoRecord { get; set; }
+
         //Duration
         public int DurationId { get; set; }
         public DateTime StartTime { get; set; }
