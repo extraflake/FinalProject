@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RioWwX+JRhXM5pwB0Qtp7x9W1+VVy/OegZiXHOv9EGfuXU37X8H6Nx9rplSngaTyzeBoXCTFwdRtRkPSUOekOw==",
+  "dgSpecHash": "E4oBNjQwY0tXV8Jth5vTqtX9BfFLFLAwDWTpclttlBuLPMU8JglrxBA2ft1sa9wGkUrbvDwh1kYzcEKtjH2ZBA==",
   "success": true,
-  "projectFilePath": "E:\\Metrodata\\Github\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj",
+  "projectFilePath": "E:\\Metrodata\\Github\\FinalProject\\Portal.Client\\Portal.Client.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\materialdesigncolors\\1.2.7\\materialdesigncolors.1.2.7.nupkg.sha512",
+    "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\materialdesignthemes\\3.2.0\\materialdesignthemes.3.2.0.nupkg.sha512",
     "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
