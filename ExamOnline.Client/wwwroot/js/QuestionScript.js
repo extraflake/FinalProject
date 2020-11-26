@@ -22,6 +22,68 @@ $(document).ready(function () {
     }); 
 
     $.ajax({
+    });
+    /*debugger;
+    table = $('#tableQuestion').DataTable({
+        ajax: {
+            "type": "GET",
+            "url": "/Question/LoadQuestion",
+            "contentType": "application/json; charset=utf-8",
+            "dataType": "json",
+            "dataSrc": "data",
+            "success": function (data) {
+                qt = JSON.parse(data);
+                console.log(qt);
+            },
+            
+             columns: [
+                {
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
+                    "data": "id",
+                    "visible": false
+                },
+                { "data": "title" },
+                { "data": "quest" },
+                {
+                    "data": "answerA",
+                    "visible": false
+                },
+                {
+                    "data": "answerB",
+                    "visible": false
+                },
+                {
+                    "data": "answerC",
+                    "visible": false
+                },
+                {
+                    "data": "answerD",
+                    "visible": false
+                },
+                {
+                    "data": "point",
+                    "visible": false
+                },
+                {
+                    "data": "segmentId",
+                    "visible": false
+                },
+                {
+                    "render": function (data, type, row) {
+                        return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                            '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteQuestion(' + row.id + ');"><i class="fa fa-trash"></i></button>'
+                    }
+                }]
+        }
+        
+    });
+    console.log();*/
+
+     $.ajax({
         "type": "GET",
         "url": "/Question/LoadQuestion",
         "contentType": "application/json; charset=utf-8",
@@ -29,7 +91,7 @@ $(document).ready(function () {
         "success": function (data) {
             qt = JSON.parse(data);
             console.log(qt);
-            table = $('#tableQuestion').DataTable({
+             $('#tableQuestion').DataTable({
                 data: qt,
                 columns: [
                     {
@@ -124,6 +186,7 @@ function Save() {
 function Add() {
     $('#updateBtn').hide();
     $('#saveBtn').show();
+    ClearScreen();
 }
 
 function DeleteQuestion(id) {
@@ -206,10 +269,22 @@ function GetById(id) {
             $('#myModal').modal();
             $('#updateBtn').show();
             $('#saveBtn').hide();
+            
         }
     }).catch((error) => {
         console.log(error);
     });
+}
+function ClearScreen() {
+    $('#Id').val('');
+    $('#segmentName').val('');
+    $('#question').val('');
+    $('#answerA').val('');
+    $('#answerB').val('');
+    $('#answerC').val('');
+    $('#answerD').val('');
+    $('#point').val('');
+    $('#segment').val('');
 }
 
 function UpdateQuestion() {
@@ -241,7 +316,7 @@ function UpdateQuestion() {
                 title: 'Updated successfully!'
             });
             $('#tableQuestion').DataTable(ajax.reload());
-
+            ClearScreen();
         }
         else {
             Swal.fire({

@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Layout/_UserLayout.cshtml";
+}
+
+<div class="main" id="main">
+    <nav class="navbar navbar-header navbar-expand navbar-light">
+        <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+
+    </nav>
+
+    <div class="main-content container-fluid">
+        <section class="section">
+
+            <!-- First Name -->
+            <div class="grid grid-ai-c">
+                <label for="firstname" class="grid-item-left">Nama Depan : </label>
+                <input onkeyup="validFirstName();"
+                       class="form-control" type="text" placeholder="Masukkan nama depan anda..." id="firstname">
+            </div>
+
+            <!-- Last Name -->
+            <div class="grid grid-ai-c">
+                <label for="lastname" class="grid-item-left">Nama Belakang : </label>
+                <input onkeyup="validLastName();"
+                       class="form-control" type="text" placeholder="Masukkan nama belakang anda..." id="lastname">
+            </div>
+
+            <!-- Alamat Email -->
+            <div class="grid grid-ai-c">
+                <label for="email" class="grid-item-left">Email : </label>
+                <input onkeyup="ValidateEmail();" class="form-control" type="text" placeholder="Masukkan email anda..." id="email">
+            </div>
+
+            <!-- Handphone -->
+            <div class="grid grid-ai-c">
+                <label for="hp" class="grid-item-left">Nomor HP : </label>
+                <input onkeyup="validPhone();" class="form-control" type="number" placeholder="Masukkan nomor handphone anda..." id="hp">
+            </div>
+
+            <!-- Tanggal lahir -->
+            <div class="grid grid-ai-c">
+                <label for="birthdate" class="grid-item-left">Tanggal lahir : </label>
+                <input onkeyup="validBirth();" class="form-control" type="date" placeholder="Masukkan tanggal lahir anda..." id="birthdate">
+            </div>
+
+            <!-- Gender -->
+            <div class="grid grid-ai-c">
+                <label for="gender" class="grid-item-left">Gender : </label>
+                <select class="grid-item-right" id="gender">
+                    <option value="Pria">L</option>
+                    <option value="Wanita">P</option>
+                    <option value="none">Tidak disebutkan</option>
+                </select>
+            </div>
+
+            <!-- Agama -->
+            <div class="grid grid-ai-c">
+                <label for="religion" class="grid-item-left">Agama : </label>
+                <select class="grid-item-right" id="religion">
+                </select>
+            </div>
+
+            <!-- Sekolah/ Universitas -->
+            <div class="grid grid-ai-c">
+                <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
+                <select class="grid-item-right" id="university">
+                </select>
+                @*<input onkeyup="validUniv();" class="form-control" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">*@
+            </div>
+
+            <!-- Jurusan -->
+            <div class="grid grid-ai-c">
+                <label for="department" class="grid-item-left">Jurusan : </label>
+                <select class="grid-item-right" id="department">
+                </select>
+                @*<input onkeyup="validDept();" class="form-control" type="text" placeholder="Masukkan nama jurusan anda..." id="department">*@
+            </div>
+
+            <!-- Jenjang -->
+            <div class="grid grid-ai-c">
+                <label for="aclevel" class="grid-item-left">Jenjang Pendidikan : </label>
+                <select class="grid-item-right" id="degree">
+                    <option value="SMK/SMA">SMK/SMA</option>
+                    <option value="D3">D3 (Diploma)</option>
+                    <option value="D4/S1">D4/S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
+            </div>
+
+            <!-- Tahun lulus -->
+            <div class="grid grid-ai-c">
+                <label for="gradyear" class="grid-item-left">Tahun Kelulusan : </label>
+                <select class="grid-item-right" id="gradyear">
+                    @*<option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>*@
+                </select>
+            </div>
+
+            <!-- IPK Terakhir -->
+            <div class="grid grid-ai-c">
+                <label for="gpa" class="grid-item-left">IPK Terakhir : </label>
+                <input onkeyup="validIpk();" class="form-control" type="number" placeholder="Masukkan IPK anda... (Skala 4.00)" id="gpa">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="grid grid-jc-c">
+                <label></label>
+                <button onclick="Submit();" 
+                        type="button" id="submit-btn">Ubah Data</button>
+            </div>
+        </section>
+    </div>
+
+
+</div>
+
+@section script{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/voler-master/dist/assets/js/feather-icons/feather.min.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/app.js"></script>
+
+    @*<script src="~/voler-master/dist/assets/vendors/chartjs/Chart.min.js"></script>
+        <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
+        <script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>*@
+
+    <script src="~/voler-master/dist/assets/js/main.js"></script>
+    <script src="~/js/UpdateValidateScript.js"></script>
+    <script src="~/js/UserDataScript.js"></script>
+    <script src="~/js/UniversityScript.js"></script>
+    <script src="~/js/UpdateDataScript.js"></script>
+}
+
