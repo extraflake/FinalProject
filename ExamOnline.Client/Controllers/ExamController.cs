@@ -1,4 +1,4 @@
-﻿using ExamOnline.Client.ViewModel;
+﻿using ExamOnline.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
