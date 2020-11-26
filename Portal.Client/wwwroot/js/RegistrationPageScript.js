@@ -9,7 +9,7 @@ uploadField.onchange = function () {
 };
 
 function Submit() {
-    //debugger;
+    debugger;
     //Add ApplicantVM as a new Object
     var ApplicantVM = new Object();
 
@@ -26,7 +26,7 @@ function Submit() {
     }
 
     $.ajax({
-        type: "Put",
+        type: "Post",
         url: '/Registration/Upload',
         data: formData,
         processData: false,
@@ -42,39 +42,55 @@ function Submit() {
         skillList = $("#skill").val();
         ApplicantVM.SkillId = skillList;
         debugger
-        if (Univ == '') {
-            swal("Error!", "Silahkan Lakukan Update Data Pendidikan Anda", "error");
-        }
-        else
-        {
-            if (ApplicantVM.CreatedOn == null) {
-                swal("Error!", "Silahkan Attech CV Anda", "error");
+        $.ajax({
+            type: "Post",
+            url: '/Registration/Register',
+            data: ApplicantVM
+        }).then((result) => {
+            console.log(result.data);
+            //$('#files').value('');
+            if (result.data == "gagal") {
+                swal("Error!", "Please try again in a moment!", "error");
             }
-            else if (ApplicantVM.SkillId == null) {
-                swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
+            else if (result.data == "berhasil") {
+                swal("Success!", "Your Registration is Success!", "success");
+                ClearScreen();
             }
-            else if (ApplicantVM.SkillId == null) {
-                swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
-            }
-            else {
-                //debugger
-                $.ajax({
-                    type: "Post",
-                    url: '/Registration/Register',
-                    data: ApplicantVM
-                }).then((result) => {
-                    console.log(result.data);
-                    //$('#files').value('');
-                    if (result.data == "gagal") {
-                        swal("Error!", "Please try again in a moment!", "error");
-                    }
-                    else if (result.data == "berhasil") {
-                        swal("Success!", "Your Registration is Success!", "success");
-                        ClearScreen();
-                    }
-                });
-            }
-        }
+        });
+
+        //if (Univ == '') {
+        //    swal("Error!", "Silahkan Lakukan Update Data Pendidikan Anda", "error");
+        //}
+        //else
+        //{
+        //    if (ApplicantVM.CreatedOn == null) {
+        //        swal("Error!", "Silahkan Attech CV Anda", "error");
+        //    }
+        //    else if (ApplicantVM.SkillId == null) {
+        //        swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
+        //    }
+        //    else if (ApplicantVM.SkillId == null) {
+        //        swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
+        //    }
+        //    else {
+        //        //debugger
+        //        $.ajax({
+        //            type: "Post",
+        //            url: '/Registration/Register',
+        //            data: ApplicantVM
+        //        }).then((result) => {
+        //            console.log(result.data);
+        //            //$('#files').value('');
+        //            if (result.data == "gagal") {
+        //                swal("Error!", "Please try again in a moment!", "error");
+        //            }
+        //            else if (result.data == "berhasil") {
+        //                swal("Success!", "Your Registration is Success!", "success");
+        //                ClearScreen();
+        //            }
+        //        });
+        //    }
+        //}
     });
 }
 
