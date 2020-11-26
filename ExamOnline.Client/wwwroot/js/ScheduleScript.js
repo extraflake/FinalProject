@@ -22,7 +22,22 @@ $(document).ready(function () {
                         "data": "id",
                         "visible": false
                     },
-                    { "data": "scheduleTime" },
+                    {
+                        "data": "scheduleTime",
+                        "render": function (data, type, row, meta) {
+                            var date = new Date(data);
+                            return date.toString("YYYY-MM-dd")
+                        }
+                    },
+                    {
+                        "data": "isActive",
+                        "render": function (data, type, row, meta) {
+                            if (data == true) {
+                                return "Is Active";
+                            }
+                            return "Is not Active";
+                        }
+                    },
                     {
                         "render": function (data, type, row) {
                             return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
@@ -31,7 +46,7 @@ $(document).ready(function () {
                     }]
             });
         }
-    }); 
+    });
 });
 
 function Add() {
@@ -39,6 +54,7 @@ function Add() {
     $('#saveBtn').show();
     $('#date').val('');
     $('#time').val('');
+    $('#status').val('');
 }
 
 function Save() {
@@ -48,13 +64,15 @@ function Save() {
     var y = date.getFullYear();
     var m = date.getMonth();
     var d = date.getDate();
-    var h = time.substring(0,2);
-    var min = time.substring(3,5);
-    var scheduleDatetime = new Date(y, m, d,h,min);
+    var h = time.substring(0, 2);
+    console.log(h);
+    var min = time.substring(3, 5);
+    var scheduleDatetime = new Date(y, m, d, h , min);
     Schedule.scheduleTime = scheduleDatetime.toISOString();
-    console.log(Schedule.scheduleTime);
+    var status = document.getElementById('status');
+    Schedule.isActive = (status == (status));
     $.ajax({
-        type: "Post",
+        type: "POST",
         url: '/schedule/addschedule',
         data: Schedule
     }).then((result) => {
@@ -145,6 +163,8 @@ function GetById(id) {
                 console.log(time);
                 $('#date').val(today);
                 $('#time').val(time);
+                console.log(obj['isActive']);
+                $('#status').val(obj['isActive'].toString());
 
                 $('#myModal').modal();
                 $('#updateBtn').show();
@@ -172,7 +192,8 @@ function UpdateSchedule() {
     var min = time.substring(3, 5);
     var scheduleDatetime = new Date(y, m, d, h, min);
     Schedule.scheduleTime = scheduleDatetime.toISOString();
-    console.log(Schedule.scheduleTime);
+    var status = document.getElementById('status');
+    Schedule.isActive = (status == (status));
     debugger;
     $.ajax({
         type: "PUT",
@@ -199,3 +220,4 @@ function UpdateSchedule() {
         console.log(error);
     });
 }
+

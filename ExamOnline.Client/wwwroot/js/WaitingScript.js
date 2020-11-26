@@ -1,5 +1,5 @@
-﻿var dateChoosen = localStorage.getItem("chosen");
-var id = localStorage.getItem("id");
+﻿var dateChoosen = sessionStorage.getItem("chosen");
+var id = sessionStorage.getItem("id");
 
 var countDownDate = new Date(dateChoosen).getTime();
 console.log(countDownDate);

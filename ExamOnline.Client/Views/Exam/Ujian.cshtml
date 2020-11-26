@@ -18,6 +18,11 @@
                     <div class="card-body" id="btnNav">
                     </div>
                 </div>
+                <div class="fixed-bottom">
+                    <div class="card-body" id="videoDiv">
+                        <video id="gum" playsinline muted autoplay width="230" height="140" poster="~/voler-master/dist/assets/images/logo_metrodata.png"></video>
+                    </div>
+                </div>
             </div>
             <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
@@ -34,20 +39,21 @@
                     <li class="dropdown nav-icon">
                         <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
                             <div class="d-lg-inline-block">
+                                <span class="badge-danger" id="badge">1</span>
                                 <i data-feather="bell"></i>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-large">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-large" id="notif">
                             <h6 class='py-2 px-4'>Notifications</h6>
                             <ul class="list-group rounded-none">
                                 <li class="list-group-item border-0 align-items-start">
-                                    <div class="avatar bg-success mr-3">
-                                        <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
+                                    <div class="avatar bg-danger mr-3">
+                                        <span class="avatar-content" id="notifIcon"><i data-feather="clock"></i></span>
                                     </div>
                                     <div>
-                                        <h6 class='text-bold'>New Order</h6>
-                                        <p class='text-xs'>
-                                            An order made by Ahmad Saugi for product Samsung Galaxy S69
+                                        <h6 class='text-bold' id="notifTitle">Nothing here!</h6>
+                                        <p class='text-xs' id="notifText">
+
                                         </p>
                                     </div>
                                 </li>
@@ -71,7 +77,7 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <div class="avatar mr-1">
-                                <img src="~/voler-master/dist/assets/images/avatar/avatar-s-1.png" alt="" srcset="">
+                                <img src="~/voler-master/dist/assets/images/user_avatar.png" alt="" srcset="">
                             </div>
                             <div class="d-none d-md-block d-lg-inline-block">Hi, Judel</div>
                         </a>
@@ -92,6 +98,7 @@
                 <h3 id="segmentName">Segment 1</h3>
                 <p class="text-subtitle text-muted" id="segmentDuration"></p>
                 <p class="text-subtitle text-muted" id="questionQuantity"></p>
+                <p class="text-subtitle text-muted" id="remainingTime"></p>
             </div>
             <section class="section">
                 <div class="row mb-12">
@@ -177,6 +184,7 @@
     <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
     <script src="~/voler-master/dist/assets/js/main.js"></script>
     <script src="~/js/sweetAlert.js"></script>
+    <script src="~/js/MediaScript.js"></script>
     <script src="~/js/ExamOnlineScript.js"></script>
 
 }
