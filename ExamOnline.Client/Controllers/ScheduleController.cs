@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExamOnline.Client.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -57,34 +58,26 @@ namespace ExamOnline.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadSchedules(ExamOnline.Models.Schedule schedule)
+        public ActionResult LoadSchedules()
         {
-            using (HttpClient client = new HttpClient())
+            ExamDetailJson schedule = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44301");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(schedule);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/schedules").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    char[] trimChars = { '/', '"' };
-
-                    //var jwt = response.Content.ReadAsStringAsync().Result.ToString();
-                    //var handler = new JwtSecurityTokenHandler().ReadJwtToken(jwt.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("RoleName")).Value;
-                    //var role = handler;
-                    //HttpContext.Session.SetString(SessionEmail, role);
-                    //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
-
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44301/api/")
+            };
+            var responseTask = client.GetAsync("schedules");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                schedule = JsonConvert.DeserializeObject<ExamDetailJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(schedule);
         }
 
         [HttpPost]

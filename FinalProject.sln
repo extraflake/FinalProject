@@ -19,10 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamOnline.Client", "ExamOn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "GatewayAPI\GatewayAPI.csproj", "{C015F440-ABC9-42D4-AF80-2DD3CD5A2560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_grafik", "Client_grafik\Client_grafik.csproj", "{ACE4AB5F-EACE-49F4-86E8-F08EDBDD89C9}"
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D4821BAF-B86B-4F24-882D-6F04EB7F0400}"
-EndProject
-
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client_grafik", "Client_grafik\Client_grafik.csproj", "{ACE4AB5F-EACE-49F4-86E8-F08EDBDD89C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
