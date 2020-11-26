@@ -68,13 +68,17 @@
             <!-- Sekolah/ Universitas -->
             <div class="grid grid-ai-c">
                 <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university" disabled>
+                <select class="grid-item-right" id="university" disabled>
+                </select>
+                @*<input onkeyup="validUniv();" class="form-control" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">*@
             </div>
 
             <!-- Jurusan -->
             <div class="grid grid-ai-c">
                 <label for="department" class="grid-item-left">Jurusan : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama jurusan anda..." id="department" disabled>
+                <select class="grid-item-right" id="department" disabled>
+                </select>
+                @*<input onkeyup="validDept();" class="form-control" type="text" placeholder="Masukkan nama jurusan anda..." id="department">*@
             </div>
 
             <!-- Jenjang -->
@@ -162,6 +166,7 @@
     <script src="~/js/ApplicantDataScript.js"></script>
 
     <!-- Data Load -->
+    <script src="~/js/UniversityScript.js"></script>
     <script src="~/js/UserDataScript.js"></script>
 }
 

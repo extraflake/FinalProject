@@ -37,10 +37,34 @@ function Submit() {
         ApplicantVM.CreatedOn = result.date;
         ApplicantVM.PositionId = document.getElementById('position').value;
         ApplicantVM.ReferenceId = document.getElementById('reference').value;
-        var Univ = document.getElementById('university').value;
+        
         // Add all skill
         skillList = $("#skill").val();
         ApplicantVM.SkillId = skillList;
+        
+        //Education Data
+        var Univ = document.getElementById('university').value;
+
+        ApplicantVM.FirstName = document.getElementById('firstname').value;
+        ApplicantVM.LastName = document.getElementById('lastname').value;
+        ApplicantVM.Email = document.getElementById('email').value;
+        ApplicantVM.Phone = document.getElementById('hp').value;
+        ApplicantVM.BirthDate = document.getElementById('birthdate').value;
+        ApplicantVM.GPA = document.getElementById('gpa').value;
+        ApplicantVM.Gender = document.getElementById('gender').value;
+
+        var religion = document.getElementById('religion');
+        ApplicantVM.Religion = religion.options[religion.selectedIndex].text;
+
+        var university = document.getElementById('university');
+        ApplicantVM.University = university.options[university.selectedIndex].text;
+
+        var department = document.getElementById('department');
+        ApplicantVM.Department = department.options[department.selectedIndex].text;
+
+        ApplicantVM.Degree = document.getElementById('degree').value;
+        ApplicantVM.GraduationYear = document.getElementById('gradyear').value;
+
         debugger
         $.ajax({
             type: "Post",

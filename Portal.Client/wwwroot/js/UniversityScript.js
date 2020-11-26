@@ -14,8 +14,9 @@
             for (var i = 0; i < qt.data.length; i++) {
 
                 dropDown.innerHTML = dropDown.innerHTML +
-                    '<option value="' + qt.data[i]['id'] + '">' + qt.data[i]['name'] + '</option>';
+                    '<option value="' + qt.data[i]['id'] + '" id="' + qt.data[i]['name'] + '">' + qt.data[i]['name'] + '</option>';
             }
+            
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -35,11 +36,12 @@
             for (var i = 0; i < qt.data.length; i++) {
 
                 department.innerHTML = department.innerHTML +
-                    '<option value="' + qt.data[i]['id'] + '">' + qt.data[i]['name'] + '</option>';
+                    '<option value="' + qt.data[i]['id'] + '" id="' + qt.data[i]['name'] + '">' + qt.data[i]['name'] + '</option>';
             }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+
 });

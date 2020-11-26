@@ -81,7 +81,7 @@ function SignIn() {
     }).then((result) => {
         //console.log(result.data);
         if (result.data == "berhasil") {
-            //console.log(result.token);
+            console.log(result.token);
             //swal("Success!", "Registrasi anda berhasil!", "success");
             window.location = result.url;
         }

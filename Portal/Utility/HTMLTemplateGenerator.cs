@@ -1,5 +1,6 @@
 ﻿using Portal.Context;
 using Portal.Models;
+using Portal.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +12,12 @@ namespace Portal.Utility
     public class HTMLTemplateGenerator
     {
         private Applicant _applicant;
-        private MyContext _myContext;
-        public HTMLTemplateGenerator(Applicant applicant)
+        private ApplicantVM _applicantVM;
+        public HTMLTemplateGenerator(Applicant applicant, ApplicantVM applicantVM)
         {
             _applicant = applicant;
+            _applicantVM = applicantVM;
         }
-
-        //public string GetHTMLString()
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.Append(@"
-        //                <html>
-        //                    <head>
-        //                    </head>
-        //                    <body>
-        //                        <div class='header'><h1>This is the generated PDF report!!!</h1></div>
-        //                        <table align='center'>");
-
-        //    sb.AppendFormat(@"
-        //                        <p>
-        //                        Posisi      : {0}<br>
-        //                        Referensi   : {1}<br>
-        //                        Skill       : ", _applicant.Position.Name, _applicant.Reference.Name);
-
-
-        //    foreach (var item in _applicant.Skills)
-        //    {
-        //        sb.AppendFormat(@"{0}, ", item.Name);
-        //    }
-
-        //    sb.Append(@"</p>
-        //                        </table>
-        //                    </body>
-        //                </html>");
-        //    return sb.ToString();
-        //}
 
         public string GetHTMLString()
         {
@@ -65,39 +37,41 @@ namespace Portal.Utility
                                 <title></title>
                             </head>
                             <body>
-                                <div class='header'>
-                                    <div class='header_name'>Dionisius Yose Deofili Abadi</div>");
+                                <div class='header'>");
+
+            sb.AppendFormat("       <div class='header_name'>{0} {1}</div>", _applicantVM.FirstName, _applicantVM.LastName);
 
             sb.AppendFormat(@"
                                     <div class='header_position'>{0}</div>", _applicant.Position.Name);
 
-            sb.Append(@"
+            sb.AppendFormat(@"
                                 </div>
                                 <div class='flex '>
                                     <div class='flex flex__container'>
                                         <i class='flex__icon' data-feather='mail'></i>
-                                        dionisiusyose11@gmail.com
-                                    </div>
-            
+                                        {0}
+                                    </div>", _applicantVM.Email);
+
+            sb.AppendFormat(@"            
                                     <div class='flex flex__container'>
                                         <i class='flex__icon' data-feather='phone'></i>
-                                        +6282242275560
+                                        {0}
                                     </div>
-                                </div>
+                                </div>", _applicantVM.Phone);
 
-                                <div class='personal'>
+             sb.AppendFormat(@" <div class='personal'>
                                     <h2>Data Pribadi</h2>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Tanggal lahir</div>
-                                        <div>: 11 Oktober 1997 </div>
+                                        <div>: {0} </div>
                                     </div>
                                     <div class='flex flex_-container '>
                                         <div class='personal_label personal__container'>Jenis Kelamin</div>
-                                        <div>: Laki - laki </div>
+                                        <div>: {1} </div>
                                     </div>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Agama</div>
-                                        <div>: Katholik </div>
+                                        <div>: {2} </div>
                                     </div>
                                 </div>
 
@@ -105,48 +79,54 @@ namespace Portal.Utility
                                     <h2>Data Pendidikan</h2>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Asal Kampus/ Sekolah</div>
-                                        <div>: Institut Teknologi Sepuluh Nopember </div>
+                                        <div>: {3} </div>
                                     </div>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Asal Departemen</div>
-                                        <div>: Teknik Elektro </div>
+                                        <div>: {4} </div>
                                     </div>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Jenjang</div>
-                                        <div>: Strata-1 </div>
+                                        <div>: {5} </div>
                                     </div>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Tahun lulus</div>
-                                        <div>: 2020 </div>
+                                        <div>: {6} </div>
                                     </div>
                                     <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>IPK</div>
-                                        <div>: 3.35 </div>
+                                        <div>: {7} </div>
                                     </div>
                                 </div>
                                 <div class='personal'>
                                     <h2>Informasi Lain</h2>
                                     <div class='flex flex_-container'>
-                                        <div class='personal_label personal__container'>Referensi</div>");
+                                        <div class='personal_label personal__container'>Referensi</div>", 
+                                        _applicantVM.BirthDate.ToString("dd MMMM yyyy"), _applicantVM.Gender, _applicantVM.Religion, _applicantVM.University,
+                                        _applicantVM.Department, _applicantVM.Degree, _applicantVM.GraduationYear, _applicantVM.GPA
+                                        );
 
             sb.AppendFormat(@"
                                         <div>: {0} </div>", _applicant.Reference.Name);
 
-            sb.Append(@"
+            List<string> arraySkill = new List<string>();
+            foreach (var item in _applicant.Skills)
+            {
+                arraySkill.Add(item.Name);
+            }
+
+            string SkillList = string.Join(", ", arraySkill);
+
+            sb.AppendFormat(@"
                                     </div>
-                                    <div class='flex flex_-container personal__list'>
+                                    <div class='flex flex_-container'>
                                         <div class='personal_label personal__container'>Keahlian</div>
                                         <div>: </div>
                                     </div>
-                                    <ul class='personal'>");
-
-            foreach (var item in _applicant.Skills)
-            {
-                sb.AppendFormat(@"
-                                        <li>{0}</li> ", item.Name);}
+                                    <div> {0}", SkillList);
 
             sb.Append(@"
-                                    </ul> 
+                                    
                                 </div>
                             </body>	
 

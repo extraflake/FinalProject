@@ -141,15 +141,53 @@ namespace Portal.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetUniversity()
+        public ActionResult GetDepartment(EditProfileVM editProfileVM)
         {
+            try
+            {
+                editProfileVM.DepartmentId = HttpContext.Session.GetString("DepartmentId");
+            }
+            catch (Exception)
+            {
+                editProfileVM.DepartmentId = "";
+            }
             //HttpContext.Session.GetString("University");
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44358");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
-                var response = client.GetAsync("/api/universitys").Result;
+                var response = client.GetAsync($"/api/departments/{editProfileVM.DepartmentId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetUniversity(EditProfileVM editProfileVM)
+        {
+            try
+            {
+                editProfileVM.UniversityId = HttpContext.Session.GetString("UniversityId");
+            }
+            catch (Exception)
+            {
+                editProfileVM.UniversityId = "";
+            }
+            //HttpContext.Session.GetString("University");
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                var response = client.GetAsync($"/api/universitys/{editProfileVM.UniversityId}").Result;
                 //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -288,6 +326,7 @@ namespace Portal.Client.Controllers
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
+            applicantVM.Id = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44307");

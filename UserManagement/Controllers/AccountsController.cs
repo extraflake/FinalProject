@@ -51,7 +51,7 @@ namespace UserManagement.Controllers
 
                 var getApplication = _myContext.UserApplications.Where(x => x.UserId == result.UserID).ToList();
                 List<string> arrayApp = new List<string>();
-                foreach(var item in getApplication)
+                foreach (var item in getApplication)
                 {
                     var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
                     arrayApp.Add(getApplicationName.Name);
@@ -71,7 +71,7 @@ namespace UserManagement.Controllers
                     new Claim("Username", result.Username),
                     new Claim("UserApplication", Applications),
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
-                    new Claim("UserID", result.UserID.ToString()),                    
+                    new Claim("UserID", result.UserID.ToString()),
                     new Claim("EducationID", result.EducationID.ToString()),
                     new Claim("UniversityID", result.UniversityID.ToString()),
                     new Claim("DepartmentID", result.DepartmentID.ToString()),

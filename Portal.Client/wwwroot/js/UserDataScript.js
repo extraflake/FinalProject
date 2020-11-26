@@ -181,5 +181,49 @@
         }
     });
 
+    var EditProfileVM = new Object();
+    //Department
+    $.ajax({
+        type: "Get",
+        url: '/Registration/GetDepartment',
+        data: EditProfileVM,
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (department) {
+            debugger;
+            var qt = JSON.parse(department);
 
+            var dropDownDepartment = document.getElementById("department");
+
+            //console.log(document.getElementById('Islam').value);
+
+            var DepartmentData = qt.data['name'];
+            console.log(DepartmentData);
+
+            dropDownDepartment.selectedIndex = (document.getElementById(DepartmentData).index).toString();
+        }
+    });
+
+    $.ajax({
+        type: "Get",
+        url: '/Registration/GetUniversity',
+        data: EditProfileVM,
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (university) {
+            debugger;
+            var qt = JSON.parse(university);
+
+            var dropDownUniversity = document.getElementById("university");
+
+            //console.log(document.getElementById('Islam').value);
+
+            var UniversityData = qt.data['name'];
+            console.log(UniversityData);
+
+            dropDownUniversity.selectedIndex = (document.getElementById(UniversityData).index).toString();
+        }
+    });
 });

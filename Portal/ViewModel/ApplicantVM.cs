@@ -23,5 +23,19 @@ namespace Portal.ViewModel
         [MaxLength]
         public byte[] DataFile { get; set; }
         public DateTime? CreatedOn { get; set; }
+
+        // User Data
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Gender { get; set; }
+        public string Religion { get; set; }
+        public string University { get; set; }
+        public string Department { get; set; }
+        public string Degree { get; set; }
+        public string GraduationYear { get; set; }
+        public string GPA { get; set; }
     }
 }

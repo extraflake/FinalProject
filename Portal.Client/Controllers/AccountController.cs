@@ -50,7 +50,7 @@ namespace Portal.Client.Controllers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44358");
+                    client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
                     MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                     client.DefaultRequestHeaders.Accept.Add(contentType);
                     string data = JsonConvert.SerializeObject(registerVM);
@@ -66,7 +66,7 @@ namespace Portal.Client.Controllers
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
                         string EmployeeId = GetEmployeeId(token);
-                        string EducationId = GetEducationId(token);
+                        
 
                         HttpContext.Session.SetString("Application", Application);
                         HttpContext.Session.SetString("Username", Username);
@@ -76,11 +76,18 @@ namespace Portal.Client.Controllers
                         HttpContext.Session.SetString("EmployeeId", EmployeeId);
                         try
                         {
+                            string EducationId = GetEducationId(token);
+                            string UniversityId = GetUniversityId(token);
+                            string DepartmentId = GetDepartmentId(token);
                             HttpContext.Session.SetString("EducationId", EducationId);
+                            HttpContext.Session.SetString("UniversityId", UniversityId);
+                            HttpContext.Session.SetString("DepartmentId", DepartmentId);
                         }
                         catch (Exception)
                         {
-                            HttpContext.Session.SetString("EducationId", null);
+                            HttpContext.Session.SetString("EducationId", "");
+                            HttpContext.Session.SetString("UniversityId", "");
+                            HttpContext.Session.SetString("DepartmentId", "");
                         }
                         if (token.Equals("Error"))
                         {
@@ -99,7 +106,7 @@ namespace Portal.Client.Controllers
             {
                 return Json(new { data = "Account Tidak Terdaftar" });
             }
-            
+
         }
 
         protected string GetEmployeeId(string token)
@@ -118,6 +125,22 @@ namespace Portal.Client.Controllers
             return handler;
         }
 
+        protected string GetUniversityId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UniversityID")).Value;
+            return handler;
+        }
+
+        protected string GetDepartmentId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("DepartmentID")).Value;
+            return handler;
+        }
+
         protected string GetEmail(string token)
         {
             char[] trimChars = { '/', '"' };
@@ -131,7 +154,7 @@ namespace Portal.Client.Controllers
             char[] trimChars = { '/', '"' };
 
             var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserApplication")).Value;
-            
+
             string[] words = handler.Split(',');
 
             string application = words[0];
@@ -189,7 +212,7 @@ namespace Portal.Client.Controllers
             }
         }
 
-        
+
 
         //Register
         [HttpPost]
@@ -226,12 +249,12 @@ namespace Portal.Client.Controllers
                         else return Json(new { data = "No HP sudah digunakan" });
                     }
                     else return Json(new { data = "Username sudah digunakan" });
-                } 
+                }
             }
             else return Json(new { data = "Email sudah digunakan" });
         }
 
-        
+
 
         //Cek Email
         [HttpPost]
@@ -333,7 +356,7 @@ namespace Portal.Client.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
+                client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
 

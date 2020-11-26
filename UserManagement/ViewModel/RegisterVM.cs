@@ -24,10 +24,10 @@ namespace UserManagement.ViewModel
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string User_Email { get; set; }
-        public string User_Password { get; set; }        
+        public string User_Password { get; set; }
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
-        public int ReligionID { get; set; }        
+        public int ReligionID { get; set; }
     }
 }

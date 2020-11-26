@@ -135,7 +135,7 @@ namespace Portal.Controllers
             };
 
             // Sending email
-            var htmlTemplate = new HTMLTemplateGenerator(data);
+            var htmlTemplate = new HTMLTemplateGenerator(data, applicantVM);
             string body = htmlTemplate.GetHTMLString();
 
             byte[] file = CreatePDF(body);
@@ -152,7 +152,7 @@ namespace Portal.Controllers
             client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("novradinataedo@gmail.com", "Ridho150582"); // Password harus dimasukkan terlebih dahulu
+            client.Credentials = new NetworkCredential("dionisiusyose11@gmail.com", ""); // Password harus dimasukkan terlebih dahulu
             //client.Timeout = int.MaxValue;
             //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
             MailMessage mm = new MailMessage();
