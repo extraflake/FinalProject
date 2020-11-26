@@ -353,6 +353,34 @@ namespace Portal.Client.Controllers
             else return Redirect("~/Account/Index");
         }
 
+        [HttpPut]
+        public ActionResult UpdateData(EditProfileVM editProfileVM)
+        {
+            editProfileVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+            editProfileVM.UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
 
+                var token = HttpContext.Session.GetString("Token");
+                char[] trimChars = { '/', '"' };
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim(trimChars));
+
+                string data = JsonConvert.SerializeObject(editProfileVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PutAsync("/API/Accounts/EditProfile", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { data = "sukses" });
+                }
+                else
+                {
+                    return Json(new { data = "gagal" });
+                }
+                //return View();
+            }
+        }
     }
 }

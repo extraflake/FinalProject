@@ -26,7 +26,7 @@ function Submit() {
     }
 
     $.ajax({
-        type: "Post",
+        type: "Put",
         url: '/Registration/Upload',
         data: formData,
         processData: false,
