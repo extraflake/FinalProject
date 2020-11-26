@@ -96,15 +96,6 @@ namespace Portal.Client.Controllers
             }
         }
 
-        public IActionResult Index()
-        {
-            if (HttpContext.Session.GetString("Application").Equals("Portal"))
-            {
-                return View();
-            }
-            else return Redirect("~/Account/Index");
-        }
-
         // Update Data
         //Update Skill Dropdown
         [HttpGet]
@@ -137,6 +128,28 @@ namespace Portal.Client.Controllers
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 var response = client.GetAsync("/api/departments").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetUniversity()
+        {
+            //HttpContext.Session.GetString("University");
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                var response = client.GetAsync("/api/universitys").Result;
                 //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -201,30 +214,6 @@ namespace Portal.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEducation()
-        {
-            int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                //string data = JsonConvert.SerializeObject(position);
-                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync($"/api/users/{UserId}").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
-            }
-        }
-
-        [HttpGet]
         public ActionResult GetReligion(RegisterVM registerVM)
         {
             int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
@@ -260,6 +249,30 @@ namespace Portal.Client.Controllers
                 //string data = JsonConvert.SerializeObject(position);
                 //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
                 var response = client.GetAsync($"/api/employees/{EmployeeId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetEducation()
+        {
+            int EducationId = Convert.ToInt32(HttpContext.Session.GetString("EducationId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/educations/{EducationId}").Result;
                 //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -391,6 +404,8 @@ namespace Portal.Client.Controllers
         [HttpPut]
         public ActionResult UpdateData(EditProfileVM editProfileVM)
         {
+            //HttpContext.Session.SetString("DepartmentId", editProfileVM.DepartmentId);
+            //HttpContext.Session.SetString("UniversityId", editProfileVM.UniversityId);
             editProfileVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
             editProfileVM.UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             using (HttpClient client = new HttpClient())

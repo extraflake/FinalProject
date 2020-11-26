@@ -66,6 +66,7 @@ namespace Portal.Client.Controllers
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
                         string EmployeeId = GetEmployeeId(token);
+                        string EducationId = GetEducationId(token);
 
                         HttpContext.Session.SetString("Application", Application);
                         HttpContext.Session.SetString("Username", Username);
@@ -73,7 +74,14 @@ namespace Portal.Client.Controllers
                         HttpContext.Session.SetString("Token", token);
                         HttpContext.Session.SetString("Email", Email);
                         HttpContext.Session.SetString("EmployeeId", EmployeeId);
-
+                        try
+                        {
+                            HttpContext.Session.SetString("EducationId", EducationId);
+                        }
+                        catch (Exception)
+                        {
+                            HttpContext.Session.SetString("EducationId", null);
+                        }
                         if (token.Equals("Error"))
                         {
                             return Json(new { data = "Login Gagal" });
@@ -99,6 +107,14 @@ namespace Portal.Client.Controllers
             char[] trimChars = { '/', '"' };
 
             var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EmployeeId")).Value;
+            return handler;
+        }
+
+        protected string GetEducationId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EducationID")).Value;
             return handler;
         }
 

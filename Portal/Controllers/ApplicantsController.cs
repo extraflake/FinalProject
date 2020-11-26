@@ -143,7 +143,7 @@ namespace Portal.Controllers
             MemoryStream fileMM = new MemoryStream(file);
             MemoryStream memorystream = new MemoryStream(data.File.DataFile);
 
-            string myEmail = "dionisiusyose11@gmail.com"; // Email dimasukkan terlebih dahulu
+            string myEmail = "e2ftspen.ga@gmail.com"; // Email dimasukkan terlebih dahulu
 
             SmtpClient client = new SmtpClient();
             client.Port = 587;
@@ -152,12 +152,12 @@ namespace Portal.Controllers
             client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(myEmail, ""); // Password harus dimasukkan terlebih dahulu
+            client.Credentials = new NetworkCredential(myEmail, "smpn3cilegon"); // Password harus dimasukkan terlebih dahulu
             //client.Timeout = int.MaxValue;
             //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
             MailMessage mm = new MailMessage();
             mm.From = new MailAddress("donotreply@gmail.com");
-            mm.To.Add(myEmail);
+            mm.To.Add("dionisiusyose11@gmail.com");
             mm.Subject = "Applicant Data";
             mm.IsBodyHtml = true;
             mm.Body = $"Applicant data for {data.Position.Name}";

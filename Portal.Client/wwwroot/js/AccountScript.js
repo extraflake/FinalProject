@@ -47,8 +47,8 @@ function Register() {
         data: RegisterVM
     }).then((result) => {
         //console.log(result.data);
-        debugger;
-        console.log(result.token);
+        //debugger;
+        //console.log(result.token);
         if (result.data == "berhasil") {
             swal("Success!", "Registrasi anda berhasil!", "success").
                 then(() => {
@@ -81,7 +81,7 @@ function SignIn() {
     }).then((result) => {
         //console.log(result.data);
         if (result.data == "berhasil") {
-            console.log(result.token);
+            //console.log(result.token);
             //swal("Success!", "Registrasi anda berhasil!", "success");
             window.location = result.url;
         }
@@ -101,7 +101,7 @@ function Forgot() {
         data: RegisterVM
     }).then((result) => {
         if (result.data == "berhasil") {
-            console.log(result.token);
+            //console.log(result.token);
             swal("Success!", "Token telah terkirim ke email anda!", "success").
                 then(() => {
                     swal("Info", "Silahkan login dengan token di email anda", "info");

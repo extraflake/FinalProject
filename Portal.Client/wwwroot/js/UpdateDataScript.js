@@ -1,18 +1,18 @@
-﻿$(document).ready(function () {
-    //debugger;
-    var d = new Date();
-    var year = d.getFullYear();
+﻿//$(document).ready(function () {
+//    //debugger;
+//    var d = new Date();
+//    var year = d.getFullYear();
 
-    var gradYear = document.getElementById("gradyear");
-    for (var i = 0; i < 8; i++) {
-        //console.log(year - 4 + i);
-        var yearOpt = year - 4 + i;
-        //console.log(yearOpt);
-        //console.log(dropDown.innerHTML + '<option value="' + year - 4 + i + '">' + year - 4 + i + '</option>');
-        gradYear.innerHTML = gradYear.innerHTML +
-            '<option value="' + yearOpt + '">' + yearOpt + '</option>';
-    }
-});
+//    var gradYear = document.getElementById("gradyear");
+//    for (var i = 0; i < 8; i++) {
+//        //console.log(year - 4 + i);
+//        var yearOpt = year - 4 + i;
+//        //console.log(yearOpt);
+//        //console.log(dropDown.innerHTML + '<option value="' + year - 4 + i + '">' + year - 4 + i + '</option>');
+//        gradYear.innerHTML = gradYear.innerHTML +
+//            '<option value="' + yearOpt + '" id="' + yearOpt + '">' + yearOpt + '</option>';
+//    }
+//});
 
 function Submit() {
     debugger;
@@ -39,7 +39,7 @@ function Submit() {
         url: '/Registration/UpdateData',
         data: EditProfileVM
     }).then((result) => {
-        console.log(result.data);
+        //console.log(result.data);
         //$('#files').value('');
         if (result.data == "gagal") {
             swal("Error!", "Please try again in a moment!", "error");
