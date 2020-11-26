@@ -63,16 +63,12 @@ namespace ExamOnline.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(ExamDetailVM examDetailVM)
         {
+            var record = new Record { VideoRecord = examDetailVM.VideoRecord };
+            await myContext.Records.AddAsync(record);
+            
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
-
-            //int count = myContext.Grades.ToList().Count;
-            //for (int i = count; i >= 0; i--)
-            //{
-            //    var getGrade = myContext.Grades.;
-            //    if (getScore.FinalScore > getGrade.FindIndex(i))
-            //        getScore.GradeId = i;
-            //}
+            getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
 
             var listGrade = myContext.Grades.OrderBy(x => x.Score);
             foreach (var data in listGrade)

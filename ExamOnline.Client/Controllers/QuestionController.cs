@@ -14,8 +14,8 @@ namespace ExamOnline.Client.Controllers
 {
     public class QuestionController : Controller
     {
-        const string SessionQuestion = "Quest";
-        string QuestionResult = "";
+       /* const string SessionQuestion = "Quest";
+        string QuestionResult = "";*/
         public IActionResult Index()
         {
             return View();

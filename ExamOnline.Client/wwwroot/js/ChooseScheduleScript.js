@@ -9,6 +9,7 @@
         "success": function (data) {
             var objSchedule = JSON.parse(data);
             debugger;
+
             var now = new Date().getTime();
             var scheduleTime = new Date();
             var distance;

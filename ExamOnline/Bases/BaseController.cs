@@ -22,7 +22,11 @@ namespace ExamOnline.Bases
         public async Task<ActionResult<TEntity>> Get()
         {
             var result = await this.repository.Get();
-            return Ok(new { data = result });
+            if(result != null)
+            {
+                return Ok(new { data = result });
+            }
+            return NotFound("Data masih kosong");
         }
 
         [HttpGet("{id}")]
@@ -33,33 +37,39 @@ namespace ExamOnline.Bases
             {
                 return Ok(result);
             }
-            return NotFound();
+            return NotFound( "Id : " + id + " tidak ditemukan");
         }
+
         [HttpPost]
         public async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
-            await this.repository.Post(entity);
-            return CreatedAtAction("Get", new { id = entity.Id }, entity);
+            var result =  await this.repository.Post(entity);
+            if (result != null)
+            {
+                return CreatedAtAction("Get", new { id = entity.Id }, entity);
+            }
+            return NotFound("Gagal menambahkan data baru");
         }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, TEntity entity)
         {
             if (id != entity.Id)
             {
-                return BadRequest();
+                return NotFound("Id : " +id+ " tidak dapat diupdate");
             }
             await this.repository.Put(entity);
             return Ok();
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TEntity>> Delete(int id)
-        {
-            var result = await this.repository.Delete(id);
-            if (result != null)
-            {
-                return result;
-            }
-            return NotFound();
-        }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<TEntity>> Delete(int id)
+        //{
+        //    var result = await this.repository.Delete(id);
+        //    if (result != null)
+        //    {
+        //        return result;
+        //    }
+        //    return NotFound();
+        //}
     }
 }
