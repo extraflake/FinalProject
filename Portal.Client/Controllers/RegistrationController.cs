@@ -190,6 +190,30 @@ namespace Portal.Client.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetEducation()
+        {
+            int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/users/{UserId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
         public ActionResult GetReligion(RegisterVM registerVM)
         {
             int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
