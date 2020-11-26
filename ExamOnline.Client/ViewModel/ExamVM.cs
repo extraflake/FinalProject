@@ -14,7 +14,7 @@ namespace ExamOnline.Client.ViewModel
         public string AnswerC { get; set; }
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
-        public int SegmentId { get; set; }
-        public ExamOnline.Models.Segment Segment { get; set; }
     }
+    
 }
+

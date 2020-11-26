@@ -3,48 +3,47 @@ var qt;
 var data;
 
 $(document).ready(function () {
-    console.log("ready!");
-    $.ajax({
-        "type": "GET",
-        "url": "/Segment/LoadSegment",
-        "contentType": "application/json; charset=utf-8",
-        "dataType": "json",
-        "success": function (data) {
-            qt = JSON.parse(data);
-            qt = qt.data
-            console.log(qt);
-            $('#tableSegment').DataTable({
-                data: qt,
-                columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
-                    },
-                    {
-                        "data": "id",
-                        "visible" : false
-                    },
-                    { "data": "title" },
-                    {
-                        "data": "duration",
-                        "render": function (data, type, row, meta) {
-                            return data + " minutes";
-                        }
-                    },
-                    {
-                        "data": "questionQuantity",
-                        "className": "text-center"
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
-                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSegment(' + row.id + ');"><i class="fa fa-trash"></i></button>'
-                        }
-                    }]
-            });
-        }
-    }); 
+    console.log("Bisa masuk!");
+    table = $('#tableSegment').DataTable({
+        "processing": true,
+        "serverside": true,
+        "filter": true,
+        //"orderMulti": false,
+        "lengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "ajax": {
+            "url": "/Segment/LoadSegment",
+            "type": "GET",
+            "datatype": "json"
+        },
+        "dataSrc": "data",
+        columns: [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            {
+                "data": "id",
+                "visible": false
+            },
+            { "data": "title" },
+            {
+                "data": "duration",
+                "render": function (data, type, row, meta) {
+                    return data + " minutes";
+                }
+            },
+            {
+                "data": "questionQuantity",
+                "className": "text-center"
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                        '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSegment(' + row.id + ');"><i class="fa fa-trash"></i></button>'
+                }
+            }]
+    });
 });
 
 function Add() {
@@ -75,7 +74,7 @@ function Save() {
                 icon: 'success',
                 title: 'Added Successfully'
             });
-            $('#tableSegment').DataTable(ajax.reload());
+            table.ajax.reload();
             //window.location = result.url;
         }
         else {
@@ -157,6 +156,7 @@ function UpdateSegment() {
                 icon: 'success',
                 title: 'Updated successfully'
             });
+            table.ajax.reload();
         }
         else {
             Swal.fire({
