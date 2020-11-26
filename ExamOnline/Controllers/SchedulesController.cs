@@ -33,5 +33,25 @@ namespace ExamOnline.Controllers
             return Ok(result);
         }
 
+        [HttpPost("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var schedule = new Schedule { Id = id };
+
+            var cek = myContext.Durations.Where(x => x.ScheduleId == schedule.Id).Count();
+
+            if (cek == 0)
+            {
+                //myContext.Entry(segment).State = EntityState.Deleted;
+                myContext.Schedules.Remove(schedule);
+                var result = await myContext.SaveChangesAsync();
+                return Ok("Data Berhasil di Hapus");
+            }
+            else
+            {
+                return NotFound("Data tidak ditemukan atau berelasi dengan tabel lain");
+            }
+        }
+
     }
 }
