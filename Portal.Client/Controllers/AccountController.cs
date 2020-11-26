@@ -65,31 +65,41 @@ namespace Portal.Client.Controllers
                         string Username = GetUsername(token);
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
+                        string EmployeeId = GetEmployeeId(token);
 
                         HttpContext.Session.SetString("Application", Application);
                         HttpContext.Session.SetString("Username", Username);
                         HttpContext.Session.SetString("UserId", UserID);
                         HttpContext.Session.SetString("Token", token);
                         HttpContext.Session.SetString("Email", Email);
+                        HttpContext.Session.SetString("EmployeeId", EmployeeId);
 
                         if (token.Equals("Error"))
                         {
-                            return Json(new { data = "gagal" });
+                            return Json(new { data = "Login Gagal" });
                         }
-                        return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
+                        return Json(new { data = "berhasil", token = token, url = Url.Action("Index", "Registration") });
                     }
                     else
                     {
-                        return Json(new { data = "gagal" });
+                        return Json(new { data = "Login Gagal" });
                     }
                     //return View();
                 }
             }
             catch (Exception)
             {
-                return Json(new { data = "gagal" });
+                return Json(new { data = "Account Tidak Terdaftar" });
             }
             
+        }
+
+        protected string GetEmployeeId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EmployeeId")).Value;
+            return handler;
         }
 
         protected string GetEmail(string token)
@@ -104,8 +114,13 @@ namespace Portal.Client.Controllers
         {
             char[] trimChars = { '/', '"' };
 
-            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("Application")).Value;
-            return handler;
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserApplication")).Value;
+            
+            string[] words = handler.Split(',');
+
+            string application = words[0];
+
+            return application;
         }
 
         protected string GetUsername(string token)
@@ -146,13 +161,13 @@ namespace Portal.Client.Controllers
                     char[] trimChars = { '/', '"' };
                     if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
                     {
-                        return Json(new { data = "gagal" });
+                        return Json(new { data = "Email Invalid" });
                     }
                     return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
                 }
                 else
                 {
-                    return Json(new { data = "gagal" });
+                    return Json(new { data = "Email Tidak Terdaftar" });
                 }
                 //return View();
             }
@@ -225,7 +240,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Email Invalid";
                 }
                 //return View();
             }
@@ -254,7 +269,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Username Invalid";
                 }
             }
         }
@@ -282,7 +297,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Phone Invalid";
                 }
                 //return View();
             }

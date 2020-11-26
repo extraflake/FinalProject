@@ -24,6 +24,7 @@ namespace Portal.Client.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
+        // Dropdown
         // Update Position DropDown
         [HttpGet]
         public ActionResult GetNamePosition(Portal.Models.Position position)
@@ -48,13 +49,6 @@ namespace Portal.Client.Controllers
                 }
             }
         }
-
-        public ActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return Redirect("~/Account/Index");
-        }
-
         //Update Reference Dropdown
         [HttpGet]
         public ActionResult GetNameReference(Portal.Models.Reference reference)
@@ -78,7 +72,6 @@ namespace Portal.Client.Controllers
                 }
             }
         }
-
         //Update Skill Dropdown
         [HttpGet]
         public ActionResult GetNameSkill(Portal.Models.Skill skill)
@@ -113,6 +106,172 @@ namespace Portal.Client.Controllers
         }
 
         // Update Data
+        //Update Skill Dropdown
+        [HttpGet]
+        public ActionResult GetNameUniversity()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                var response = client.GetAsync("/api/universitys").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetNameDepartment()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                var response = client.GetAsync("/api/departments").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("~/Account/Index");
+        }
+
+
+        //Registration Page
+        public IActionResult Index()
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("Application").Equals("Portal"))
+                {
+                    return View();
+                }
+                else return Redirect("~/Account/Index");
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        // Registration Page
+        // Update Position DropDown
+        
+        [HttpGet]
+        public ActionResult GetUserData()
+        {
+            int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/users/{UserId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetEducation()
+        {
+            int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/users/{UserId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetReligion(RegisterVM registerVM)
+        {
+            int UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/religions/{registerVM.ReligionID}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetEmployeeData()
+        {
+            int EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/employees/{EmployeeId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
@@ -227,6 +386,36 @@ namespace Portal.Client.Controllers
                 return View();
             }
             else return Redirect("~/Account/Index");
+        }
+
+        [HttpPut]
+        public ActionResult UpdateData(EditProfileVM editProfileVM)
+        {
+            editProfileVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
+            editProfileVM.UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+
+                var token = HttpContext.Session.GetString("Token");
+                char[] trimChars = { '/', '"' };
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim(trimChars));
+
+                string data = JsonConvert.SerializeObject(editProfileVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PutAsync("/API/Accounts/EditProfile", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { data = "sukses" });
+                }
+                else
+                {
+                    return Json(new { data = "gagal" });
+                }
+                //return View();
+            }
         }
     }
 }
