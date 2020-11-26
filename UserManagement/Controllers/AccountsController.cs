@@ -71,7 +71,9 @@ namespace UserManagement.Controllers
                     new Claim("Username", result.Username),
                     new Claim("UserApplication", Applications),
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
-                    new Claim("UserID", result.UserID.ToString())
+                    new Claim("UserID", result.UserID.ToString()),
+                    new Claim("EducationID", result.EducationID.ToString()),
+
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -254,7 +256,6 @@ namespace UserManagement.Controllers
                 return 404;
             }
         }
-
         [HttpPost(nameof(CheckEmail))]
         public async Task<string> CheckEmail(RegisterVM userroleVM)
         {
@@ -278,7 +279,6 @@ namespace UserManagement.Controllers
             }
 
         }
-
         [HttpPost(nameof(CheckUsername))]
         public async Task<string> CheckUsername(RegisterVM userroleVM)
         {
@@ -302,7 +302,6 @@ namespace UserManagement.Controllers
             }
 
         }
-
         [HttpPost(nameof(CheckPhone))]
         public async Task<string> CheckPhone(RegisterVM userroleVM)
         {

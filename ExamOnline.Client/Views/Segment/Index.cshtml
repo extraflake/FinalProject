@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/Layout.cshtml";
+}
+
+<div id="app">
+    <div id="sidebar" class='active'>
+        <div class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <img src="~/voler-master/dist/assets/images/logo_metrodata.png" alt="" srcset="">
+            </div>
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class='sidebar-title'>Main Menu</li>
+                    <li class="sidebar-item">
+                        <a href="/question/index" class='sidebar-link'>
+                            <i data-feather="help-circle" width="20"></i>
+                            <span>Questions</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item active">
+                        <a href="/segment/index" class='sidebar-link'>
+                            <i data-feather="triangle" width="20"></i>
+                            <span>Segments</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/schedule/index" class='sidebar-link'>
+                            <i data-feather="calendar" width="20"></i>
+                            <span>Schedules</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+        </div>
+    </div>
+    <div id="main">
+        <nav class="navbar navbar-header navbar-expand navbar-light">
+            <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+            <button class="btn navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav d-flex align-items-center navbar-light ml-auto">
+                    <li class="dropdown nav-icon">
+                        <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="d-lg-inline-block">
+                                <i data-feather="bell"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-large">
+                            <h6 class='py-2 px-4'>Notifications</h6>
+                            <ul class="list-group rounded-none">
+                                <li class="list-group-item border-0 align-items-start">
+                                    <div class="avatar bg-success mr-3">
+                                        <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class='text-bold'>New Order</h6>
+                                        <p class='text-xs'>
+                                            An order made by Ahmad Saugi for product Samsung Galaxy S69
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown nav-icon mr-2">
+                        <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="d-lg-inline-block">
+                                <i data-feather="mail"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
+                            <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
+                            <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="avatar mr-1">
+                                <img src="~/voler-master/dist/assets/images/avatar/avatar-s-1.png" alt="" srcset="">
+                            </div>
+                            <div class="d-none d-md-block d-lg-inline-block">Hi, Judel</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
+                            <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
+                            <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main-content container-fluid">
+            <div class="page-title">
+                <h3 id="segment">Segments</h3>
+                <p class="text-subtitle text-muted">Create, Read, Update and Delete the Exam Segments here!</p>
+            </div>
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <span data-toggle="modal" data-target="#myModal">
+                            <button onclick="Add();" class="btn pull-left hidden-sm-down btn-outline-primary" data-placement="right" data-toggle="tooltip"
+                                    title="Edit">
+                                <i data-feather="plus"></i>
+                                Add New
+                            </button>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <table class='table table-striped' id="tableSegment">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>ID</th>
+                                    <th>Segment Name</th>
+                                    <th>Duration</th>
+                                    <th>Question Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal">
+                                        &times;
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        @*<form>*@
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="Id" name="Id"
+                                                   hidden>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="title">Segment Name</label>
+                                            <input type="text" class="form-control" placeholder="Insert the segment name here" id="title" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="duration">Duration</label>
+                                            <input type="text" class="form-control" placeholder="Insert the duration here" id="duration" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="questionQty">Questions Quantity to Display</label>
+                                            <input class="form-control" placeholder="Insert the quantity of the question here" type="text" id="questionQty" />
+                                        </div>
+                                        @*</form>*@
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal" id="saveBtn"
+                                            onclick="Save();">
+                                        Insert
+                                    </button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal" id="updateBtn"
+                                            onclick="UpdateSegment();">
+                                        Update
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-left">
+                    <p>2020 &copy; Bootcamp 38</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+@section script{
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/app.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/simple-datatables/jquery.dataTables.min.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/chartjs/Chart.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/feather-icons/feather.js"></script>
+    <script src="~/voler-master/dist/assets/js/pages/dashboard.js"></script>
+    <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/main.js"></script>
+    <script src="~/voler-master/dist/assets/js/vendors.js"></script>
+    <script src="~/js/sweetAlert.js"></script>
+    <script src="~/js/SegmentScript.js"></script>
+}

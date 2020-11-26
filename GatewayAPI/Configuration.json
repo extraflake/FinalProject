@@ -5,6 +5,7 @@
     {
 
       "DownstreamPathTemplate": "/api/Users",
+
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -12,6 +13,7 @@
           "Port": 44358
         }
       ],
+
       "UpstreamPathTemplate": "/gateway/Users",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
     },
@@ -100,7 +102,7 @@
       "UpstreamPathTemplate": "/gateway/Educations",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "PATCH", "DELETE" ]
     },
-    ////Accounts
+    //Accounts
     {
 
       "DownstreamPathTemplate": "/api/Accounts/RegisterBC",

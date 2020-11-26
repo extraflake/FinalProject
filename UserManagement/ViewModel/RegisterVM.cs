@@ -15,6 +15,7 @@ namespace UserManagement.ViewModel
 
         public int EmployeeId { get; set; }
         public int UserID { get; set; }
+        public int EducationID { get; set; }
 
         public string Username { get; set; }
         public string Application { get; set; }
