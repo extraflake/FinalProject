@@ -22,7 +22,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/20/2020 18:31:30</publishTime>
     </File>
     <File Include="appsettings.production.json">
-      <publishTime>11/23/2020 11:48:28</publishTime>
+      <publishTime>11/23/2020 11:19:30</publishTime>
     </File>
     <File Include="BCrypt.Net-Next.dll">
       <publishTime>04/14/2020 16:10:48</publishTime>
@@ -151,22 +151,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2018 13:29:44</publishTime>
     </File>
     <File Include="UserManagement.deps.json">
-      <publishTime>11/23/2020 11:48:28</publishTime>
+      <publishTime>11/23/2020 11:19:30</publishTime>
     </File>
     <File Include="UserManagement.dll">
-      <publishTime>11/23/2020 11:48:14</publishTime>
+      <publishTime>11/23/2020 11:19:19</publishTime>
     </File>
     <File Include="UserManagement.exe">
-      <publishTime>11/23/2020 11:48:14</publishTime>
+      <publishTime>11/23/2020 11:19:19</publishTime>
     </File>
     <File Include="UserManagement.pdb">
-      <publishTime>11/23/2020 11:48:14</publishTime>
+      <publishTime>11/23/2020 11:19:19</publishTime>
     </File>
     <File Include="UserManagement.runtimeconfig.json">
       <publishTime>11/23/2020 09:42:34</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/23/2020 11:48:28</publishTime>
+      <publishTime>11/23/2020 11:19:30</publishTime>
     </File>
   </ItemGroup>
 </Project>
