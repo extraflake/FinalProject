@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamOnline", "ExamOnline\ExamOnline.csproj", "{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}"
 EndProject
+
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{12917A29-4EE9-4822-8025-CC77099532DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Client", "Portal.Client\Portal.Client.csproj", "{91163A39-C0E6-4A2D-BE19-911839A2A983}"
@@ -20,8 +21,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayAPI", "GatewayAPI\GatewayAPI.csproj", "{C015F440-ABC9-42D4-AF80-2DD3CD5A2560}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_grafik", "Client_grafik\Client_grafik.csproj", "{ACE4AB5F-EACE-49F4-86E8-F08EDBDD89C9}"
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D4821BAF-B86B-4F24-882D-6F04EB7F0400}"
-EndProject
 
 EndProject
 Global
@@ -42,6 +41,12 @@ Global
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DE6204-1040-40FB-B7C2-BE6E28AC3B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{74AE9171-107B-478A-9D6A-7182C5384718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74AE9171-107B-478A-9D6A-7182C5384718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74AE9171-107B-478A-9D6A-7182C5384718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74AE9171-107B-478A-9D6A-7182C5384718}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{91163A39-C0E6-4A2D-BE19-911839A2A983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91163A39-C0E6-4A2D-BE19-911839A2A983}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91163A39-C0E6-4A2D-BE19-911839A2A983}.Release|Any CPU.ActiveCfg = Release|Any CPU

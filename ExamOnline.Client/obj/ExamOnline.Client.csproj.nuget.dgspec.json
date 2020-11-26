@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj": {}
+    "D:\\github\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj": {}
   },
   "projects": {
-    "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj": {
+    "D:\\github\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj",
+        "projectUniqueName": "D:\\github\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj",
         "projectName": "ExamOnline.Client",
-        "projectPath": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline.Client\\obj\\",
+        "projectPath": "D:\\github\\FinalProject\\ExamOnline.Client\\ExamOnline.Client.csproj",
+        "packagesPath": "C:\\Users\\Haidar Aldi Wintoro\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\FinalProject\\ExamOnline.Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Haidar Aldi Wintoro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -31,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\ExamOnline.csproj": {
-                "projectPath": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\ExamOnline.csproj"
+              "D:\\github\\FinalProject\\ExamOnline\\ExamOnline.csproj": {
+                "projectPath": "D:\\github\\FinalProject\\ExamOnline\\ExamOnline.csproj"
               }
             }
           }
@@ -73,22 +72,21 @@
         }
       }
     },
-    "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\ExamOnline.csproj": {
+    "D:\\github\\FinalProject\\ExamOnline\\ExamOnline.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\ExamOnline.csproj",
+        "projectUniqueName": "D:\\github\\FinalProject\\ExamOnline\\ExamOnline.csproj",
         "projectName": "ExamOnline",
-        "projectPath": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\ExamOnline.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\bootcamp\\github\\New folder\\FinalProject\\ExamOnline\\obj\\",
+        "projectPath": "D:\\github\\FinalProject\\ExamOnline\\ExamOnline.csproj",
+        "packagesPath": "C:\\Users\\Haidar Aldi Wintoro\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\FinalProject\\ExamOnline\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Haidar Aldi Wintoro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
