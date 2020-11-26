@@ -71,7 +71,8 @@ namespace UserManagement.Controllers
                     new Claim("Username", result.Username),
                     new Claim("UserApplication", Applications),
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
-                    new Claim("UserID", result.UserID.ToString())
+                    new Claim("UserID", result.UserID.ToString()),
+                    new Claim("EducationID", result.EducationID.ToString()),
 
                     };
 
