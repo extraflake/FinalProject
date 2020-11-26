@@ -72,7 +72,7 @@ namespace ExamOnline.Client.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult DeleteSegment(int Id)
         {
             using (HttpClient client = new HttpClient())

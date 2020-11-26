@@ -9,7 +9,7 @@ $(document).ready(function () {
         "serverside": true,
         "filter": true,
         //"orderMulti": false,
-        "lengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
         "ajax": {
             "url": "/Segment/LoadSegment",
             "type": "GET",
