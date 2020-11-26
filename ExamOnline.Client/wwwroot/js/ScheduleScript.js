@@ -1,52 +1,40 @@
 ﻿var scheduleId;
 $(document).ready(function () {
     console.log("ready!");
-    $.ajax({
-        "type": "GET",
-        "url": "/Schedule/LoadSchedules",
-        "contentType": "application/json; charset=utf-8",
-        "dataType": "json",
-        "success": function (data) {
-            qt = JSON.parse(data);
-            qt = qt.data
-            console.log(qt);
-            $('#tableSegment').DataTable({
-                data: qt,
-                columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
-                    },
-                    {
-                        "data": "id",
-                        "visible": false
-                    },
-                    {
-                        "data": "scheduleTime",
-                        "render": function (data, type, row, meta) {
-                            var date = new Date(data);
-                            return date.toString("YYYY-MM-dd")
-                        }
-                    },
-                    {
-                        "data": "isActive",
-                        "render": function (data, type, row, meta) {
-                            if (data == true) {
-                                return "Is Active";
-                            }
-                            return "Is not Active";
-                        }
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
-                                '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSchedule(' + row.id + ');"><i class="fa fa-trash"></i></button>'
-                        }
-                    }]
-            });
-        }
+    console.log("Bisa masuk!");
+    table = $('#tableSegment').DataTable({
+        "processing": true,
+        "serverside": true,
+        "filter": true,
+        //"orderMulti": false,
+        "lengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "ajax": {
+            "url": "/Schedule/LoadSchedules",
+            "type": "GET",
+            "datatype": "json"
+        },
+        "dataSrc": "data",
+        columns: [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            {
+                "data": "id",
+                "visible": false
+            },
+            {
+                "data": "scheduleTime"
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                        '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSchedule(' + row.id + ');"><i class="fa fa-trash"></i></button>'
+                }
+            }]
     });
+    
 });
 
 function Add() {
