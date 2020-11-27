@@ -13,13 +13,13 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class='sidebar-title'>Main Menu</li>
-                    <li class="sidebar-item  active">
+                    <li class="sidebar-item">
                         <a asp-action="index" asp-controller="grafik" class='sidebar-link'>
                             <i data-feather="bar-chart" width="20"></i>
                             <span>University Graph</span>
                         </a>
                     </li>
-                    <li class="sidebar-item ">
+                    <li class="sidebar-item active">
                         <a asp-action="department" asp-controller="grafik" class='sidebar-link'>
                             <i data-feather="bar-chart-2" width="20"></i>
                             <span>Department Graph</span>
@@ -99,7 +99,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                       <h3>University Chart</h3>
+                        <h3>Department Chart</h3>
                     </div>
                 </div>
 
@@ -109,10 +109,10 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">University Chart</h4>
+                                <h4 class="card-title">Department Chart</h4>
                             </div>
                             <div class="card-body">
-                                <canvas id="univChart" height="100"></canvas>
+                                <canvas id="deptChart" height="100"></canvas>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
     <script src="~/voler-master/dist/assets/vendors/apexcharts/apexcharts.min.js"></script>
     <script src="~/voler-master/dist/assets/js/main.js"></script>
     <script src="~/voler-master/dist/assets/js/vendors.js"></script>
-    <script src="~/js/UniversityChartScript.js"></script>
+    <script src="~/js/DepartmentChartScript.js"></script>
     <script src="~/js/sweetAlert.js"></script>
 }
 
