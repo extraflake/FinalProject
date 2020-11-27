@@ -81,7 +81,8 @@ namespace ExamOnline.Client.Controllers
         [HttpPut]
         public ActionResult CalculatePoint(ExamDetailVM examDetailVM, IFormFile file)
         {
-            
+            examDetailVM.ApplicantId =  Convert.ToInt32(HttpContext.Session.GetString("ApplicantId"));
+
             using (var target = new MemoryStream())
             {
                 file.CopyTo(target);
@@ -95,7 +96,7 @@ namespace ExamOnline.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(examDetailVM);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/examdetails").Result;
+                var response = client.PutAsync("api/examdetails", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
