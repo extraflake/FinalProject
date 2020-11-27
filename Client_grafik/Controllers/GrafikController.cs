@@ -23,10 +23,37 @@ namespace Client_grafik.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
+                client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 var response = client.GetAsync("api/Accounts/CountUniversity").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
+
+        public IActionResult Department()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetDepartment()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                var response = client.GetAsync("api/Accounts/CountDepartment").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
