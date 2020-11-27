@@ -16,6 +16,8 @@ namespace Portal.Client.ViewModels
         public int ReferenceId { get; set; }
         public string ReferenceName { get; set; }
 
+        public int EmployeeId { get; set; }
+
         // Application
         public string FileName { get; set; }
         public string FileType { get; set; }

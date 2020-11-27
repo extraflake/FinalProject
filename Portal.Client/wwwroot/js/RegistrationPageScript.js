@@ -58,11 +58,12 @@ function Submit() {
     }
     else
     {
-        if (files.length == 0) {
-            swal("Error!", "Silahkan Attach CV Anda", "error");
-        }
-        else if (skillList.length == 0) {
+        
+        if (skillList.length == 0) {
             swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
+        }
+        else if (files.length == 0) {
+            swal("Error!", "Silahkan Attach CV Anda", "error");
         }
         else {
             debugger;
@@ -91,6 +92,9 @@ function Submit() {
                     }
                     else if (result.data == "nodata") {
                         swal("Error!", "Silahkan Isi Data Pendidikan", "error");
+                    }
+                    else if (result.data == "notest") {
+                        swal("Error!", "Anda sudah terdaftar pada program lain!!! Silahkan ikuti tes terlebih dahulu", "error");
                     }
                     else if (result.data == "berhasil") {
                         swal("Success!", "Your Registration is Success!", "success");

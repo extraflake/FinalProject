@@ -16,6 +16,7 @@ namespace Portal.ViewModel
         public string PositionName { get; set; }
         public int ReferenceId { get; set; }
         public string ReferenceName { get; set; }
+        public int EmployeeId { get; set; }
 
         // Application
         public string FileName { get; set; }

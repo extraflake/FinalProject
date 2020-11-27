@@ -336,33 +336,103 @@ namespace Portal.Client.Controllers
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
-            applicantVM.Id = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            applicantVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
             if(HttpContext.Session.GetString("EducationId") != "")
             {
-                using (HttpClient client = new HttpClient())
+                string check = AlreadyCheck(applicantVM).ToLower();
+                if (!check.Equals("gagal"))
                 {
-                    client.BaseAddress = new Uri("https://localhost:44307");
-                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                    client.DefaultRequestHeaders.Accept.Add(contentType);
-                    string data = JsonConvert.SerializeObject(applicantVM);
-                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                    var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
-                    if (response.IsSuccessStatusCode)
+                    if (check.Contains("true"))
                     {
-                        string message = SendEmail(applicantVM).ToLower();
-                        if (message.Equals("sukses")) return Json(new { data = "berhasil" });
-                        else return Json(new { data = "gagal" });
+                        DeleteFile(applicantVM);
+                        return Json(new { data = "notest" });
                     }
                     else
                     {
-                        return Json(new { data = "gagal" });
+                        using (HttpClient client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri("https://localhost:44307");
+                            MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                            client.DefaultRequestHeaders.Accept.Add(contentType);
+                            string data = JsonConvert.SerializeObject(applicantVM);
+                            var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                            var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
+                            if (response.IsSuccessStatusCode)
+                            {
+                                string message = SendEmail(applicantVM).ToLower();
+                                if (message.Equals("sukses")) return Json(new { data = "berhasil" });
+                                else
+                                {
+                                    DeleteFile(applicantVM);
+                                    return Json(new { data = "gagal" });
+                                }
+                            }
+                            else
+                            {
+                                DeleteFile(applicantVM);
+                                return Json(new { data = "gagal" });
+                            }
+                        }
                     }
+                }
+                else 
+                {
+                    DeleteFile(applicantVM);
+                    return Json(new { data = "nodata" });
                 }
             }
             else
             {
+                DeleteFile(applicantVM);
                 return Json(new { data = "nodata" });
             }
+        }
+
+        [HttpPost]
+        public string AlreadyCheck(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Applicants/Check", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var allData = response.Content.ReadAsStringAsync().Result.ToString();
+                    return allData;
+                }
+                else
+                {
+                    return "gagal";
+                }
+            }
+            
+        }
+
+        [HttpPost]
+        public string DeleteFile(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Applicants/Delete", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return "sukses";
+                }
+                else
+                {
+                    return "gagal";
+                }
+            }
+
         }
 
         // Upload File
