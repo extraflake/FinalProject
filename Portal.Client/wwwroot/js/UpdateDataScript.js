@@ -1,20 +1,4 @@
-﻿//$(document).ready(function () {
-//    //debugger;
-//    var d = new Date();
-//    var year = d.getFullYear();
-
-//    var gradYear = document.getElementById("gradyear");
-//    for (var i = 0; i < 8; i++) {
-//        //console.log(year - 4 + i);
-//        var yearOpt = year - 4 + i;
-//        //console.log(yearOpt);
-//        //console.log(dropDown.innerHTML + '<option value="' + year - 4 + i + '">' + year - 4 + i + '</option>');
-//        gradYear.innerHTML = gradYear.innerHTML +
-//            '<option value="' + yearOpt + '" id="' + yearOpt + '">' + yearOpt + '</option>';
-//    }
-//});
-
-function Submit() {
+﻿function Submit() {
     debugger;
     //Add ApplicantVM as a new Object
     var EditProfileVM = new Object();
