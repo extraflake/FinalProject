@@ -3,6 +3,41 @@ var qt;
 var answer = [];
 var isDoubt = [];
 var totalQuestion = 0;
+var notify = false;
+var change = false;
+var now = new Date();
+var segments = JSON.parse(sessionStorage.getItem("segments"));
+var curSegments = sessionStorage.getItem("curSegment");
+console.log(curSegments);
+console.log(segments[curSegments]);
+Date.prototype.addMins = function (min) {
+    this.setTime(this.getTime() + (min * 60 * 1000));
+    return this;
+}
+
+var limit = new Date();
+limit.addMins(segments[curSegments]['duration']);
+
+var x = setInterval(function () {
+    now = new Date();
+    var distance = limit - now;
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("remainingTime").innerHTML = "Remaining time : " + minutes + "m " + seconds + "s ";
+    if (distance < 0) {
+        clearInterval(x);
+    }
+    if (minutes == 19) {
+        $("#badge").show();
+        $('#notifIcon').show();
+        document.getElementById("notifTitle").innerHTML = "Hurry Up!";
+        document.getElementById("notifText").innerHTML = "Your remaining time is running out!";
+        //$('#notif').fadeIn('slow', function () {
+        //    $('#notif').delay(5000).fadeOut();
+        //});
+    }
+}, 1000);
 
 //window.console.log = function () {
 //    console.error("sepertinya anda mengerti cara ngoding!");
@@ -12,6 +47,9 @@ var totalQuestion = 0;
 //}
 
 $(document).ready(function () {
+    $('#badge').hide();
+    $('#notifIcon').hide();
+
     if (num == 1) {
         $('#prevBtn').hide();
     }
@@ -20,21 +58,23 @@ $(document).ready(function () {
     }
     document.getElementById('number').innerHTML = num;
     debugger;
+    var QuestionVM = new Object();
+    QuestionVM.SegmentId = segments[curSegments]['id'];
     $.ajax({
         type: "GET",
         url: "/Exam/LoadQuestion",
         contentType: "application/json; charset=utf-8",
+        data: QuestionVM,
         dataType: "json",
         success: function (data) {
+            debugger;
             if (window.sessionStorage.getItem("question") == "") {
                 window.sessionStorage.setItem("question", data);
             }
             qt = JSON.parse(window.sessionStorage.getItem("question"));
-            //console.log(window.sessionStorage.getItem("question"));
             console.log(qt);
 
             window.sessionStorage.setItem("questionSave", JSON.stringify(qt));
-            //console.log(window.sessionStorage.setItem("questionSave", qt));
 
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
             //console.log(qt.length);
@@ -44,7 +84,6 @@ $(document).ready(function () {
             } else {
                 listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled" + num));
             }
-            //console.log(window.sessionStorage.getItem("listShuffled" + num));
             console.log(listChoices);
             document.getElementById("question").innerHTML = qt[num - 1]['quest'];
             document.getElementById('segmentName').innerHTML = qt[num - 1]['title'];
@@ -69,17 +108,22 @@ $(document).ready(function () {
 function nextQuestion() {
     if (num == totalQuestion) {
         answer[num - 1] = getRadioCheckedValue("choices");
+        document.getElementById(num - 1).className = 'btn btn-primary ml-2';
         console.log(answer);
         finishSegment();
     }
     else {
         answer[num - 1] = getRadioCheckedValue("choices");
-        if (isDoubt[num - 1] == true && answer[num - 1] != "") {
+        if (change) {
             document.getElementById(num - 1).className = 'btn btn-warning ml-2';
+
         }
-        else if (isDoubt[num - 1] == false || answer[num - 1] != "") {
+        else {
             document.getElementById(num - 1).className = 'btn btn-primary ml-2';
         }
+        change = false;
+
+
         num++;
         isFinalQuestion(num);
         console.log(answer);
@@ -89,8 +133,6 @@ function nextQuestion() {
         $(document).ready(function () {
             debugger;
             document.getElementById('number').innerHTML = num;
-            //var lq = JSON.parse(window.sessionStorage.getItem("questionSave"));
-            //var listChoices = JSON.parse(window.sessionStorage.getItem("listShuffled"));
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
             if (window.sessionStorage.getItem("listShuffled" + num) == null) {
                 listChoices = shuffle(listChoices);
@@ -113,8 +155,6 @@ function previousQuestion() {
     isFinalQuestion(num);
     document.getElementById('number').innerHTML = num;
     $(document).ready(function () {
-        //var lq = window.sessionStorage.getItem("questionSave");
-        //var listChoices = window.sessionStorage.getItem("listShuffled");
         var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
         if (window.sessionStorage.getItem("listShuffled" + num) == null) {
             listChoices = shuffle(listChoices);
@@ -171,8 +211,6 @@ function NavigateToQuestion(number) {
     isFinalQuestion(number + 1);
     document.getElementById('number').innerHTML = number + 1;
     $(document).ready(function () {
-        //var lq = window.sessionStorage.getItem("questionSave");
-        //var listChoices = window.sessionStorage.getItem("listShuffled");
         var listChoices = [qt[number]['answerA'], qt[number]['answerB'], qt[number]['answerC'], qt[number]['answerD']];
         if (window.sessionStorage.getItem("listShuffled" + num) == null) {
             listChoices = shuffle(listChoices);
@@ -202,6 +240,7 @@ function setRadioCheckedValue(radio_name) {
 }
 
 function doubtFull() {
+    change = true;
     document.getElementById(num - 1).className = 'btn btn-warning ml-2';
     isDoubt[num - 1] = true;
     nextQuestion();
@@ -240,6 +279,10 @@ function intialAnswer() {
 }
 
 function finishSegment() {
+    curSegments++;
+    sessionStorage.setItem("question", '');
+    sessionStorage.setItem("curSegment", curSegments);
+    location.reload();
     var score = 0;
     var ExamDetail = new Object();
     ExamDetail.FinalScore = score;
@@ -255,15 +298,9 @@ function finishSegment() {
             console.log(answer[i]);
             console.log(qt[i]['correctAnswer']);
             if (answer[i] == qt[i]['correctAnswer']) {
-
                 score += qt[i]['point'];
             }
         }
-        Swal.fire({
-            position: 'center',
-            type: 'info',
-            icon: 'info',
-            title: 'Your score : ' + score
-        });;
     });
 }
+

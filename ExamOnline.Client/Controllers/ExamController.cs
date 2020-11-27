@@ -53,8 +53,8 @@ namespace ExamOnline.Client.Controllers
             {
                 client.BaseAddress = new Uri("https://localhost:44301");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                question.SegmentId = 2;
+                client.DefaultRequestHeaders.Accept.Add(contentType)
+
                 string data = JsonConvert.SerializeObject(question);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
                 var response = client.PostAsync("api/questions/getrandom",contentData).Result;

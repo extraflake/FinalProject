@@ -18,5 +18,7 @@ namespace ExamOnline.Models
         public Duration Duration { get; set; }
         public int GradeId { get; set; }
         public Grade Grade { get; set; }
+        public int RecordId { get; set; }
+        public Record Record { get; set; }
     }
 }

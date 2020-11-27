@@ -1,6 +1,5 @@
 ﻿var scheduleId;
 var table = null;
-
 $(document).ready(function () {
     console.log("ready!");
     table = $('#tableSchedule').DataTable({
@@ -29,6 +28,10 @@ $(document).ready(function () {
                 "data": "scheduleTime"
             },
             {
+                "data": "isActive",
+
+            },
+            {
                 "render": function (data, type, row) {
                     return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
                         '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteSchedule(' + row.id + ');"><i class="fa fa-trash"></i></button>'
@@ -43,6 +46,7 @@ function Add() {
     $('#saveBtn').show();
     $('#date').val('');
     $('#time').val('');
+    $('#status').val('');
 }
 
 function Save() {
@@ -52,13 +56,15 @@ function Save() {
     var y = date.getFullYear();
     var m = date.getMonth();
     var d = date.getDate();
-    var h = time.substring(0,2);
-    var min = time.substring(3,5);
-    var scheduleDatetime = new Date(y, m, d,h,min);
+    var h = time.substring(0, 2);
+    console.log(h);
+    var min = time.substring(3, 5);
+    var scheduleDatetime = new Date(y, m, d, h , min);
     Schedule.scheduleTime = scheduleDatetime.toISOString();
-    console.log(Schedule.scheduleTime);
+    var status = document.getElementById('status');
+    Schedule.isActive = (status == (status));
     $.ajax({
-        type: "Post",
+        type: "POST",
         url: '/schedule/addschedule',
         data: Schedule
     }).then((result) => {
@@ -151,7 +157,8 @@ function GetById(id) {
                 console.log(time);
                 $('#date').val(today);
                 $('#time').val(time);
-
+                console.log(obj['isActive']);
+                $('#status').val(obj['isActive'].toString());
                 $('#myModal').modal();
                 $('#updateBtn').show();
                 $('#saveBtn').hide();
@@ -178,7 +185,8 @@ function UpdateSchedule() {
     var min = time.substring(3, 5);
     var scheduleDatetime = new Date(y, m, d, h, min);
     Schedule.scheduleTime = scheduleDatetime.toISOString();
-    console.log(Schedule.scheduleTime);
+    var status = document.getElementById('status');
+    Schedule.isActive = (status == (status));
     debugger;
     $.ajax({
         type: "PUT",
@@ -206,3 +214,4 @@ function UpdateSchedule() {
         console.log(error);
     });
 }
+

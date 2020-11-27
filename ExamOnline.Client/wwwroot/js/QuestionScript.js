@@ -189,6 +189,14 @@ function Save() {
 }
 
 function Add() {
+    $('#segmentName').val('');
+    $('#question').val('');
+    $('#answerA').val('');
+    $('#answerB').val('');
+    $('#answerC').val('');
+    $('#answerD').val('');
+    $('#point').val('');
+    $('#correctAnswer').val('');
     $('#updateBtn').hide();
     $('#saveBtn').show();
     ClearScreen();

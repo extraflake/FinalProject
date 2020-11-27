@@ -62,6 +62,9 @@ namespace ExamOnline.Migrations
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DurationId")
@@ -69,6 +72,8 @@ namespace ExamOnline.Migrations
 
                     b.HasIndex("GradeId")
                         .IsUnique();
+
+                    b.HasIndex("RecordId");
 
                     b.ToTable("TB_M_ExamDetail");
                 });
@@ -127,6 +132,21 @@ namespace ExamOnline.Migrations
                     b.HasIndex("SegmentId");
 
                     b.ToTable("TB_M_Question");
+                });
+
+            modelBuilder.Entity("ExamOnline.Models.Record", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<byte[]>("VideoRecord")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_M_Record");
                 });
 
             modelBuilder.Entity("ExamOnline.Models.Schedule", b =>
@@ -196,9 +216,17 @@ namespace ExamOnline.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ExamOnline.Models.Record", "Record")
+                        .WithMany()
+                        .HasForeignKey("RecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Duration");
 
                     b.Navigation("Grade");
+
+                    b.Navigation("Record");
                 });
 
             modelBuilder.Entity("ExamOnline.Models.Question", b =>

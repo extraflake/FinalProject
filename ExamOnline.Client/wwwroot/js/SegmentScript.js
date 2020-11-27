@@ -9,7 +9,8 @@ $(document).ready(function () {
         "serverside": true,
         "filter": true,
         //"orderMulti": false,
-        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+        "lengthMenu": [[ 10, 25, 50, 100], [ 10, 25, 50, 100]],
+
         "ajax": {
             "url": "/Segment/LoadSegment",
             "type": "GET",
@@ -36,6 +37,9 @@ $(document).ready(function () {
             {
                 "data": "questionQuantity",
                 "className": "text-center"
+            },
+            {
+                "data": "isSegmentActive"
             },
             {
                 "render": function (data, type, row) {
@@ -141,6 +145,8 @@ function UpdateSegment() {
     Segment.Title = $('#title').val();
     Segment.Duration = $('#duration').val();
     Segment.QuestionQuantity = $('#questionQty').val();
+    var status = document.getElementById('status');
+    Segment.IsSegmentActive = (status == (status));
     debugger;
     $.ajax({
         type: "PUT",
@@ -188,6 +194,7 @@ function GetById(id) {
                 $('#title').val(obj['title']);
                 $('#duration').val(obj['duration']);
                 $('#questionQty').val(obj['questionQuantity']);
+                $('#status').val(obj['isSegmentActive'].toString());
                 $('#myModal').modal();
                 $('#updateBtn').show();
                 $('#saveBtn').hide();
