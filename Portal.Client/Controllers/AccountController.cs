@@ -50,7 +50,8 @@ namespace Portal.Client.Controllers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
+                //http://haidaraldi-001-site1.htempurl.com
+                    client.BaseAddress = new Uri("https://localhost:44358");
                     MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                     client.DefaultRequestHeaders.Accept.Add(contentType);
                     string data = JsonConvert.SerializeObject(registerVM);
@@ -227,7 +228,7 @@ namespace Portal.Client.Controllers
                     {
                         string phone = CheckPhone(registerVM);
                         if (phone.Equals("berhasil"))
-                        {
+                        { 
                             using (HttpClient client = new HttpClient())
                             {
                                 client.BaseAddress = new Uri("https://localhost:44358");
@@ -238,7 +239,7 @@ namespace Portal.Client.Controllers
                                 var response = client.PostAsync("/API/Accounts/RegisterBC", contentData).Result;
                                 if (response.IsSuccessStatusCode)
                                 {
-                                    return Json(new { data = "berhasil", result = "Redirect", url = Url.Action("Index", "Account") });
+                                    return Json(new { data = "berhasil", result = "Redirect", url = Url.Action("Index", "Account"), dataBack = response.Content.ReadAsStringAsync().Result.ToString() });
                                 }
                                 else
                                 {
@@ -378,6 +379,11 @@ namespace Portal.Client.Controllers
                 }
                 //return View();
             }
+        }
+
+        public IActionResult Update()
+        {
+            return View();
         }
     }
 }

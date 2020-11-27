@@ -9,7 +9,7 @@
         async: false,
         success: function (data) {
             var qt = JSON.parse(data);
-            console.log(qt);
+            //console.log(qt);
             var dropDown = document.getElementById("reference");
             for (var i = 0; i < qt.data.length; i++) {
 
@@ -31,7 +31,7 @@
         async: false,
         success: function (data) {
             var qt = JSON.parse(data);
-            console.log(qt);
+            //console.log(qt);
             var dropDown = document.getElementById("position");
             for (var i = 0; i < qt.data.length; i++) {
 
@@ -58,7 +58,7 @@
         success: function (data) {
             //debugger;
             var qt = JSON.parse(data);
-            console.log(qt);
+            //console.log(qt);
             var dropDown = document.getElementById("skill");
             //var dropDown = $('#skill').select2();
             for (var i = 0; i < qt.data.length; i++) {

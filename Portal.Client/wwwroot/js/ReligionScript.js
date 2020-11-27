@@ -9,11 +9,14 @@
         success: function (data) {
             var qt = JSON.parse(data);
             console.log(qt);
-            var dropDown = document.getElementById("religion-floating");
+            var dropDown = document.getElementById("religion");
             for (var i = 0; i < qt.data.length; i++) {
 
                 dropDown.innerHTML = dropDown.innerHTML +
-                    '<option value="' + qt.data[i]['id'] + '">' + qt.data[i]['name'] + '</option>';
+                    '<option value="' + qt.data[i]['id'] + '" id="' + qt.data[i]['name']+ '">' + qt.data[i]['name'] + '</option > ';
+
+                //dropDown.innerHTML = dropDown.innerHTML +
+                //    '<option value="' + qt.data[i]['id'] + '" id="' + qt.data[i]['name'] + '">' + qt.data[i]['name'] + '</option>';
             }
         },
         error: function (errormessage) {
