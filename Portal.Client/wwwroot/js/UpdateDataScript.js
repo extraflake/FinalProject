@@ -29,14 +29,10 @@
             swal("Error!", "Please try again in a moment!", "error");
         }
         else if (result.data == "sukses") {
-            swal("Success!", "Update Data Berhasil!", "success");
-            ClearScreen();
+            swal("Success!", "Update Data Berhasil!", "success").then(() => {
+                //window.location = result.url;
+                console.log(result.log);
+            });
         }
     });
-
-}
-
-function ClearScreen() {
-    document.getElementById('files').value = "";
-    document.getElementById('skill').value = "";
 }

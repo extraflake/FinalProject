@@ -39,7 +39,7 @@
 
                 gradYear.selectedIndex = (document.getElementById(graduateYear.toString()).index).toString();
             }
-
+            
 
         },
         error: function (errormessage) {
