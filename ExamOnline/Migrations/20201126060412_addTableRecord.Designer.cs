@@ -4,14 +4,16 @@ using ExamOnline.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExamOnline.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20201126060412_addTableRecord")]
+    partial class addTableRecord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +143,10 @@ namespace ExamOnline.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<byte[]>("VideoRecord")
+                    b.Property<byte[]>("CameraRecord")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("MicRecord")
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");

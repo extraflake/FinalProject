@@ -26,5 +26,9 @@ namespace ExamOnline.ViewModel
         public int ScheduleId { get; set; }
         public DateTime ScheduleTime { get; set; }
         public bool IsActive { get; set; }
+
+        //Record
+        public int RecordId { get; set; }
+        public byte[] VideoRecord { get; set; }
     }
 }
