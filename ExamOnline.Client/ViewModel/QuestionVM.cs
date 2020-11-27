@@ -26,6 +26,12 @@ namespace ExamOnline.Client.ViewModel
         public int QuestionQuantity { get; set; }
         public bool IsSegmentActive { get; set; }
     }
+    public class SegmentJson
+    {
+        [JsonProperty("data")]
+        public IList<QuestionVM> data { get; set; }
+    }
+    
     public class QuestionJson
     {
         [JsonProperty("data")]

@@ -2,8 +2,7 @@
 var table = null;
 $(document).ready(function () {
     console.log("ready!");
-    console.log("Bisa masuk!");
-    table = $('#tableSegment').DataTable({
+    table = $('#tableSchedule').DataTable({
         "processing": true,
         "serverside": true,
         "filter": true,
@@ -39,8 +38,8 @@ $(document).ready(function () {
                 }
             }]
     });
-    
 });
+
 
 function Add() {
     $('#updateBtn').hide();
@@ -76,7 +75,9 @@ function Save() {
                 icon: 'success',
                 title: 'Added Successfully'
             });
+            table.ajax.reload();
         }
+        
         else {
             Swal.fire({
                 position: 'center',

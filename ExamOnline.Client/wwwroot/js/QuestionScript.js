@@ -1,5 +1,5 @@
 ﻿var table = null;
-
+var qt;
 $(document).ready(function () {
     console.log("ready!");
 
@@ -10,7 +10,7 @@ $(document).ready(function () {
         "contentType": "application/json; charset=utf-8",
         "dataType": "json",
         "success": function (data) {
-            qt = JSON.parse(data);
+            qt = data;
             
             debugger;
             console.log(qt.data);
@@ -20,70 +20,75 @@ $(document).ready(function () {
             }
         }
     }); 
-
-    $.ajax({
-    });
-    /*debugger;
+    debugger;
     table = $('#tableQuestion').DataTable({
-        ajax: {
-            "type": "GET",
+        "processing": true,
+        "serverside": true,
+        "filter": true,
+        //"orderMulti": false,
+        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+        "ajax": {
             "url": "/Question/LoadQuestion",
-            "contentType": "application/json; charset=utf-8",
-            "dataType": "json",
-            "dataSrc": "data",
-            "success": function (data) {
-                qt = JSON.parse(data);
-                console.log(qt);
+            "type": "GET",
+            "datatype": "json"
+        },
+        "datasrc": "data",
+        columns: [
+            {
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
             },
-            
-             columns: [
-                {
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
+            {
+                "data": "id",
+                "visible": false
+            },
+            {
+                "data": "segmentId",
+                render: function (dataaa, type, row, meta) {
+                    console.log(qt);
+                    console.log(dataaa);
+                    for (var i = 0; i < qt.data.length; i++) {
+                        if (dataaa == qt.data[i]['id']) {
+                            return qt.data[i]['title'];
+                        }
                     }
-                },
-                {
-                    "data": "id",
-                    "visible": false
-                },
-                { "data": "title" },
-                { "data": "quest" },
-                {
-                    "data": "answerA",
-                    "visible": false
-                },
-                {
-                    "data": "answerB",
-                    "visible": false
-                },
-                {
-                    "data": "answerC",
-                    "visible": false
-                },
-                {
-                    "data": "answerD",
-                    "visible": false
-                },
-                {
-                    "data": "point",
-                    "visible": false
-                },
-                {
-                    "data": "segmentId",
-                    "visible": false
-                },
-                {
-                    "render": function (data, type, row) {
-                        return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
-                            '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteQuestion(' + row.id + ');"><i class="fa fa-trash"></i></button>'
-                    }
-                }]
-        }
-        
+                }
+            },
+            { "data": "quest" },
+            {
+                "data": "answerA",
+                "visible": false
+            },
+            {
+                "data": "answerB",
+                "visible": false
+            },
+            {
+                "data": "answerC",
+                "visible": false
+            },
+            {
+                "data": "answerD",
+                "visible": false
+            },
+            {
+                "data": "point",
+                "visible": false
+            },
+            {
+                "data": "segmentId",
+                "visible": false
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
+                        '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return DeleteQuestion(' + row.id + ');"><i class="fa fa-trash"></i></button>'
+                }
+            }]
     });
-    console.log();*/
 
-     $.ajax({
+    /* $.ajax({
         "type": "GET",
         "url": "/Question/LoadQuestion",
         "contentType": "application/json; charset=utf-8",
@@ -137,7 +142,7 @@ $(document).ready(function () {
                     }]
             });
         }
-    });
+    });*/
 });
 
 function Save() {

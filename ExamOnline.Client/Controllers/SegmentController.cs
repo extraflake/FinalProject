@@ -22,7 +22,7 @@ namespace ExamOnline.Client.Controllers
         [HttpGet]
         public JsonResult LoadSegment()
         {
-            QuestionJson segment = null;
+            SegmentJson segment = null;
             var client = new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:44301/api/")
@@ -33,7 +33,7 @@ namespace ExamOnline.Client.Controllers
             if (result.IsSuccessStatusCode)
             {
                 var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
-                segment = JsonConvert.DeserializeObject<QuestionJson>(json);
+                segment = JsonConvert.DeserializeObject<SegmentJson>(json);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace ExamOnline.Client.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult DeleteSegment(int Id)
         {
             using (HttpClient client = new HttpClient())

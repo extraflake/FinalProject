@@ -35,6 +35,7 @@ namespace ExamOnline
             services.AddScoped<GradeRepository>();
             services.AddScoped<ScheduleRepository>();
             services.AddScoped<SegmentRepository>();
+            services.AddScoped<QuestionRepository>();
             services.AddScoped<IDapper, Dapperr>();
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }

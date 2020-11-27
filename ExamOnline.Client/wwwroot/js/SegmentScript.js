@@ -10,6 +10,7 @@ $(document).ready(function () {
         "filter": true,
         //"orderMulti": false,
         "lengthMenu": [[ 10, 25, 50, 100], [ 10, 25, 50, 100]],
+
         "ajax": {
             "url": "/Segment/LoadSegment",
             "type": "GET",
