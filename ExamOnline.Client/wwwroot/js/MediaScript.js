@@ -57,7 +57,7 @@ $(document).ready(async function () {
             echoCancellation: { exact: true }
         },
         video: {
-            width: 1280, height: 720
+            width: 480, height: 240
         }
     };
     console.log('Using media constraints:', constraints);

@@ -1,4 +1,5 @@
 ﻿var scheduleId;
+var table = null;
 $(document).ready(function () {
     console.log("ready!");
     console.log("Bisa masuk!");
@@ -7,7 +8,7 @@ $(document).ready(function () {
         "serverside": true,
         "filter": true,
         //"orderMulti": false,
-        "lengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
         "ajax": {
             "url": "/Schedule/LoadSchedules",
             "type": "GET",
@@ -26,6 +27,10 @@ $(document).ready(function () {
             },
             {
                 "data": "scheduleTime"
+            },
+            {
+                "data": "isActive",
+
             },
             {
                 "render": function (data, type, row) {
@@ -153,7 +158,6 @@ function GetById(id) {
                 $('#time').val(time);
                 console.log(obj['isActive']);
                 $('#status').val(obj['isActive'].toString());
-
                 $('#myModal').modal();
                 $('#updateBtn').show();
                 $('#saveBtn').hide();
@@ -195,6 +199,7 @@ function UpdateSchedule() {
                 icon: 'success',
                 title: 'Updated successfully'
             });
+            table.ajax.reload();
         }
         else {
             Swal.fire({

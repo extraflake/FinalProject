@@ -4,18 +4,19 @@ var answer = [];
 var isDoubt = [];
 var totalQuestion = 0;
 var notify = false;
+var change = false;
 var now = new Date();
 var segments = JSON.parse(sessionStorage.getItem("segments"));
 var curSegments = sessionStorage.getItem("curSegment");
 console.log(curSegments);
-console.log(segments.data[curSegments]);
+console.log(segments[curSegments]);
 Date.prototype.addMins = function (min) {
     this.setTime(this.getTime() + (min * 60 * 1000));
     return this;
 }
 
 var limit = new Date();
-limit.addMins(segments.data[curSegments]['duration']);
+limit.addMins(segments[curSegments]['duration']);
 
 var x = setInterval(function () {
     now = new Date();
@@ -27,7 +28,7 @@ var x = setInterval(function () {
     if (distance < 0) {
         clearInterval(x);
     }
-    if (minutes == 39 && seconds == 50) {
+    if (minutes == 19) {
         $("#badge").show();
         $('#notifIcon').show();
         document.getElementById("notifTitle").innerHTML = "Hurry Up!";
@@ -58,7 +59,7 @@ $(document).ready(function () {
     document.getElementById('number').innerHTML = num;
     debugger;
     var QuestionVM = new Object();
-    QuestionVM.SegmentId = segments.data[curSegments]['id'];
+    QuestionVM.SegmentId = segments[curSegments]['id'];
     $.ajax({
         type: "GET",
         url: "/Exam/LoadQuestion",
@@ -107,17 +108,22 @@ $(document).ready(function () {
 function nextQuestion() {
     if (num == totalQuestion) {
         answer[num - 1] = getRadioCheckedValue("choices");
+        document.getElementById(num - 1).className = 'btn btn-primary ml-2';
         console.log(answer);
         finishSegment();
     }
     else {
         answer[num - 1] = getRadioCheckedValue("choices");
-        if (isDoubt[num - 1] == true && answer[num - 1] != "") {
+        if (change) {
             document.getElementById(num - 1).className = 'btn btn-warning ml-2';
+
         }
-        else if (isDoubt[num - 1] == false || answer[num - 1] != "") {
+        else {
             document.getElementById(num - 1).className = 'btn btn-primary ml-2';
         }
+        change = false;
+
+
         num++;
         isFinalQuestion(num);
         console.log(answer);
@@ -234,6 +240,7 @@ function setRadioCheckedValue(radio_name) {
 }
 
 function doubtFull() {
+    change = true;
     document.getElementById(num - 1).className = 'btn btn-warning ml-2';
     isDoubt[num - 1] = true;
     nextQuestion();
@@ -291,10 +298,9 @@ function finishSegment() {
             console.log(answer[i]);
             console.log(qt[i]['correctAnswer']);
             if (answer[i] == qt[i]['correctAnswer']) {
-
                 score += qt[i]['point'];
             }
         }
-    }
+    });
 }
 

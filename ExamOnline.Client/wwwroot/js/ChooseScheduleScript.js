@@ -3,7 +3,7 @@
     var dropdown = document.getElementById('examTime');
     $.ajax({
         "type": "GET",
-        "url": "/Schedule/LoadSchedules",
+        "url": "/Schedule/ChooseSchedule",
         "contentType": "application/json; charset=utf-8",
         "dataType": "json",
         "success": function (data) {
@@ -22,6 +22,7 @@
                 }
                 else {
                     if (objSchedule.data[i]["isActive"] == true) {
+                        console.log(objSchedule.data[i]);
                         var scheduleDatetime = new Date(objSchedule.data[i]['scheduleTime']).toUTCString();
                         dropdown.innerHTML = dropdown.innerHTML +
                             '<option value="' + objSchedule.data[i]['id'] + '">' + scheduleDatetime + '</option>';
@@ -46,7 +47,7 @@ function Choose() {
 function GetSegment() {
     $.ajax({
         "type": "GET",
-        "url": "/Segment/LoadSegment",
+        "url": "/Segment/GetActiveSegment",
         "contentType": "application/json; charset=utf-8",
         "dataType": "json",
         "success": function (data) {

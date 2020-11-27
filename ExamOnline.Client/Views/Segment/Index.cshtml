@@ -132,6 +132,7 @@
                                     <th>Segment Name</th>
                                     <th>Duration</th>
                                     <th>Question Quantity</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -150,7 +151,6 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="container">
-                                        @*<form>*@
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="Id" name="Id"
                                                    hidden>
@@ -164,10 +164,17 @@
                                             <input type="number" class="form-control" placeholder="Insert the duration here" id="duration" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="correctAnswer">Status</label>
+                                            <select class="form-select" id="status">
+                                                <option value="" disabled selected>-- Select Schedule Status --</option>
+                                                <option value="true">Is Active</option>
+                                                <option value="false">Is not Active</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="questionQty">Questions Quantity to Display</label>
                                             <input class="form-control" placeholder="Insert the quantity of the question here" type="number" id="questionQty" />
                                         </div>
-                                        @*</form>*@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
