@@ -34,6 +34,7 @@ namespace ExamOnline.Controllers
         public async Task<ActionResult> Create(ExamDetailVM examDetailVM)
         {
             //var getDuration = myContext.Durations.Where(x => x.ApplicantId == examDetailVM.ApplicantId).First();
+            
             var query = from x in myContext.Durations
                         where x.ApplicantId == examDetailVM.ApplicantId
                         select x.Id;
@@ -46,9 +47,22 @@ namespace ExamOnline.Controllers
                 GradeId = listGrade.Id
             };
             await myContext.ExamDetails.AddAsync(data);
-            var result = await myContext.SaveChangesAsync();
-            return Ok(result);
+            await myContext.SaveChangesAsync();
+            return new JsonResult(data);
+            //return Ok(result);
         }
+
+        //[HttpGet("{Id}")]
+        //public Task<ExamDetailVM> GetById(int Id)
+        //{
+        //    var dbparams = new DynamicParameters();
+        //    dbparams.Add("@Id", Id, DbType.Int32);
+        //    var result = Task.FromResult(dapper.Get<ExamDetailVM>("[SP_SelectById_ExamDetail]"
+        //        , dbparams,
+        //        commandType: CommandType.StoredProcedure));
+        //    return result;
+
+        //}
 
         [HttpGet]
         public Task<List<ExamDetailVM>> GetExamDetail()
@@ -63,12 +77,8 @@ namespace ExamOnline.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(ExamDetailVM examDetailVM)
         {
-            var record = new Record { VideoRecord = examDetailVM.VideoRecord };
-            await myContext.Records.AddAsync(record);
-            
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
-            getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
 
             var listGrade = myContext.Grades.OrderBy(x => x.Score);
             foreach (var data in listGrade)
