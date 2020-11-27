@@ -361,7 +361,7 @@ namespace Portal.Client.Controllers
             }
             else
             {
-                return Json(new { data = "gagal" });
+                return Json(new { data = "nodata" });
             }
         }
 
@@ -369,46 +369,50 @@ namespace Portal.Client.Controllers
         [HttpPost]
         public ActionResult Upload(IList<IFormFile> files)
         {
-            foreach (IFormFile source in files)
+            if(HttpContext.Session.GetString("EducationId") != "")
             {
-                //Getting FileName
-                var fileName = Path.GetFileName(source.FileName);
-                //Getting file Extension
-                var fileExtension = Path.GetExtension(fileName);
-                // concatenating  FileName + FileExtension
-
-                var objfiles = new ApplicantVM()
+                foreach (IFormFile source in files)
                 {
-                    FileName = fileName,
-                    FileType = fileExtension,
-                    CreatedOn = DateTime.Now
-                };
+                    //Getting FileName
+                    var fileName = Path.GetFileName(source.FileName);
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
 
-                using (var target = new MemoryStream())
-                {
-                    source.CopyTo(target);
-                    objfiles.DataFile = target.ToArray();
-                }
-
-                using (HttpClient client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://localhost:44307");
-                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                    client.DefaultRequestHeaders.Accept.Add(contentType);
-                    string data = JsonConvert.SerializeObject(objfiles);
-                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                    var response = client.PostAsync("/API/Applicants/AddFile", contentData).Result;
-                    //var upload = client.PostAsync("/API/Applicants");
-                    if (response.IsSuccessStatusCode)
+                    var objfiles = new ApplicantVM()
                     {
-                        return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
-                    }
-                    else
+                        FileName = fileName,
+                        FileType = fileExtension,
+                        CreatedOn = DateTime.Now
+                    };
+
+                    using (var target = new MemoryStream())
                     {
-                        return Json(new { data = "Upload Gagal" });
+                        source.CopyTo(target);
+                        objfiles.DataFile = target.ToArray();
                     }
-                    //return View();
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri("https://localhost:44307");
+                        MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                        client.DefaultRequestHeaders.Accept.Add(contentType);
+                        string data = JsonConvert.SerializeObject(objfiles);
+                        var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                        var response = client.PostAsync("/API/Applicants/AddFile", contentData).Result;
+                        //var upload = client.PostAsync("/API/Applicants");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
+                        }
+                        else
+                        {
+                            return Json(new { data = "Upload Gagal" });
+                        }
+                        //return View();
+                    }
                 }
+                return Json(new { data = "Error" });
             }
             return Json(new { data = "Error" });
         }

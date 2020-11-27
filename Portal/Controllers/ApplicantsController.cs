@@ -74,7 +74,8 @@ namespace Portal.Controllers
                 File = Doc,
                 Position = Position,
                 Reference = Reference,
-                Skills = listSkills
+                Skills = listSkills,
+                AlreadyCheck = true
             };
 
             await myContext.Applicants.AddAsync(data);

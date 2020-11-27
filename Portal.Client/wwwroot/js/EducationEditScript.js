@@ -10,8 +10,8 @@
         dataType: "json",
         async: false,
         success: function (data) {
-            //debugger;
-            if (data != "gagal") {
+            debugger;
+            if (data.data != "gagal") {
                 var qt = JSON.parse(data.data);
                 //console.log(qt);
                 var gpa = $("#gpa").val(qt.data['gpa']);
@@ -57,7 +57,7 @@
         dataType: "json",
         async: false,
         success: function (department) {
-            //debugger;
+            debugger;
             if (department.data != "gagal") {
                 var qt = JSON.parse(department.data);
 
@@ -68,9 +68,14 @@
                 var DepartmentData = qt.data['name'];
                 //console.log(DepartmentData);
 
-                dropDownDepartment.selectedIndex = (document.getElementById(DepartmentData).index).toString();
+                if (DepartmentData != null) {
+                    dropDownDepartment.selectedIndex = (document.getElementById(DepartmentData).index).toString();
+                }
             }
         },
+        error: function (errormessage) {
+
+        }
     });
 
     $.ajax({
@@ -92,8 +97,13 @@
                 var UniversityData = qt.data['name'];
                 //console.log(UniversityData);
 
-                dropDownUniversity.selectedIndex = (document.getElementById(UniversityData).index).toString();
+                if (UniversityData != null) {
+                    dropDownUniversity.selectedIndex = (document.getElementById(UniversityData).index).toString();
+                }
             }
+        },
+        error: function (errormessage) {
+
         }
     });
 });
