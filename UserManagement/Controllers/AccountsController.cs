@@ -49,20 +49,62 @@ namespace UserManagement.Controllers
                 var result = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole]",
                     dbparams, commandType: CommandType.StoredProcedure));
 
-                var getApplication = _myContext.UserApplications.Where(x => x.UserId == result.UserID).ToList();
-                List<string> arrayApp = new List<string>();
-                foreach(var item in getApplication)
+                if(result == null)
                 {
-                    var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
-                    arrayApp.Add(getApplicationName.Name);
-                }
+                    var result2 = await Task.FromResult(_dapper.Get<RegisterVM>("[dbo].[SP_Login_UserRole2]",
+                   dbparams, commandType: CommandType.StoredProcedure));
 
-                string Applications = string.Join(",", arrayApp);
-
-                if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result.User_Password))
-                {
-                    var claims = new[]
+                    var getApplication2 = _myContext.UserApplications.Where(x => x.UserId == result2.UserID).ToList();
+                    List<string> arrayApp2 = new List<string>();
+                    foreach (var item in getApplication2)
                     {
+                        var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
+                        arrayApp2.Add(getApplicationName.Name);
+                    }
+
+                    string Applications2 = string.Join(",", arrayApp2);
+
+                    if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result2.User_Password))
+                    {
+                        var claims2 = new[]
+                        {
+                    new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                    new Claim("User_Email", result2.User_Email),
+                    new Claim("Role_Name", result2.Role_Name),
+                    new Claim("Username", result2.Username),
+                    new Claim("UserApplication", Applications2),
+                    new Claim("EmployeeId", result2.EmployeeId.ToString()),
+                    new Claim("UserID", result2.UserID.ToString()),
+                    };
+
+                        var key2 = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+
+                        var signIn2 = new SigningCredentials(key2, SecurityAlgorithms.HmacSha256);
+
+                        var token2 = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims2, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn2);
+
+                        return new JwtSecurityTokenHandler().WriteToken(token2);
+                    }
+
+                }
+                else
+                {
+                    var getApplication = _myContext.UserApplications.Where(x => x.UserId == result.UserID).ToList();
+                    List<string> arrayApp = new List<string>();
+                    foreach (var item in getApplication)
+                    {
+                        var getApplicationName = _myContext.Applications.Where(x => x.Id == item.ApplicationId).FirstOrDefault();
+                        arrayApp.Add(getApplicationName.Name);
+                    }
+
+                    string Applications = string.Join(",", arrayApp);
+
+                    if (BCrypt.Net.BCrypt.Verify(userroleVM.User_Password, result.User_Password))
+                    {
+                        var claims2 = new[]
+                        {
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
@@ -73,16 +115,18 @@ namespace UserManagement.Controllers
                     new Claim("EmployeeId", result.EmployeeId.ToString()),
                     new Claim("UserID", result.UserID.ToString()),
                     new Claim("EducationID", result.EducationID.ToString()),
-
+                    new Claim("UniversityID", result.UniversityID.ToString()),
+                    new Claim("DepartmentID", result.DepartmentID.ToString()),
                     };
 
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                        var key2 = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
-                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var signIn2 = new SigningCredentials(key2, SecurityAlgorithms.HmacSha256);
 
-                    var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
+                        var token2 = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims2, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn2);
 
-                    return new JwtSecurityTokenHandler().WriteToken(token);
+                        return new JwtSecurityTokenHandler().WriteToken(token2);
+                    }
                 }
                 return "Error";
             }

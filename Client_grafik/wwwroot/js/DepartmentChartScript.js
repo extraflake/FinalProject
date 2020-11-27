@@ -1,15 +1,15 @@
 ﻿
-var canvas = document.getElementById('univChart').getContext('2d');
+var canvas = document.getElementById('deptChart').getContext('2d');
 var qt;
-var univName = [];
-var univSum = [];
+var deptName = [];
+var deptSum = [];
 var coloR = [];
 
 $(document).ready(function () {
 
     $.ajax({
         "type": "GET",
-        "url": "/Grafik/GetUniversity",
+        "url": "/Grafik/GetDepartment",
         "contentType": "application/json; charset=utf-8",
         "dataType": "json",
         "success": function (data) {
@@ -23,12 +23,12 @@ $(document).ready(function () {
 
             qt = JSON.parse(data);
             for (var i = 0; i < qt.length; i++) {
-                univName[i] = qt[i]['university'];
-                univSum[i] = qt[i]['total'];
+                deptName[i] = qt[i]['department'];
+                deptSum[i] = qt[i]['total'];
                 coloR.push(dynamicColors());
             }
-            console.log(univName);
-            console.log(univSum);
+            console.log(deptName);
+            console.log(deptSum);
             initChart();
         }
     });
@@ -37,10 +37,10 @@ $(document).ready(function () {
 
 function initChart() {
     var database = {
-        labels: univName,
+        labels: deptName,
         datasets: [{
             label: "Total Applicant",
-            data: univSum,
+            data: deptSum,
             backgroundColor: coloR,
             borderColor: coloR,
             borderWidth: [1, 1, 1, 1, 1]
