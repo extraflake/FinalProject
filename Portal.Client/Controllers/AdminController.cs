@@ -7,34 +7,37 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Portal.Client.ViewModels;
 
 namespace Portal.Client.Controllers
 {
     public class AdminController : Controller
     {
-        //-Referensi-//
+        ////-Referensi-//
         [HttpGet]
-        public ActionResult GetReference(Portal.Models.Reference reference)
+        public JsonResult GetReference()
         {
-            using (HttpClient client = new HttpClient())
+            ReferanceJson referance = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(reference);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/references").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/References");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                referance = JsonConvert.DeserializeObject<ReferanceJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(referance);
         }
+
+     
         [HttpPost]
         public ActionResult AddReference(Portal.Models.Reference reference)
         {
@@ -135,26 +138,26 @@ namespace Portal.Client.Controllers
 
         //-Position-//
         [HttpGet]
-        public ActionResult GetPosition(Portal.Models.Position position)
+        public JsonResult GetPosition()
         {
-            using (HttpClient client = new HttpClient())
+            PositionJson position = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(position);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/positions").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Positions");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                position = JsonConvert.DeserializeObject<PositionJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(position);
         }
         [HttpPost]
         public ActionResult AddPosition(Portal.Models.Position position)
@@ -256,26 +259,26 @@ namespace Portal.Client.Controllers
 
         //-Skill-//
         [HttpGet]
-        public ActionResult GetSkill(Portal.Models.Skill skill)
+        public JsonResult GetSkill()
         {
-            using (HttpClient client = new HttpClient())
+            SkillJson skill = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(skill);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/skills").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Skills");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                skill = JsonConvert.DeserializeObject<SkillJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(skill);
         }
         [HttpPost]
         public ActionResult AddSkill(Portal.Models.Skill skill)
