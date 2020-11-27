@@ -1,6 +1,7 @@
-﻿using ExamOnline.ViewModel;
+﻿using ExamOnline.Client.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,35 +23,27 @@ namespace ExamOnline.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadQuestion(QuestionVM question)
+        public JsonResult LoadQuestion()
         {
 
-            using (HttpClient client = new HttpClient())
+            QuestionJson questions = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44301");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(question);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("api/questions").Result;
-  
-                if (response.IsSuccessStatusCode)
-                {
-                    //if (!HttpContext.Session.GetString(SessionQuestion).Equals(""))
-                    //{
-                    //    return Json(HttpContext.Session.GetString(SessionQuestion));
-                    //}
-                    
-                    //QuestionResult = ;
-                    //HttpContext.Session.SetString(SessionQuestion, QuestionResult);
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44301/api/")
+            };
+            var responseTask = client.GetAsync("questions");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                questions = JsonConvert.DeserializeObject<QuestionJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server Error");
+            }
+            return Json(questions);
         }
 
         [HttpPost]

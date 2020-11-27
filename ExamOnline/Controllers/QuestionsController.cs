@@ -4,24 +4,24 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using ExamOnline.Bases;
 using ExamOnline.Dapper_ORM;
+using ExamOnline.Models;
+using ExamOnline.Repositories.Data;
 using ExamOnline.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace ExamOnline.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class QuestionsController : BaseController<Question,QuestionRepository>
     {
-        public IConfiguration configuration;
         readonly IDapper dapper;
 
-        public QuestionsController(IConfiguration config, IDapper _dapper)
+        public QuestionsController(QuestionRepository questionRepository,  IDapper _dapper ) : base(questionRepository)
         {
-            configuration = config;
             dapper = _dapper;
         }
 
@@ -65,7 +65,7 @@ namespace ExamOnline.Controllers
                 return result;
         }
 
-        [HttpGet]
+/*        [HttpGet]
         public Task<List<QuestionVM>> GetAllQuestion()
         {
             var dbparams = new DynamicParameters();
@@ -73,7 +73,7 @@ namespace ExamOnline.Controllers
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
             return result;
-        }
+        }*/
 
         [HttpPut]
         public async Task<int> Update(QuestionVM questionVM)

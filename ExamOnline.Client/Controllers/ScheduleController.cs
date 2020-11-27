@@ -58,7 +58,7 @@ namespace ExamOnline.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoadSchedules()
+        public JsonResult LoadSchedules()
         {
             ExamDetailJson schedule = null;
             var client = new HttpClient
