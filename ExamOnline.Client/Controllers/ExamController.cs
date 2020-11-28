@@ -86,7 +86,7 @@ namespace ExamOnline.Client.Controllers
             using (var target = new MemoryStream())
             {
                 file.CopyTo(target);
-                examDetailVM.VideoRecord = target.ToArray();
+                examDetailVM.RecordVideo = target.ToArray();
             }
 
             using (HttpClient client = new HttpClient())

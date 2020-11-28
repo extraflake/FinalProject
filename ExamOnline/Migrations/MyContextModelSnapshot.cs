@@ -62,6 +62,9 @@ namespace ExamOnline.Migrations
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
 
+                    b.Property<byte[]>("RecordVideo")
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DurationId")

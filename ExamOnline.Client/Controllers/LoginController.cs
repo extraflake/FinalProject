@@ -39,8 +39,10 @@ namespace ExamOnline.Client.Controllers
                         var token = response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars);
 
                         string getAppId = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserID")).Value;
+                        string getAppEmail = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("User_Email")).Value;
 
                         HttpContext.Session.SetString("ApplicantId", getAppId);
+                        HttpContext.Session.SetString("ApplicantEmail", getAppEmail);
 
                         if (token.Equals("Error"))
                         {
