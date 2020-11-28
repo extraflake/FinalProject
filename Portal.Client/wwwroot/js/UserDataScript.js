@@ -7,6 +7,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             var qt = JSON.parse(data);
             //console.log(qt);
@@ -25,6 +34,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             //debugger;
             var qt = JSON.parse(data);
@@ -45,14 +63,17 @@
             //debugger;
             var gender = document.getElementById("gender");
             var genderValue = qt.data['gender'];
-            if (genderValue == 'Pria') {
+            if (genderValue == '') {
                 gender.selectedIndex = "0";
             }
-            else if (genderValue == 'Wanita') {
+            else if (genderValue == 'Pria') {
                 gender.selectedIndex = "1";
             }
-            else {
+            else if (genderValue == 'Wanita') {
                 gender.selectedIndex = "2";
+            }
+            else {
+                gender.selectedIndex = "3";
             }
 
 
@@ -69,6 +90,15 @@
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     async: false,
+                    beforeSend: function () {
+                        debugger;
+                        var createLoader = document.getElementById("loader");
+                        createLoader.classList.remove('hidden');
+                    },
+                    complete: function () {
+                        var createLoader = document.getElementById("loader");
+                        createLoader.classList.add('hidden');
+                    },
                     success: function (data) {
 
                         
@@ -93,6 +123,15 @@
                             contentType: "application/json;charset=utf-8",
                             dataType: "json",
                             async: false,
+                            beforeSend: function () {
+                                debugger;
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.remove('hidden');
+                            },
+                            complete: function () {
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.add('hidden');
+                            },
                             success: function (religion) {
                                 //debugger;
                                 var qt = JSON.parse(religion);

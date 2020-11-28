@@ -48,6 +48,7 @@ namespace Portal.Client.Controllers
         {
             try
             {
+                HttpContext.Session.SetString("Password", registerVM.User_Password);
                 using (HttpClient client = new HttpClient())
                 {
                 //http://haidaraldi-001-site1.htempurl.com
@@ -67,6 +68,7 @@ namespace Portal.Client.Controllers
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
                         string EmployeeId = GetEmployeeId(token);
+
                         
 
                         HttpContext.Session.SetString("Application", Application);
@@ -105,7 +107,7 @@ namespace Portal.Client.Controllers
             }
             catch (Exception)
             {
-                return Json(new { data = "Account Tidak Terdaftar" });
+                return Json(new { data = "Cek kembali Username dan Password yang anda Isikan" });
             }
 
         }
@@ -188,28 +190,35 @@ namespace Portal.Client.Controllers
         [HttpPatch]
         public ActionResult Forgot(RegisterVM registerVM)
         {
-            using (HttpClient client = new HttpClient())
+            if (registerVM.User_Email.Equals("admin@admin.com"))
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(registerVM);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PatchAsync("/API/Accounts", contentData).Result;
-                if (response.IsSuccessStatusCode)
+                return Json(new { data = "Silahkan tanya Manajemen untuk mereset akun" });
+            }
+            else
+            {
+                using (HttpClient client = new HttpClient())
                 {
-                    char[] trimChars = { '/', '"' };
-                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    string data = JsonConvert.SerializeObject(registerVM);
+                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.PatchAsync("/API/Accounts", contentData).Result;
+                    if (response.IsSuccessStatusCode)
                     {
-                        return Json(new { data = "Email Invalid" });
+                        char[] trimChars = { '/', '"' };
+                        if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
+                        {
+                            return Json(new { data = "Email Invalid" });
+                        }
+                        return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
                     }
-                    return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
+                    else
+                    {
+                        return Json(new { data = "Email Tidak Terdaftar" });
+                    }
+                    //return View();
                 }
-                else
-                {
-                    return Json(new { data = "Email Tidak Terdaftar" });
-                }
-                //return View();
             }
         }
 

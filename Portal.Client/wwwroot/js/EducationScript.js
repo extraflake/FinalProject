@@ -22,6 +22,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             var qt = JSON.parse(data);
             //console.log(qt);
@@ -44,6 +53,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             var qt = JSON.parse(data);
             //console.log(qt);

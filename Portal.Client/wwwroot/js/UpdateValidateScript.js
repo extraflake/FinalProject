@@ -2,15 +2,84 @@
 var firstname = document.getElementById('firstname');
 var lastname = document.getElementById('lastname');
 var email = document.getElementById('email');
-var univ = document.getElementById('university');
-var dept = document.getElementById('department');
-var ipk = document.getElementById('gpa');
-var kota = document.getElementById('hometown');
 var phone = document.getElementById('hp');
 var birthdate = document.getElementById('birthdate');
+var gender = document.getElementById('gender');
+var religion = document.getElementById('religion');
+var univ = document.getElementById('university');
+var dept = document.getElementById('department');
+var degree = document.getElementById('degree');
+var gradyear = document.getElementById('gradyear');
+var ipk = document.getElementById('gpa');
 
 var validNumber = /[0-9]|\./;
 //var validIpk = /^ (([0 - 4]{ 1}\s)| ([0 - 3]{ 1 } \.\d{ 0, 2 } \s))| [4]\.[0]{ 0, 2 } \s/;
+
+function genderValid() {
+    if (gender.value == '') {
+        gender.classList.remove("dropdown-valid");
+        gender.classList.add("dropdown-invalid");
+    }
+    else {
+        gender.classList.remove("dropdown-invalid");
+        gender.classList.add("dropdown-valid");
+    }
+}
+
+function religionValid() {
+    if (religion.value == '') {
+        religion.classList.remove("dropdown-valid");
+        religion.classList.add("dropdown-invalid");
+    }
+    else {
+        religion.classList.remove("dropdown-invalid");
+        religion.classList.add("dropdown-valid");
+    }
+}
+
+function validUniv() {
+    if (univ.value == '') {
+        univ.classList.remove("dropdown-valid");
+        univ.classList.add("dropdown-invalid");
+    }
+    else {
+        univ.classList.remove("dropdown-invalid");
+        univ.classList.add("dropdown-valid");
+    }
+}
+
+function validDepartment() {
+    if (dept.value == '') {
+        dept.classList.remove("dropdown-valid");
+        dept.classList.add("dropdown-invalid");
+    }
+    else {
+        dept.classList.remove("dropdown-invalid");
+        dept.classList.add("dropdown-valid");
+    }
+}
+
+function validDegree() {
+    if (degree.value == '') {
+        degree.classList.remove("dropdown-valid");
+        degree.classList.add("dropdown-invalid");
+    }
+    else {
+        degree.classList.remove("dropdown-invalid");
+        degree.classList.add("dropdown-valid");
+    }
+}
+
+function validYear() {
+    if (gradyear.value == '') {
+        gradyear.classList.remove("dropdown-valid");
+        gradyear.classList.add("dropdown-invalid");
+    }
+    else {
+        gradyear.classList.remove("dropdown-invalid");
+        gradyear.classList.add("dropdown-valid");
+    }
+}
 
 function validFirstName() {
     //debugger;
@@ -54,53 +123,15 @@ function validPhone() {
     }
 }
 
-function validUniv() {
-    if (univ.value == '') {
-        univ.classList.remove("is-valid");
-        univ.classList.add("is-invalid");
-    }
-    else {
-        univ.classList.remove("is-invalid");
-        univ.classList.add("is-valid");
-    }
-}
-
-function validKota() {
-    if (kota.value == '') {
-        kota.classList.remove("is-valid");
-        kota.classList.add("is-invalid");
-    }
-    else {
-        kota.classList.remove("is-invalid");
-        kota.classList.add("is-valid");
-    }
-}
-
-function validDept() {
-    if (dept.value == '') {
-        dept.classList.remove("is-valid");
-        dept.classList.add("is-invalid");
-    }
-    else {
-        dept.classList.remove("is-invalid");
-        dept.classList.add("is-valid");
-    }
-}
-
 function validIpk() {
-    debugger
+    //debugger
     if (ipk.value == '') {
         ipk.classList.remove("is-valid");
         ipk.classList.add("is-invalid");
     }
     else {
-        //if (ipk.value.match(validIpk))
-        //{
             ipk.classList.remove("is-invalid");
             ipk.classList.add("is-valid");
-        //}
-        //ipk.classList.remove("is-valid");
-        //ipk.classList.add("is-invalid");
     }
 }
 

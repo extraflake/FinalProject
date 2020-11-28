@@ -74,7 +74,9 @@ namespace Portal.Controllers
                 File = Doc,
                 Position = Position,
                 Reference = Reference,
-                Skills = listSkills
+                Skills = listSkills,
+                EmployeeId = applicantVM.EmployeeId,
+                AlreadyCheck = true
             };
 
             await myContext.Applicants.AddAsync(data);
@@ -113,9 +115,31 @@ namespace Portal.Controllers
             return file;
         }
 
+        [HttpPost(nameof(Check))]
+        public async Task<List<bool>> Check(ApplicantVM applicantVM)
+        {
+            var check = await myContext.Applicants.Where(x => x.EmployeeId == applicantVM.EmployeeId).ToListAsync();
+            List<bool> tampung = new List<bool>();
+            foreach (var item in check)
+            {
+                tampung.Add(item.AlreadyCheck);
+            }
+            return tampung;
+        }
+
+        [HttpPost(nameof(Delete))]
+        public async Task<int> Delete(ApplicantVM applicantVM)
+        {
+            var delete = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
+            myContext.Remove(delete);
+            var remove = await myContext.SaveChangesAsync();
+            return remove;
+        }
+
         [HttpPost(nameof(SendEmail))]
         public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
         {
+            var Applicant = await myContext.Applicants.FirstOrDefaultAsync(x => x.File.CreatedOn == applicantVM.CreatedOn);
             var Doc = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
@@ -158,9 +182,9 @@ namespace Portal.Controllers
             MailMessage mm = new MailMessage();
             mm.From = new MailAddress("donotreply@gmail.com");
             mm.To.Add("dionisiusyose11@gmail.com");
-            mm.Subject = "Applicant Data";
+            mm.Subject = $"{data.Position.Name}_{Applicant.Id}_{applicantVM.FirstName} {applicantVM.LastName}";
             mm.IsBodyHtml = true;
-            mm.Body = $"Applicant data for {data.Position.Name}";
+            mm.Body = $"Applicant data for {data.Position.Name} from {applicantVM.FirstName} {applicantVM.LastName}";
 
             //foreach(var attachment in )
 

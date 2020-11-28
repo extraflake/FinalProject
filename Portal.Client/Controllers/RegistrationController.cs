@@ -146,28 +146,29 @@ namespace Portal.Client.Controllers
             try
             {
                 editProfileVM.DepartmentId = HttpContext.Session.GetString("DepartmentId");
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    var response = client.GetAsync($"/api/departments/{editProfileVM.DepartmentId}").Result;
+                    //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Json(new { data = response.Content.ReadAsStringAsync().Result.ToString() });
+                    }
+                    else
+                    {
+                        return Json(new { data = "gagal" });
+                    }
+                }
             }
             catch (Exception)
             {
-                editProfileVM.DepartmentId = "";
+                return Json(new { data = "gagal" });
             }
             //HttpContext.Session.GetString("University");
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                var response = client.GetAsync($"/api/departments/{editProfileVM.DepartmentId}").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
-            }
+
         }
 
         [HttpGet]
@@ -176,28 +177,30 @@ namespace Portal.Client.Controllers
             try
             {
                 editProfileVM.UniversityId = HttpContext.Session.GetString("UniversityId");
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    var response = client.GetAsync($"/api/universitys/{editProfileVM.UniversityId}").Result;
+                    //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Json(new { data = response.Content.ReadAsStringAsync().Result.ToString() });
+                    }
+                    else
+                    {
+                        return Json(new { data = "gagal" });
+                    }
+                }
             }
             catch (Exception)
             {
-                editProfileVM.UniversityId = "";
+                return Json(new { data = "gagal" });
             }
             //HttpContext.Session.GetString("University");
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                var response = client.GetAsync($"/api/universitys/{editProfileVM.UniversityId}").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
-            }
+
         }
 
         public ActionResult Logout()
@@ -216,6 +219,10 @@ namespace Portal.Client.Controllers
                 {
                     return View();
                 }
+                else if (HttpContext.Session.GetString("Application").Equals("AdminPortal"))
+                {
+                    return Redirect("~/Admin/Index");
+                }
                 else return Redirect("~/Account/Index");
             }
             catch (Exception)
@@ -226,7 +233,7 @@ namespace Portal.Client.Controllers
 
         // Registration Page
         // Update Position DropDown
-        
+
         [HttpGet]
         public ActionResult GetUserData()
         {
@@ -302,31 +309,92 @@ namespace Portal.Client.Controllers
         [HttpGet]
         public ActionResult GetEducation()
         {
-            int EducationId = Convert.ToInt32(HttpContext.Session.GetString("EducationId"));
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                //string data = JsonConvert.SerializeObject(position);
-                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync($"/api/educations/{EducationId}").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
+                int EducationId = Convert.ToInt32(HttpContext.Session.GetString("EducationId"));
+                using (HttpClient client = new HttpClient())
                 {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    //string data = JsonConvert.SerializeObject(position);
+                    //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.GetAsync($"/api/educations/{EducationId}").Result;
+                    //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Json(new { data = response.Content.ReadAsStringAsync().Result.ToString() });
+                    }
+                    else
+                    {
+                        return Json(new { data = "gagal" });
+                    }
                 }
-                else
-                {
-                    return Content("GAGAL");
-                }
+            }
+            catch (Exception)
+            {
+                return Json(new { data = "gagal" });
             }
         }
 
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
-            applicantVM.Id = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            applicantVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            if(HttpContext.Session.GetString("EducationId") != "")
+            {
+                string check = AlreadyCheck(applicantVM).ToLower();
+                if (!check.Equals("gagal"))
+                {
+                    if (check.Contains("true"))
+                    {
+                        DeleteFile(applicantVM);
+                        return Json(new { data = "notest" });
+                    }
+                    else
+                    {
+                        using (HttpClient client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri("https://localhost:44307");
+                            MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                            client.DefaultRequestHeaders.Accept.Add(contentType);
+                            string data = JsonConvert.SerializeObject(applicantVM);
+                            var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                            var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
+                            if (response.IsSuccessStatusCode)
+                            {
+                                string message = SendEmail(applicantVM).ToLower();
+                                if (message.Equals("sukses")) return Json(new { data = "berhasil" });
+                                else
+                                {
+                                    DeleteFile(applicantVM);
+                                    return Json(new { data = "gagal" });
+                                }
+                            }
+                            else
+                            {
+                                DeleteFile(applicantVM);
+                                return Json(new { data = "gagal" });
+                            }
+                        }
+                    }
+                }
+                else 
+                {
+                    DeleteFile(applicantVM);
+                    return Json(new { data = "nodata" });
+                }
+            }
+            else
+            {
+                DeleteFile(applicantVM);
+                return Json(new { data = "nodata" });
+            }
+        }
+
+        [HttpPost]
+        public string AlreadyCheck(ApplicantVM applicantVM)
+        {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44307");
@@ -334,67 +402,93 @@ namespace Portal.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(applicantVM);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("/API/Applicants/Add", contentData).Result;
+                var response = client.PostAsync("/API/Applicants/Check", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    string message = SendEmail(applicantVM).ToLower();
-                    if(message.Equals("sukses")) return Json(new { data = "berhasil" });
-                    else return Json(new { data = "gagal" });
+                    var allData = response.Content.ReadAsStringAsync().Result.ToString();
+                    return allData;
                 }
                 else
                 {
-                    return Json(new { data = "gagal" });
+                    return "gagal";
                 }
-                //return View();
             }
+            
+        }
+
+        [HttpPost]
+        public string DeleteFile(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Applicants/Delete", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return "sukses";
+                }
+                else
+                {
+                    return "gagal";
+                }
+            }
+
         }
 
         // Upload File
         [HttpPost]
         public ActionResult Upload(IList<IFormFile> files)
         {
-            foreach (IFormFile source in files)
+            if(HttpContext.Session.GetString("EducationId") != "")
             {
-                //Getting FileName
-                var fileName = Path.GetFileName(source.FileName);
-                //Getting file Extension
-                 var fileExtension = Path.GetExtension(fileName);
-                // concatenating  FileName + FileExtension
-
-                var objfiles = new ApplicantVM()
+                foreach (IFormFile source in files)
                 {
-                    FileName = fileName,
-                    FileType = fileExtension,
-                    CreatedOn = DateTime.Now
-                };
+                    //Getting FileName
+                    var fileName = Path.GetFileName(source.FileName);
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
 
-                using (var target = new MemoryStream())
-                {
-                    source.CopyTo(target);
-                    objfiles.DataFile = target.ToArray();
-                }
-
-                using (HttpClient client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://localhost:44307");
-                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                    client.DefaultRequestHeaders.Accept.Add(contentType);
-                    string data = JsonConvert.SerializeObject(objfiles);
-                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                    var response = client.PostAsync("/API/Applicants/AddFile", contentData).Result;
-                    //var upload = client.PostAsync("/API/Applicants");
-                    if (response.IsSuccessStatusCode)
+                    var objfiles = new ApplicantVM()
                     {
-                        return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
-                    }
-                    else
+                        FileName = fileName,
+                        FileType = fileExtension,
+                        CreatedOn = DateTime.Now
+                    };
+
+                    using (var target = new MemoryStream())
                     {
-                        return Json(new { data = "Upload Gagal" });
+                        source.CopyTo(target);
+                        objfiles.DataFile = target.ToArray();
                     }
-                    //return View();
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri("https://localhost:44307");
+                        MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                        client.DefaultRequestHeaders.Accept.Add(contentType);
+                        string data = JsonConvert.SerializeObject(objfiles);
+                        var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                        var response = client.PostAsync("/API/Applicants/AddFile", contentData).Result;
+                        //var upload = client.PostAsync("/API/Applicants");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return Json(new { name = objfiles.FileName, type = objfiles.FileType, date = objfiles.CreatedOn, files = objfiles.DataFile, data = "Upload Sukses" });
+                        }
+                        else
+                        {
+                            return Json(new { data = "Upload Gagal" });
+                        }
+                        //return View();
+                    }
                 }
+                return Json(new { data = "Error" });
             }
-            return Json(new {data = "Error" });
+            return Json(new { data = "Error" });
         }
 
         [HttpPost]
@@ -421,11 +515,11 @@ namespace Portal.Client.Controllers
                         return "gagal";
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return "sukses";
                 }
-                
+
                 //return View();
             }
         }
@@ -443,10 +537,9 @@ namespace Portal.Client.Controllers
         [HttpPut]
         public ActionResult UpdateData(EditProfileVM editProfileVM)
         {
-            //HttpContext.Session.SetString("DepartmentId", editProfileVM.DepartmentId);
-            //HttpContext.Session.SetString("UniversityId", editProfileVM.UniversityId);
             editProfileVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
             editProfileVM.UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44358");
@@ -462,7 +555,7 @@ namespace Portal.Client.Controllers
                 var response = client.PutAsync("/API/Accounts/EditProfile", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(new { data = "sukses" });
+                    return Json(new { data = "sukses", url = Url.Action("Logout", "Registration") , email = HttpContext.Session.GetString("Email"), password = HttpContext.Session.GetString("Password") });
                 }
                 else
                 {
@@ -471,5 +564,6 @@ namespace Portal.Client.Controllers
                 //return View();
             }
         }
+
     }
 }

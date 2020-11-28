@@ -10,7 +10,7 @@
         dataType: "json",
         async: false,
         beforeSend: function () {
-            debugger;
+            //debugger;
             var createLoader = document.getElementById("loader");
             createLoader.classList.remove('hidden');
         },
@@ -19,7 +19,7 @@
             createLoader.classList.add('hidden');
         },
         success: function (data) {
-            //debugger;
+            debugger;
             if (data.data != "gagal") {
                 var qt = JSON.parse(data.data);
                 //console.log(qt);
@@ -51,7 +51,7 @@
 
                 gradYear.selectedIndex = (document.getElementById(graduateYear.toString()).index).toString();
             }
-
+            
 
         },
         error: function (errormessage) {
@@ -69,7 +69,7 @@
         dataType: "json",
         async: false,
         beforeSend: function () {
-            debugger;
+            //debugger;
             var createLoader = document.getElementById("loader");
             createLoader.classList.remove('hidden');
         },
@@ -79,7 +79,6 @@
         },
         success: function (department) {
             debugger;
-            //console.log(department.data);
             if (department.data != "gagal") {
                 var qt = JSON.parse(department.data);
 
@@ -107,6 +106,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (university) {
             //debugger;
             if (university.data != "gagal") {

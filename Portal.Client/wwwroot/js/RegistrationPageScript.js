@@ -16,88 +16,126 @@ function Submit() {
     //Get file
     var input = $('#files').get(0);
     var files = input.files;
-    var formData = new FormData();
+    
 
     //Add skill array
     var skillList = new Array();
 
-    for (var i = 0; i !== files.length; i++) {
-        formData.append("files", files[i]);
+    
+
+    ApplicantVM.PositionId = document.getElementById('position').value;
+    ApplicantVM.ReferenceId = document.getElementById('reference').value;
+
+    skillList = $("#skill").val();
+    ApplicantVM.SkillId = skillList;
+
+    //Education Data
+    var Univ = document.getElementById('university').value;
+
+    ApplicantVM.FirstName = document.getElementById('firstname').value;
+    ApplicantVM.LastName = document.getElementById('lastname').value;
+    ApplicantVM.Email = document.getElementById('email').value;
+    ApplicantVM.Phone = document.getElementById('hp').value;
+    ApplicantVM.BirthDate = document.getElementById('birthdate').value;
+    ApplicantVM.GPA = document.getElementById('gpa').value;
+    ApplicantVM.Gender = document.getElementById('gender').value;
+
+    var religion = document.getElementById('religion');
+    ApplicantVM.Religion = religion.options[religion.selectedIndex].text;
+
+    var university = document.getElementById('university');
+    ApplicantVM.University = university.options[university.selectedIndex].text;
+
+    var department = document.getElementById('department');
+    ApplicantVM.Department = department.options[department.selectedIndex].text;
+
+    ApplicantVM.Degree = document.getElementById('degree').value;
+    ApplicantVM.GraduationYear = document.getElementById('gradyear').value;
+
+    if (Univ == '')
+    {
+        swal("Error!", "Silahkan Lakukan Update Data Pendidikan Anda", "error");
+    }
+    else
+    {
+        
+        if (skillList.length == 0) {
+            swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
+        }
+        else if (files.length == 0) {
+            swal("Error!", "Silahkan Attach CV Anda", "error");
+        }
+        else {
+            //debugger;
+            var formData = new FormData();
+            for (var i = 0; i !== files.length; i++) {
+                formData.append("files", files[i]);
+            }
+
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Anda akan mengirimkan data anda ke Metrodata Academy',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Saya yakin !'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "Post",
+                        url: '/Registration/Upload',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            debugger;
+                            var createLoader = document.getElementById("loader");
+                            createLoader.classList.remove('hidden');
+                        },
+                        complete: function () {
+                            var createLoader = document.getElementById("loader");
+                            createLoader.classList.add('hidden');
+                        },
+                    }).then((result) => {
+                        ApplicantVM.CreatedOn = result.date;
+
+                        $.ajax({
+                            type: "Post",
+                            url: '/Registration/Register',
+                            data: ApplicantVM,
+                            beforeSend: function () {
+                                debugger;
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.remove('hidden');
+                            },
+                            complete: function () {
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.add('hidden');
+                            },
+                        }).then((result) => {
+                            //console.log(result.data);
+                            if (result.data == "gagal") {
+                                swal("Error!", "Silahkan coba beberapa saat lagi", "error");
+                            }
+                            else if (result.data == "nodata") {
+                                swal("Error!", "Silahkan Isi Data Pendidikan", "error");
+                            }
+                            else if (result.data == "notest") {
+                                swal("Error!", "Anda sudah terdaftar pada program lain!!!", "error");
+                            }
+                            else if (result.data == "berhasil") {
+                                swal("Success!", "Your Registration is Success!", "success");
+                                ClearScreen();
+                            }
+                        });
+                    });
+                }
+            })
+        }
     }
 
-    $.ajax({
-        type: "Post",
-        url: '/Registration/Upload',
-        data: formData,
-        processData: false,
-        contentType: false
-    }).then((result) => {
-        //debugger;
-        //console.log(result.date);
-        ApplicantVM.CreatedOn = result.date;
-        ApplicantVM.PositionId = document.getElementById('position').value;
-        ApplicantVM.ReferenceId = document.getElementById('reference').value;
-
-        debugger;
-        // Add all skill
-        skillList = $("#skill").val();
-        ApplicantVM.SkillId = skillList;
-        
-        //Education Data
-        var Univ = document.getElementById('university').value;
-
-        ApplicantVM.FirstName = document.getElementById('firstname').value;
-        ApplicantVM.LastName = document.getElementById('lastname').value;
-        ApplicantVM.Email = document.getElementById('email').value;
-        ApplicantVM.Phone = document.getElementById('hp').value;
-        ApplicantVM.BirthDate = document.getElementById('birthdate').value;
-        ApplicantVM.GPA = document.getElementById('gpa').value;
-        ApplicantVM.Gender = document.getElementById('gender').value;
-
-        var religion = document.getElementById('religion');
-        ApplicantVM.Religion = religion.options[religion.selectedIndex].text;
-
-        var university = document.getElementById('university');
-        ApplicantVM.University = university.options[university.selectedIndex].text;
-
-        var department = document.getElementById('department');
-        ApplicantVM.Department = department.options[department.selectedIndex].text;
-
-        ApplicantVM.Degree = document.getElementById('degree').value;
-        ApplicantVM.GraduationYear = document.getElementById('gradyear').value;
-
-        debugger;
-
-        if (Univ == '') {
-            swal("Error!", "Silahkan Lakukan Update Data Pendidikan Anda", "error");
-        }
-        else
-        {
-            if (ApplicantVM.CreatedOn == null) {
-                swal("Error!", "Silahkan Attach CV Anda", "error");
-            }
-            else if (ApplicantVM.SkillId.length == 0) {
-                swal("Error!", "Silahkan Pilih Keahlian Anda", "error");
-            }
-            else {
-
-                $.ajax({
-                    type: "Post",
-                    url: '/Registration/Register',
-                    data: ApplicantVM
-                }).then((result) => {
-                    //console.log(result.data);
-                    if (result.data == "gagal") {
-                        swal("Error!", "Please try again in a moment!", "error");
-                    }
-                    else if (result.data == "berhasil") {
-                        swal("Success!", "Your Registration is Success!", "success");
-                        ClearScreen();
-                    }
-                });
-            }
-        }
-    });
+    
 }
 
 function ClearScreen() {
