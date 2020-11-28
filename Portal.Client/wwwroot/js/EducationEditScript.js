@@ -9,6 +9,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             debugger;
             if (data.data != "gagal") {
@@ -19,20 +28,23 @@
                 var degree = document.getElementById("degree");
                 var degreeValue = qt.data['degree'];
 
-                if (degreeValue == 'SMK/SMA') {
+                if (degreeValue == '') {
                     degree.selectedIndex = "0";
                 }
-                else if (degreeValue == 'D3') {
+                else if (degreeValue == 'SMK/SMA') {
                     degree.selectedIndex = "1";
                 }
-                else if (degreeValue == 'D4/S1') {
+                else if (degreeValue == 'D3') {
                     degree.selectedIndex = "2";
                 }
-                else if (degreeValue == 'S2') {
+                else if (degreeValue == 'D4/S1') {
                     degree.selectedIndex = "3";
                 }
-                else {
+                else if (degreeValue == 'S2') {
                     degree.selectedIndex = "4";
+                }
+                else {
+                    degree.selectedIndex = "5";
                 }
 
                 graduateYear = qt.data['graduateYear'];
@@ -56,6 +68,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (department) {
             debugger;
             if (department.data != "gagal") {
@@ -85,6 +106,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (university) {
             //debugger;
             if (university.data != "gagal") {

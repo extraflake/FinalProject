@@ -28,20 +28,23 @@
                 var degree = document.getElementById("degree");
                 var degreeValue = qt.data['degree'];
 
-                if (degreeValue == 'SMK/SMA') {
+                if (degreeValue == '') {
                     degree.selectedIndex = "0";
                 }
-                else if (degreeValue == 'D3') {
+                else if (degreeValue == 'SMK/SMA') {
                     degree.selectedIndex = "1";
                 }
-                else if (degreeValue == 'D4/S1') {
+                else if (degreeValue == 'D3') {
                     degree.selectedIndex = "2";
                 }
-                else if (degreeValue == 'S2') {
+                else if (degreeValue == 'D4/S1') {
                     degree.selectedIndex = "3";
                 }
-                else {
+                else if (degreeValue == 'S2') {
                     degree.selectedIndex = "4";
+                }
+                else {
+                    degree.selectedIndex = "5";
                 }
 
                 graduateYear = qt.data['graduateYear'];

@@ -72,54 +72,66 @@ function Submit() {
                 formData.append("files", files[i]);
             }
 
-            $.ajax({
-                type: "Post",
-                url: '/Registration/Upload',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function () {
-                    debugger;
-                    var createLoader = document.getElementById("loader");
-                    createLoader.classList.remove('hidden');
-                },
-                complete: function () {
-                    var createLoader = document.getElementById("loader");
-                    createLoader.classList.add('hidden');
-                },
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Anda akan mengirimkan data anda ke Metrodata Academy',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Saya yakin !'
             }).then((result) => {
-                ApplicantVM.CreatedOn = result.date;
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "Post",
+                        url: '/Registration/Upload',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            debugger;
+                            var createLoader = document.getElementById("loader");
+                            createLoader.classList.remove('hidden');
+                        },
+                        complete: function () {
+                            var createLoader = document.getElementById("loader");
+                            createLoader.classList.add('hidden');
+                        },
+                    }).then((result) => {
+                        ApplicantVM.CreatedOn = result.date;
 
-                $.ajax({
-                    type: "Post",
-                    url: '/Registration/Register',
-                    data: ApplicantVM,
-                    beforeSend: function () {
-                        debugger;
-                        var createLoader = document.getElementById("loader");
-                        createLoader.classList.remove('hidden');
-                    },
-                    complete: function () {
-                        var createLoader = document.getElementById("loader");
-                        createLoader.classList.add('hidden');
-                    },
-                }).then((result) => {
-                    //console.log(result.data);
-                    if (result.data == "gagal") {
-                        swal("Error!", "Try Again in a moment", "error");
-                    }
-                    else if (result.data == "nodata") {
-                        swal("Error!", "Silahkan Isi Data Pendidikan", "error");
-                    }
-                    else if (result.data == "notest") {
-                        swal("Error!", "Anda sudah terdaftar pada program lain!!! Silahkan ikuti tes terlebih dahulu", "error");
-                    }
-                    else if (result.data == "berhasil") {
-                        swal("Success!", "Your Registration is Success!", "success");
-                        ClearScreen();
-                    }
-                });
-            });
+                        $.ajax({
+                            type: "Post",
+                            url: '/Registration/Register',
+                            data: ApplicantVM,
+                            beforeSend: function () {
+                                debugger;
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.remove('hidden');
+                            },
+                            complete: function () {
+                                var createLoader = document.getElementById("loader");
+                                createLoader.classList.add('hidden');
+                            },
+                        }).then((result) => {
+                            //console.log(result.data);
+                            if (result.data == "gagal") {
+                                swal("Error!", "Silahkan coba beberapa saat lagi", "error");
+                            }
+                            else if (result.data == "nodata") {
+                                swal("Error!", "Silahkan Isi Data Pendidikan", "error");
+                            }
+                            else if (result.data == "notest") {
+                                swal("Error!", "Anda sudah terdaftar pada program lain!!!", "error");
+                            }
+                            else if (result.data == "berhasil") {
+                                swal("Success!", "Your Registration is Success!", "success");
+                                ClearScreen();
+                            }
+                        });
+                    });
+                }
+            })
         }
     }
 

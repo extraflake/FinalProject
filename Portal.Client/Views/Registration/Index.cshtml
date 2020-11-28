@@ -53,6 +53,7 @@
             <div class="grid grid-ai-c">
                 <label for="gender" class="grid-item-left">Gender : </label>
                 <select class="grid-item-right" id="gender" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih jenis kelamin anda...</option>
                     <option value="Pria">L</option>
                     <option value="Wanita">P</option>
                     <option value="none">Tidak disebutkan</option>
@@ -62,13 +63,16 @@
             <!-- Agama -->
             <div class="grid grid-ai-c">
                 <label for="religion" class="grid-item-left">Agama : </label>
-                <select class="grid-item-right" id="religion" disabled> </select>
+                <select class="grid-item-right" id="religion" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih agama anda...</option>
+                </select>
             </div>
 
             <!-- Sekolah/ Universitas -->
             <div class="grid grid-ai-c">
                 <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
                 <select class="grid-item-right" id="university" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih asal sekolah anda...</option>
                 </select>
                 @*<input onkeyup="validUniv();" class="form-control" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">*@
             </div>
@@ -77,6 +81,7 @@
             <div class="grid grid-ai-c">
                 <label for="department" class="grid-item-left">Jurusan : </label>
                 <select class="grid-item-right" id="department" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih jurusan anda...</option>
                 </select>
                 @*<input onkeyup="validDept();" class="form-control" type="text" placeholder="Masukkan nama jurusan anda..." id="department">*@
             </div>
@@ -85,6 +90,7 @@
             <div class="grid grid-ai-c">
                 <label for="aclevel" class="grid-item-left">Jenjang Pendidikan : </label>
                 <select class="grid-item-right" id="degree" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih pendidikan terakhir anda...</option>
                     <option value="SMK/SMA">SMK/SMA</option>
                     <option value="D3">D3 (Diploma)</option>
                     <option value="D4/S1">D4/S1</option>
@@ -96,7 +102,9 @@
             <!-- Tahun lulus -->
             <div class="grid grid-ai-c">
                 <label for="gradyear" class="grid-item-left">Tahun Kelulusan : </label>
-                <select class="grid-item-right" id="gradyear" disabled> </select>
+                <select class="grid-item-right" id="gradyear" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih tahun kelulusan anda...</option>
+                </select>
             </div>
 
             <!-- IPK Terakhir -->
@@ -141,6 +149,7 @@
 
     <!-- Sweet Alert -->
     @*<script src="~/js/sweetalert2@10..js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@

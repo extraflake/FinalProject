@@ -535,6 +535,7 @@ namespace Portal.Client.Controllers
         {
             editProfileVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
             editProfileVM.UserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44358");
@@ -550,7 +551,7 @@ namespace Portal.Client.Controllers
                 var response = client.PutAsync("/API/Accounts/EditProfile", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(new { data = "sukses", url = Url.Action("Logout", "Registration") , log = response.Content.ReadAsStringAsync().Result.ToString() });
+                    return Json(new { data = "sukses", url = Url.Action("Logout", "Registration") , email = HttpContext.Session.GetString("Email"), password = HttpContext.Session.GetString("Password") });
                 }
                 else
                 {
@@ -559,5 +560,6 @@ namespace Portal.Client.Controllers
                 //return View();
             }
         }
+
     }
 }

@@ -63,14 +63,17 @@
             //debugger;
             var gender = document.getElementById("gender");
             var genderValue = qt.data['gender'];
-            if (genderValue == 'Pria') {
+            if (genderValue == '') {
                 gender.selectedIndex = "0";
             }
-            else if (genderValue == 'Wanita') {
+            else if (genderValue == 'Pria') {
                 gender.selectedIndex = "1";
             }
-            else {
+            else if (genderValue == 'Wanita') {
                 gender.selectedIndex = "2";
+            }
+            else {
+                gender.selectedIndex = "3";
             }
 
 

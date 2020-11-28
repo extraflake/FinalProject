@@ -48,6 +48,7 @@ namespace Portal.Client.Controllers
         {
             try
             {
+                HttpContext.Session.SetString("Password", registerVM.User_Password);
                 using (HttpClient client = new HttpClient())
                 {
                 //http://haidaraldi-001-site1.htempurl.com
@@ -67,6 +68,7 @@ namespace Portal.Client.Controllers
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
                         string EmployeeId = GetEmployeeId(token);
+
                         
 
                         HttpContext.Session.SetString("Application", Application);
