@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Portal.Client.ViewModels;
+using Portal.Models;
 
 namespace Portal.Client.Controllers
 {
@@ -400,6 +401,29 @@ namespace Portal.Client.Controllers
                 ModelState.AddModelError(string.Empty, "Server error try after some time.");
             }
             return Json(applicant);
+        }
+
+        [HttpPut]
+        public ActionResult UpdateCheck(Applicant applicant)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicant);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PutAsync("/api/applicants/" + applicant.Id, contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+
+            }
         }
         public IActionResult AdminCheck()
         {

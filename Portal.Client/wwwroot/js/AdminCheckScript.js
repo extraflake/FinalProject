@@ -20,12 +20,16 @@ $(document).ready(function () {
                 //"visible": false
             },
             {
-                "data": "alreadyCheck"
-                //"render": function(data, type, row, meta) {
-                //    if (data === true) {
-                //        return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>';
-                //    }   
-                //}
+                "data": "alreadyCheck",
+                "render": function (data, type, row, meta) {
+                    if (data == false) {
+                        return "Already Check"
+                    }
+                    else
+                    {
+                        return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" onclick="return Update(' + row.id + ');">Check</button >'
+                    }
+                }
             },
             {
                 "data": "fileId",
@@ -50,12 +54,42 @@ $(document).ready(function () {
             {
                 "data": "skills",
                 "visible": false
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<button class="btn pull-left hidden-sm-down btn-warning" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');"><i class="fa fa-edit"></i></button >' + '&nbsp;' +
-                        '<button class="btn btn-danger" data-placement="right" data-toggle="tooltip" data-animation="false" title="Delete" onclick="return Delete(' + row.id + ');"><i class="fa fa-trash"></i></button>'
-                }
             }]
     });
 });
+
+
+function Update() {
+    var Applicant = new Object();
+    Applicant.id = val(row.id);
+    Applicant.alreadyCheck = false;
+    debugger;
+    $.ajax({
+        type: "PUT",
+        url: '/Admin/UpdateCheck',
+        data: Check
+    }).then((result) => {
+        debugger;
+        console.log(result);
+        if (result != "GAGAL") {
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                icon: 'success',
+                title: 'Updated successfully'
+            });
+            table.ajax.reload();
+        }
+        else {
+            Swal.fire({
+                position: 'center',
+                type: 'error',
+                icon: 'error',
+                title: 'Failed to update!'
+            });
+            table.ajax.reload();
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+}
