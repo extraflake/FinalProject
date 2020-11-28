@@ -8,7 +8,7 @@
         async: false,
         success: function (data) {
             var qt = JSON.parse(data);
-            console.log(qt);
+            //console.log(qt);
             var dropDown = document.getElementById("religion");
             for (var i = 0; i < qt.data.length; i++) {
 

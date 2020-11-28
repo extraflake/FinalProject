@@ -105,7 +105,7 @@ namespace Portal.Client.Controllers
             }
             catch (Exception)
             {
-                return Json(new { data = "Account Tidak Terdaftar" });
+                return Json(new { data = "Cek kembali Username dan Password yang anda Isikan" });
             }
 
         }

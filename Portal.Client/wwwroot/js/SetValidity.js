@@ -1,4 +1,4 @@
-﻿debugger;
+﻿//debugger;
 var fName = document.getElementById('fname-column');
 var lName = document.getElementById('last-name-column');
 var email = document.getElementById('email-column');
@@ -7,6 +7,30 @@ var confirm = document.getElementById('confirm-column');
 var userName = document.getElementById('username-column');
 var phone = document.getElementById('phone-column');
 var birthdate = document.getElementById('birthdate-column');
+var gender = document.getElementById('gender-floating');
+var religion = document.getElementById('religion');
+
+function genderValid() {
+    if (gender.value == '') {
+        gender.classList.remove("dropdown-valid");
+        gender.classList.add("dropdown-invalid");
+    }
+    else {
+        gender.classList.remove("dropdown-invalid");
+        gender.classList.add("dropdown-valid");
+    }
+}
+
+function religionValid() {
+    if (religion.value == '') {
+        religion.classList.remove("dropdown-valid");
+        religion.classList.add("dropdown-invalid");
+    }
+    else {
+        religion.classList.remove("dropdown-invalid");
+        religion.classList.add("dropdown-valid");
+    }
+}
 
 function validfName() {
     if (fName.value == '') {
@@ -83,9 +107,7 @@ function Confirm() {
 }
 
 function ValidateEmail() {
-    //var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var mailformat = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-    ///^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/
     if (email.value.match(mailformat)) {
         email.classList.remove("is-invalid");
         email.classList.add("is-valid");
