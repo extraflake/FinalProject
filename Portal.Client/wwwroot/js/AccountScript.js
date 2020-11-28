@@ -66,7 +66,7 @@ function Register() {
         url: '/Account/Register',
         data: RegisterVM,
         beforeSend: function () {
-            debugger;
+            //debugger;
             var createLoader = document.getElementById("loader");
             createLoader.classList.remove('hidden');
         },

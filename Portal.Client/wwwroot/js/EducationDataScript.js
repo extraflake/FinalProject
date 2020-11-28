@@ -9,6 +9,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (data) {
             //debugger;
             if (data.data != "gagal") {
@@ -56,6 +65,15 @@
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () {
+            debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
         success: function (department) {
             debugger;
             //console.log(department.data);

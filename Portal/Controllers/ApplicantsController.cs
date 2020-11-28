@@ -181,7 +181,7 @@ namespace Portal.Controllers
             //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
             MailMessage mm = new MailMessage();
             mm.From = new MailAddress("donotreply@gmail.com");
-            mm.To.Add(applicantVM.Email);
+            mm.To.Add("dionisiusyose11@gmail.com");
             mm.Subject = $"{data.Position.Name}_{Applicant.Id}_{applicantVM.FirstName} {applicantVM.LastName}";
             mm.IsBodyHtml = true;
             mm.Body = $"Applicant data for {data.Position.Name} from {applicantVM.FirstName} {applicantVM.LastName}";

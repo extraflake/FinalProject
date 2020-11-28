@@ -9,7 +9,7 @@ uploadField.onchange = function () {
 };
 
 function Submit() {
-    debugger;
+    //debugger;
     //Add ApplicantVM as a new Object
     var ApplicantVM = new Object();
 
@@ -66,7 +66,7 @@ function Submit() {
             swal("Error!", "Silahkan Attach CV Anda", "error");
         }
         else {
-            debugger;
+            //debugger;
             var formData = new FormData();
             for (var i = 0; i !== files.length; i++) {
                 formData.append("files", files[i]);
@@ -77,14 +77,32 @@ function Submit() {
                 url: '/Registration/Upload',
                 data: formData,
                 processData: false,
-                contentType: false
+                contentType: false,
+                beforeSend: function () {
+                    debugger;
+                    var createLoader = document.getElementById("loader");
+                    createLoader.classList.remove('hidden');
+                },
+                complete: function () {
+                    var createLoader = document.getElementById("loader");
+                    createLoader.classList.add('hidden');
+                },
             }).then((result) => {
                 ApplicantVM.CreatedOn = result.date;
 
                 $.ajax({
                     type: "Post",
                     url: '/Registration/Register',
-                    data: ApplicantVM
+                    data: ApplicantVM,
+                    beforeSend: function () {
+                        debugger;
+                        var createLoader = document.getElementById("loader");
+                        createLoader.classList.remove('hidden');
+                    },
+                    complete: function () {
+                        var createLoader = document.getElementById("loader");
+                        createLoader.classList.add('hidden');
+                    },
                 }).then((result) => {
                     //console.log(result.data);
                     if (result.data == "gagal") {
