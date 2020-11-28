@@ -23,7 +23,7 @@ $(document).ready(function () {
                 "data": "alreadyCheck",
                 "render": function (data, type, row, meta) {
                     if (data == false) {
-                        return "Already Check"
+                        return '<span>Test Complete</span>'
                     }
                     else
                     {
@@ -35,26 +35,28 @@ $(document).ready(function () {
                 "data": "fileId",
                 "visible": false
             },
-            {
-                "data": "file",
-                "visible": false
-            },
-            {
-                "data": "position",
-                "visible": false
-            },
-            {
-                "data": "reference",
-                "visible": false
-            },
+            //{
+            //    "data": "file",
+            //    "visible": false
+            //},
+            //{
+            //    "data": "position",
+            //    "visible": false
+            //},
+            //{
+            //    "data": "reference",
+            //    "visible": false
+            //},
             {
                 "data": "employeeId"
                 //"visible": false
-            },
-            {
-                "data": "skills",
-                "visible": false
-            }]
+            }
+            //,
+            //{
+            //    "data": "skills",
+            //    "visible": false
+            //}
+        ]
     });
 });
 
