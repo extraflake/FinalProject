@@ -13,12 +13,19 @@ function SignIn() {
         url: '/Login/Login',
         data: LoginVM
     }).then((result) => {
-        //console.log(result.data);
-        if (result.data == "berhasil") {
+        debugger;
+        sessionStorage.setItem("applicantId", result.data);
+        if (result.data != "GAGAL") {
             console.log(result.token);
-            //swal("Success!", "Registrasi anda berhasil!", "success");
             window.location = result.url;
         }
-        else swal("Error!", result.data, "error")
+        else {
+            Swal.fire({
+                position: 'center',
+                type: 'error',
+                icon: 'error',
+                title: 'Failed to Login!'
+            });
+        }
     });
 }

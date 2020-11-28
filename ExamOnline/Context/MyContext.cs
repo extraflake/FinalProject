@@ -17,6 +17,5 @@ namespace ExamOnline.Context
         public DbSet<Segment> Segments { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<Record> Records { get; set; }
     }
 }

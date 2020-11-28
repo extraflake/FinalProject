@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    console.log(sessionStorage.getItem("applicantId"));
     var dropdown = document.getElementById('examTime');
     $.ajax({
         "type": "GET",
@@ -39,7 +39,7 @@ function Choose() {
     var id = dropdownn.value;
     var text = dropdownn.options[dropdownn.selectedIndex].text;
     sessionStorage.setItem("chosen", text);
-    sessionStorage.setItem("id", id);
+    sessionStorage.setItem("scheduleId", id);
     //debugger;
     window.location = "/exam/waiting"
 }

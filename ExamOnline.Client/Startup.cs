@@ -54,7 +54,7 @@ namespace ExamOnline.Client
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Schedule}/{action=Choose}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

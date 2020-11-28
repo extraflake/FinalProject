@@ -161,5 +161,23 @@ namespace ExamOnline.Client.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public ActionResult GetActiveSegment()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44301");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                var response = client.GetAsync("api/segments/getactive").Result;
+                if (response.IsSuccessStatusCode) { 
+                    return Json(response.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    return Content("GAGAL");
+                }
+            }
+        }
     }
 }

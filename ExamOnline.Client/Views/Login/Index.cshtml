@@ -8,7 +8,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-5 col-sm-12 mx-auto">
+            <div class="col-md-7 col-sm-12 mx-auto">
                 <div class="card pt-4">
                     <div class="card-body">
                         <div class="text-center mb-5">
@@ -19,11 +19,10 @@
                         </div>
                         <div>
                             <div class="form-group position-relative has-icon-left">
-                                <label for="username">Username</label>
                                 <div class="position-relative">
                                     <input type="text" class="form-control" id="user" placeholder="Type your email, username or phone number here...">
                                     <div class="form-control-icon">
-                                        <i data-feather="user"></i>
+                                        <i class="fa fa-user"></i>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +30,7 @@
                                 <div class="position-relative">
                                     <input type="password" class="form-control" id="password" placeholder="Type your password here...">
                                     <div class="form-control-icon">
-                                        <i data-feather="lock"></i>
+                                        <i class="fa fa-lock"></i>
                                     </div>
                                 </div>
                             </div>
@@ -55,16 +54,15 @@
 </div>
 
 @section script{
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
-    <script src="~/voler-master/dist/assets/js/feather-icons/feather.min.js"></script>
     <script src="~/voler-master/dist/assets/js/app.js"></script>
-
+    <script src="~/voler-master/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/voler-master/dist/assets/js/feather-icons/feather.js"></script>
     <script src="~/voler-master/dist/assets/js/main.js"></script>
     <script src="~/js/AccountLogin.js"></script>
+    <script src="~/js/sweetAlert.js"></script>
+
 }
 
 

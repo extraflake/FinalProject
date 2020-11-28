@@ -1,7 +1,6 @@
 ﻿using ExamOnline.Client.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Nancy.Json;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

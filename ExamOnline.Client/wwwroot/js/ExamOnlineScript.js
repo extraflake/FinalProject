@@ -78,6 +78,8 @@ $(document).ready(function () {
 
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
             //console.log(qt.length);
+            console.log(sessionStorage.getItem("listShuffled" + num));
+            console.log(num);
             if (window.sessionStorage.getItem("listShuffled" + num) == null) {
                 listChoices = shuffle(listChoices);
                 window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
@@ -95,7 +97,10 @@ $(document).ready(function () {
             document.getElementById("answerC").innerHTML = listChoices[2];
             document.getElementById("answerD").innerHTML = listChoices[3];
             var div = document.getElementById('btnNav');
-            intialAnswer();
+
+            if (sessionStorage.getItem("answer") == "") {
+                intialAnswer();
+            }
 
             for (var i = 0; i < qt.length; i++) {
                 div.innerHTML = div.innerHTML +
@@ -109,6 +114,7 @@ function nextQuestion() {
     if (num == totalQuestion) {
         answer[num - 1] = getRadioCheckedValue("choices");
         document.getElementById(num - 1).className = 'btn btn-primary ml-2';
+        setRadioCheckedValue("choices");
         console.log(answer);
         finishSegment();
     }
@@ -134,6 +140,8 @@ function nextQuestion() {
             debugger;
             document.getElementById('number').innerHTML = num;
             var listChoices = [qt[num - 1]['answerA'], qt[num - 1]['answerB'], qt[num - 1]['answerC'], qt[num - 1]['answerD']];
+            console.log(window.sessionStorage.getItem("listShuffled" + num));
+            console.log(num);
             if (window.sessionStorage.getItem("listShuffled" + num) == null) {
                 listChoices = shuffle(listChoices);
                 window.sessionStorage.setItem("listShuffled" + num, JSON.stringify(listChoices));
@@ -279,21 +287,14 @@ function intialAnswer() {
 }
 
 function finishSegment() {
-    curSegments++;
-    sessionStorage.setItem("question", '');
-    sessionStorage.setItem("curSegment", curSegments);
-    location.reload();
-    var score = 0;
-    var ExamDetail = new Object();
-    ExamDetail.FinalScore = score;
-    debugger;
-    $.ajax({
-        type: "PUT",
-        url: '/Exam/UpdateExamDetail',
-        data: ExamDetail
-    }).then((result) => {
-        debugger;
-        console.log(ExamDetail);
+    if (curSegments < segments.length-1) {
+        curSegments++;
+        sessionStorage.setItem("question", '');
+        sessionStorage.setItem("curSegment", curSegments);
+        for (var i = 0; i <= num; i++) {
+            window.sessionStorage.removeItem("listShuffled" + i);
+        }
+        var score = parseInt(sessionStorage.getItem("score"));
         for (var i = 0; i < answer.length; i++) {
             console.log(answer[i]);
             console.log(qt[i]['correctAnswer']);
@@ -301,6 +302,69 @@ function finishSegment() {
                 score += qt[i]['point'];
             }
         }
+        sessionStorage.setItem("score", score);
+        location.reload();
+    }
+    else if (curSegments == segments.length - 1) {
+        var score = parseInt(sessionStorage.getItem("score"));
+        for (var i = 0; i < answer.length; i++) {
+            if (answer[i] == qt[i]['correctAnswer']) {
+                score += qt[i]['point'];
+            }
+        }
+        sessionStorage.setItem("score", score);
+        updateDuration();
+        updateExamDetail();
+        Swal.fire({
+            position: 'center',
+            type: 'info',
+            icon: 'info',
+            title: 'Your final score : ' + sessionStorage.getItem("score")
+        });
+    }
+}
+
+function updateDuration() {
+    var ExamDetailVM = new Object();
+    ExamDetailVM.DurationId = parseInt(sessionStorage.getItem("durationId"));
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = date.getMonth();
+    var d = date.getDate();
+    var h = date.getHours();
+    var min = date.getMinutes();
+    var s = date.getSeconds();
+    var newDate = new Date(y, m, d, h, min, s);
+    ExamDetailVM.EndTime = newDate.toISOString(); 
+    debugger;
+    $.ajax({
+        type: "PUT",
+        url: '/Duration/UpdateDuration',
+        data: ExamDetailVM
+    }).then((result) => {
+        debugger;
+        console.log(result);
+        if (result != "GAGAL") {
+            return;
+        }
+        else {
+        }
+    }).catch((error) => {
+        console.log(error);
     });
 }
 
+function updateExamDetail() {
+    var ExamDetailVM = new Object();
+    ExamDetailVM.FinalScore = parseInt(sessionStorage.getItem("score"));
+    ExamDetailVM.Id = parseInt(sessionStorage.getItem("examDetailId"));
+    debugger;
+    $.ajax({
+        type: "PUT",
+        url: '/ExamDetail/UpdateExamDetail',
+        data: ExamDetailVM
+    }).then((result) => {
+        return;
+    }).catch((error) => {
+    });
+}

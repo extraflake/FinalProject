@@ -53,7 +53,7 @@ namespace ExamOnline.Client.Controllers
             {
                 client.BaseAddress = new Uri("https://localhost:44301");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType)
+                client.DefaultRequestHeaders.Accept.Add(contentType);
 
                 string data = JsonConvert.SerializeObject(question);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
@@ -86,7 +86,7 @@ namespace ExamOnline.Client.Controllers
             using (var target = new MemoryStream())
             {
                 file.CopyTo(target);
-                examDetailVM.VideoRecord = target.ToArray();
+                //examDetailVM.VideoRecord = target.ToArray();
             }
 
             using (HttpClient client = new HttpClient())

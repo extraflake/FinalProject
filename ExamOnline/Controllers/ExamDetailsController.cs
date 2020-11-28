@@ -46,8 +46,9 @@ namespace ExamOnline.Controllers
                 FinalScore = 0,
                 GradeId = listGrade.Id
             };
-            await myContext.ExamDetails.AddAsync(data);
-            await myContext.SaveChangesAsync();
+            var contoh =  await myContext.ExamDetails.AddAsync(data);
+            var contoh2 = await myContext.SaveChangesAsync();
+
             return new JsonResult(data);
             //return Ok(result);
         }
@@ -77,13 +78,13 @@ namespace ExamOnline.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(ExamDetailVM examDetailVM)
         {
-            var record = new Record { VideoRecord = examDetailVM.VideoRecord };
-            await myContext.Records.AddAsync(record);
+            //var record = new Record { VideoRecord = examDetailVM.VideoRecord };
+            //await myContext.Records.AddAsync(record);
             
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
 
-            getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
+            //getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
 
 
             var listGrade = myContext.Grades.OrderBy(x => x.Score);
