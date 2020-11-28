@@ -20,16 +20,12 @@ $(document).ready(function () {
                 //"visible": false
             },
             {
-                "data": "alreadyCheck",
-                "render": function(data, type, row, meta) {
-                    if (data == false) {
-                        return '<span>false</span>'
-                    }
-                    else {
-                        '<button class="btn pull-left hidden-sm-down btn-warning" data-placement="right" data-toggle="tooltip" title = "Edit" onclick="return GetById(' + row.id + ');">True</button >'
-                    }
-                    
-                }
+                "data": "alreadyCheck"
+                //"render": function(data, type, row, meta) {
+                //    if (data === true) {
+                //        return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>';
+                //    }   
+                //}
             },
             {
                 "data": "fileId",
@@ -48,8 +44,8 @@ $(document).ready(function () {
                 "visible": false
             },
             {
-                "data": "employeeId",
-                "visible": false
+                "data": "employeeId"
+                //"visible": false
             },
             {
                 "data": "skills",
