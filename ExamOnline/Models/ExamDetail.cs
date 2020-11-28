@@ -14,6 +14,7 @@ namespace ExamOnline.Models
         [Key]
         public int Id { get; set; }
         public int FinalScore { get; set; }
+        public byte[] RecordVideo { get; set; }
         public int DurationId { get; set; }
         public Duration Duration { get; set; }
         public int GradeId { get; set; }
