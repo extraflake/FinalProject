@@ -82,6 +82,7 @@ namespace ExamOnline.Client.Controllers
         public ActionResult CalculatePoint(ExamDetailVM examDetailVM, IFormFile file)
         {
             examDetailVM.ApplicantId =  Convert.ToInt32(HttpContext.Session.GetString("ApplicantId"));
+            examDetailVM.UserEmail = HttpContext.Session.GetString("ApplicantEmail");
 
             using (var target = new MemoryStream())
             {
