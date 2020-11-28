@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,5 +39,12 @@ namespace Portal.Client.ViewModels
         public string Degree { get; set; }
         public string GraduationYear { get; set; }
         public string GPA { get; set; }
+    }
+
+
+    public class ApplicantJson
+    {
+        [JsonProperty("data")]
+        public IList<ApplicantVM> data { get; set; }
     }
 }

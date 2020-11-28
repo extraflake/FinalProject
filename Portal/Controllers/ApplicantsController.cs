@@ -136,6 +136,13 @@ namespace Portal.Controllers
             return remove;
         }
 
+        [HttpGet(nameof(GetApplicant))]
+        public async Task<ActionResult> GetApplicant()
+        {
+            var get = await myContext.Applicants.ToListAsync();
+            return Ok(new { data = get});
+        }
+
         [HttpPost(nameof(SendEmail))]
         public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
         {

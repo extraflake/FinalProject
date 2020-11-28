@@ -376,5 +376,34 @@ namespace Portal.Client.Controllers
         {
             return View();
         }
+
+
+        //--Admin Check--//
+        [HttpGet]
+        public JsonResult GetApplicant()
+        {
+            ApplicantJson applicant = null;
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Applicants/getapplicant");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                applicant = JsonConvert.DeserializeObject<ApplicantJson>(json);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(applicant);
+        }
+        public IActionResult AdminCheck()
+        {
+            return View();
+        }
     }
 }
