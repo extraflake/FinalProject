@@ -219,6 +219,10 @@ namespace Portal.Client.Controllers
                 {
                     return View();
                 }
+                else if (HttpContext.Session.GetString("Application").Equals("AdminPortal"))
+                {
+                    return Redirect("~/Admin/Index");
+                }
                 else return Redirect("~/Account/Index");
             }
             catch (Exception)
