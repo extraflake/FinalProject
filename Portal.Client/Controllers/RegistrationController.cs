@@ -340,7 +340,7 @@ namespace Portal.Client.Controllers
         [HttpPost]
         public ActionResult Register(ApplicantVM applicantVM)
         {
-            applicantVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+            applicantVM.EmployeeId = Convert.ToInt32(HttpContext.Session.GetString("EmployeeId"));
             if(HttpContext.Session.GetString("EducationId") != "")
             {
                 string check = AlreadyCheck(applicantVM).ToLower();

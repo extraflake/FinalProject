@@ -1,4 +1,6 @@
-﻿var table = null;
+﻿var EditProfileVM = new Object();
+var table = null;
+var firstname, lastname;
 $(document).ready(function () {
     
     table = $('#table1').DataTable({
@@ -8,7 +10,6 @@ $(document).ready(function () {
             "type": "GET",
             "datatype": "json",
             "beforeSend": function () {
-                debugger;
                 var createLoader = document.getElementById("loader");
                 createLoader.classList.remove('hidden');
             },
@@ -31,7 +32,7 @@ $(document).ready(function () {
             {
                 "data": "alreadyCheck",
                 "render": function (data, type, row) {
-                    debugger;
+                    //debugger;
                     //console.log(data);
                     if (data == false) {
                         return '<span>Test Complete</span>'
@@ -61,7 +62,32 @@ $(document).ready(function () {
             //    "visible": false
             //},
             {
-                "data": "employeeId"
+                "data": "employeeId",
+                "render": function (data, type, row) {
+                    debugger;
+                    EditProfileVM.EmployeeId = data;
+
+                    var name = LoadEmployee(EditProfileVM);
+
+                    return name;
+                    //$.ajax({
+                    //    url: "/Admin/GetEmployeeData/",
+                    //    type: "POST",
+                    //    contentType: "application/json;charset=utf-8",
+                    //    dataType: "json",
+                    //    async: false,
+                    //    data: id,
+                    //    processData: false,
+                    //    contentType: false,
+                    //    success: function (data) {
+                    //        var qt = JSON.parse(data);
+                    //        console.log(qt);
+                    //        var firstname = qt.data['firstname'];
+                    //        var lastname = qt.data['lastname'];
+                    //        return '<span>' + firstname + ' ' + lastname + '</span>';
+                    //    }
+                    //});
+                }
                 //"visible": false
             }
             //,
@@ -73,6 +99,33 @@ $(document).ready(function () {
     });
 });
 
+function LoadEmployee(datarender) {
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: '/Admin/GetEmployeeData',
+        data: datarender,
+        beforeSend: function () {
+            //debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        },
+        success: function (data) {
+            debugger;
+            var qt = JSON.parse(data);
+            firstname = qt.data['firstName'];
+            lastname = qt.data['lastName'];
+            var fullname = firstname + ' ' + lastname;
+            console.log(fullname);
+            //return '<span>' + fullname + '</span>';
+        }
+    });
+    return '<span>' + fullname + '</span>';
+}
 
 function Update(id) {
     debugger;
