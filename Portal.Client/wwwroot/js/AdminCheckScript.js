@@ -1,6 +1,6 @@
 ﻿var table = null;
 $(document).ready(function () {
-    console.log("Bisa masuk!");
+    
     table = $('#table1').DataTable({
         "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
         "ajax": {
@@ -8,7 +8,7 @@ $(document).ready(function () {
             "type": "GET",
             "datatype": "json"
         },
-        "datasrc": "data",
+        "datasrc": "",
         columns: [
             {
                 render: function (data, type, row, meta) {
@@ -21,13 +21,17 @@ $(document).ready(function () {
             },
             {
                 "data": "alreadyCheck",
-                "render": function (data, type, row, meta) {
+                "render": function (data, type, row) {
+                    debugger;
+                    console.log(data);
                     if (data == false) {
                         return '<span>Test Complete</span>'
                     }
-                    else
-                    {
+                    else if (data == true) {
                         return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" onclick="return Update(' + row.id + ');">Check</button >'
+                    }
+                    else {
+                        return '<span>Data Not Returned because ' + data + '</span>'
                     }
                 }
             },
@@ -61,19 +65,20 @@ $(document).ready(function () {
 });
 
 
-function Update() {
-    var Applicant = new Object();
-    Applicant.id = val(row.id);
-    Applicant.alreadyCheck = false;
+function Update(id) {
     debugger;
+    var ApplicantVM = new Object();
+    ApplicantVM.id = id;
+    ApplicantVM.alreadyCheck = false;
+    //debugger;
     $.ajax({
         type: "PUT",
         url: '/Admin/UpdateCheck',
-        data: Check
+        data: ApplicantVM
     }).then((result) => {
         debugger;
         console.log(result);
-        if (result != "GAGAL") {
+        if (result != "sukses") {
             Swal.fire({
                 position: 'center',
                 type: 'success',

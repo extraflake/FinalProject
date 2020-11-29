@@ -143,7 +143,7 @@ namespace Portal.Controllers
             return Ok(new { data = get});
         }
 
-        [HttpPost(nameof(SendEmail))]
+        [HttpPut(nameof(SendEmail))]
         public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
         {
             var Applicant = await myContext.Applicants.FirstOrDefaultAsync(x => x.File.CreatedOn == applicantVM.CreatedOn);
@@ -207,6 +207,17 @@ namespace Portal.Controllers
             client.Send(mm);
 
             return Ok();
+        }
+
+        [HttpPut(nameof(SetFalse))]
+        public async Task<ActionResult> SetFalse(ApplicantVM applicantVM)
+        {
+            var checkId = await myContext.Applicants.FindAsync(applicantVM.Id);
+
+            checkId.AlreadyCheck = false;
+
+            var result = myContext.SaveChangesAsync();
+            return Ok(result);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Portal.Client.ViewModels
         public string ReferenceName { get; set; }
 
         public int EmployeeId { get; set; }
+        public bool AlreadyCheck { get; set; }
 
         // Application
         public string FileName { get; set; }

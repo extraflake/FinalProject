@@ -404,23 +404,23 @@ namespace Portal.Client.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateCheck(Applicant applicant)
+        public ActionResult UpdateCheck(ApplicantVM applicantVM)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44307");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(applicant);
+                string data = JsonConvert.SerializeObject(applicantVM);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PutAsync("/api/applicants/" + applicant.Id, contentData).Result;
+                var response = client.PutAsync("/api/applicants/SetFalse", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                    return Json(new { data = "sukses"});
                 }
                 else
                 {
-                    return Content("GAGAL");
+                    return Json(new { data = "gagal"});
                 }
 
             }

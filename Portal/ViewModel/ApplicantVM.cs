@@ -17,6 +17,7 @@ namespace Portal.ViewModel
         public int ReferenceId { get; set; }
         public string ReferenceName { get; set; }
         public int EmployeeId { get; set; }
+        public bool AlreadyCheck { get; set; }
 
         // Application
         public string FileName { get; set; }
