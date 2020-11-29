@@ -434,7 +434,7 @@ namespace Portal.Client.Controllers
         public ActionResult GetEmployeeData(EditProfileVM editProfileVM)
         {
             using (HttpClient client = new HttpClient())
-            {
+            {   
                 client.BaseAddress = new Uri("https://localhost:44358");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
