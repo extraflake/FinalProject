@@ -6,7 +6,16 @@ $(document).ready(function () {
         "ajax": {
             "url": "/Admin/GetApplicant",
             "type": "GET",
-            "datatype": "json"
+            "datatype": "json",
+            "beforeSend": function () {
+                debugger;
+                var createLoader = document.getElementById("loader");
+                createLoader.classList.remove('hidden');
+            },
+            "complete": function () {
+                var createLoader = document.getElementById("loader");
+                createLoader.classList.add('hidden');
+            }
         },
         "datasrc": "",
         columns: [
@@ -23,12 +32,12 @@ $(document).ready(function () {
                 "data": "alreadyCheck",
                 "render": function (data, type, row) {
                     debugger;
-                    console.log(data);
+                    //console.log(data);
                     if (data == false) {
                         return '<span>Test Complete</span>'
                     }
                     else if (data == true) {
-                        return '<button class="btn pull-left hidden-sm-down btn-primary" data-placement="right" onclick="return Update(' + row.id + ');">Check</button >'
+                        return '<button class="btn pull-left hidden-sm-down btn-success" data-placement="right" onclick="return Update(' + row.id + ');">Check</button >'
                     }
                     else {
                         return '<span>Data Not Returned because ' + data + '</span>'
@@ -74,7 +83,16 @@ function Update(id) {
     $.ajax({
         type: "PUT",
         url: '/Admin/UpdateCheck',
-        data: ApplicantVM
+        data: ApplicantVM,
+        beforeSend: function () {
+            debugger;
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.remove('hidden');
+        },
+        complete: function () {
+            var createLoader = document.getElementById("loader");
+            createLoader.classList.add('hidden');
+        }
     }).then((result) => {
         debugger;
         console.log(result);
@@ -85,7 +103,7 @@ function Update(id) {
                 icon: 'success',
                 title: 'Updated successfully'
             });
-            table.ajax.reload();
+            
         }
         else {
             Swal.fire({
@@ -94,9 +112,7 @@ function Update(id) {
                 icon: 'error',
                 title: 'Failed to update!'
             });
-            table.ajax.reload();
         }
-    }).catch((error) => {
-        console.log(error);
+        table.ajax.reload();
     });
 }

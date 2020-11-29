@@ -143,7 +143,7 @@ namespace Portal.Controllers
             return Ok(new { data = get});
         }
 
-        [HttpPut(nameof(SendEmail))]
+        [HttpPost(nameof(SendEmail))]
         public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
         {
             var Applicant = await myContext.Applicants.FirstOrDefaultAsync(x => x.File.CreatedOn == applicantVM.CreatedOn);
