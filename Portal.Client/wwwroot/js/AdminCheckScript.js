@@ -121,10 +121,10 @@ function LoadEmployee(datarender) {
             lastname = qt.data['lastName'];
             var fullname = firstname + ' ' + lastname;
             console.log(fullname);
-            //return '<span>' + fullname + '</span>';
+            return '<span>' + fullname + '</span>';
         }
     });
-    return '<span>' + fullname + '</span>';
+    //return '<span>' + fullname + '</span>';
 }
 
 function Update(id) {
