@@ -50,7 +50,7 @@ namespace Client_grafik
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Grafik}/{action=Index}/{id?}");
+                    pattern: "{controller=DataMaster}/{action=Department}/{id?}");
             });
         }
     }
