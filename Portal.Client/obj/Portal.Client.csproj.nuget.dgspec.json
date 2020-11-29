@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj": {}
+    "E:\\Metrodata\\Github\\New\\FinalProject\\Portal.Client\\Portal.Client.csproj": {}
   },
   "projects": {
-    "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj": {
+    "E:\\Metrodata\\Github\\New\\FinalProject\\Portal.Client\\Portal.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj",
+        "projectUniqueName": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal.Client\\Portal.Client.csproj",
         "projectName": "Portal.Client",
-        "projectPath": "D:\\Tugas MII\\FinalProject\\Portal.Client\\Portal.Client.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\Tugas MII\\FinalProject\\Portal.Client\\obj\\",
+        "projectPath": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal.Client\\Portal.Client.csproj",
+        "packagesPath": "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\",
+        "outputPath": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal.Client\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kevin Hendra William\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,9 +26,13 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj": {
-                "projectPath": "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj"
+              "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\Portal.csproj": {
+                "projectPath": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\Portal.csproj"
+              },
+              "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\UserManagement.csproj": {
+                "projectPath": "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\UserManagement.csproj"
               }
             }
           }
@@ -44,6 +45,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MaterialDesignThemes": {
               "target": "Package",
@@ -72,24 +74,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj": {
+    "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\Portal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj",
+        "projectUniqueName": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\Portal.csproj",
         "projectName": "Portal",
-        "projectPath": "D:\\Tugas MII\\FinalProject\\Portal\\Portal.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\Tugas MII\\FinalProject\\Portal\\obj\\",
+        "projectPath": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\Portal.csproj",
+        "packagesPath": "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\",
+        "outputPath": "E:\\Metrodata\\Github\\New\\FinalProject\\Portal\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kevin Hendra William\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -101,6 +100,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -112,10 +112,15 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Dapper": {
               "target": "Package",
               "version": "[2.0.35, )"
+            },
+            "DinkToPdf": {
+              "target": "Package",
+              "version": "[1.0.8, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -154,7 +159,98 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\UserManagement.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\UserManagement.csproj",
+        "projectName": "UserManagement",
+        "projectPath": "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\UserManagement.csproj",
+        "packagesPath": "C:\\Users\\Kevin Hendra William\\.nuget\\packages\\",
+        "outputPath": "E:\\Metrodata\\Github\\New\\FinalProject\\UserManagement\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Kevin Hendra William\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.35, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
