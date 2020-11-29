@@ -11,6 +11,7 @@ namespace ExamOnline.ViewModel
         //exam details
         public int ExamId { get; set; }
         public int FinalScore { get; set; }
+        public byte[] RecordVideo { get; set; }
         //grade
         public int GradeId { get; set; }
         public int Score { get; set; }
@@ -26,5 +27,9 @@ namespace ExamOnline.ViewModel
         public int ScheduleId { get; set; }
         public DateTime ScheduleTime { get; set; }
         public bool IsActive { get; set; }
+
+        //otherTable
+        public string UserEmail { get; set; }
+
     }
 }

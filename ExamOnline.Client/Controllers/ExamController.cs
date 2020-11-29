@@ -82,11 +82,12 @@ namespace ExamOnline.Client.Controllers
         public ActionResult CalculatePoint(ExamDetailVM examDetailVM, IFormFile file)
         {
             examDetailVM.ApplicantId =  Convert.ToInt32(HttpContext.Session.GetString("ApplicantId"));
+            examDetailVM.UserEmail = HttpContext.Session.GetString("ApplicantEmail");
 
             using (var target = new MemoryStream())
             {
                 file.CopyTo(target);
-                //examDetailVM.VideoRecord = target.ToArray();
+                examDetailVM.RecordVideo = target.ToArray();
             }
 
             using (HttpClient client = new HttpClient())

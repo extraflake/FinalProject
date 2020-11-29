@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 
@@ -46,9 +48,9 @@ namespace ExamOnline.Controllers
                 FinalScore = 0,
                 GradeId = listGrade.Id
             };
-            var contoh =  await myContext.ExamDetails.AddAsync(data);
-            var contoh2 = await myContext.SaveChangesAsync();
-
+            await myContext.ExamDetails.AddAsync(data);
+            await myContext.SaveChangesAsync();
+            //return JsonResult(new { Data = model }, JsonRequestBehavior.AllowGet);
             return new JsonResult(data);
             //return Ok(result);
         }
@@ -83,11 +85,13 @@ namespace ExamOnline.Controllers
             
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
+            getScore.RecordVideo = examDetailVM.RecordVideo;
 
             //getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
 
 
             var listGrade = myContext.Grades.OrderBy(x => x.Score);
+            
             foreach (var data in listGrade)
             {
                 if (getScore.FinalScore >= data.Score)
@@ -97,6 +101,31 @@ namespace ExamOnline.Controllers
             }
 
             var result = myContext.SaveChangesAsync();
+
+            string MessageForUser = "Thanks for attempt the exam. Finish at " +DateTime.Now;
+            string MessageForAdmin = "ApplicantId : " +examDetailVM.ApplicantId+ " has finish the exam. " +DateTime.Now;
+
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("afrarian44@gmail.com", "");
+            MailMessage mm =
+                new MailMessage("donotreply@gmail.com", examDetailVM.UserEmail
+                , "Thanks!", MessageForUser);
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            client.Send(mm);
+            MailMessage mm1 =
+                new MailMessage("donotreply@gmail.com", "kevinhendrawiliam@gmail.com"
+                , "ExamADMIN", MessageForAdmin);
+            mm1.BodyEncoding = UTF8Encoding.UTF8;
+            mm1.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            client.Send(mm1);
+
             return Ok(result);
         }
 
