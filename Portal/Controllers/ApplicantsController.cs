@@ -4,6 +4,8 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
@@ -140,6 +142,28 @@ namespace Portal.Controllers
         public async Task<ActionResult> GetApplicant()
         {
             var get = await myContext.Applicants.ToListAsync();
+            foreach (var item in get)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    //string data = JsonConvert.SerializeObject(position);
+                    //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.GetAsync($"/api/employees/{item.EmployeeId}").Result;
+                    //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var nama = response.Content.ReadAsStringAsync().Result.ToString();
+                        //return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                    }
+                    else
+                    {
+                        return Content("GAGAL");
+                    }
+                }
+            }
             return Ok(new { data = get});
         }
 
