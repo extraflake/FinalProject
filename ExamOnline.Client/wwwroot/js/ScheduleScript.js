@@ -59,8 +59,8 @@ function Save() {
     var h = time.substring(0, 2);
     console.log(h);
     var min = time.substring(3, 5);
-    var scheduleDatetime = new Date(y, m, d, h , min);
-    Schedule.scheduleTime = scheduleDatetime.toISOString();
+    var scheduleDatetime = new Date(y, m, d, h, min);
+    Schedule.scheduleTime = scheduleDatetime.toLocaleString();
     var status = document.getElementById('status');
     Schedule.isActive = (status == (status));
     $.ajax({
@@ -101,10 +101,11 @@ function DeleteSchedule(id) {
     }).then((resultt) => {
         if (resultt.isConfirmed) {
             $.ajax({
-                type: "DELETE",
+                type: "POST",
                 url: '/Schedule/DeleteSchedule',
                 data: { Id: id }
             }).then((result) => {
+                debugger;
                 if (result != "GAGAL") {
                     Swal.fire({
                         position: 'center',

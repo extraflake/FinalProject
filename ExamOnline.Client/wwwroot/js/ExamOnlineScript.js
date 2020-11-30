@@ -1,4 +1,5 @@
 ﻿var num = 1;
+var blob;
 var qt;
 var answer = [];
 var isDoubt = [];
@@ -8,8 +9,9 @@ var change = false;
 var now = new Date();
 var segments = JSON.parse(sessionStorage.getItem("segments"));
 var curSegments = sessionStorage.getItem("curSegment");
-console.log(curSegments);
-console.log(segments[curSegments]);
+//let mediaRecorder;
+//let recordedBlobs;
+
 Date.prototype.addMins = function (min) {
     this.setTime(this.getTime() + (min * 60 * 1000));
     return this;
@@ -46,7 +48,7 @@ var x = setInterval(function () {
 //    }
 //}
 
-$(document).ready(function () {
+$(document).ready(async function () {
     $('#badge').hide();
     $('#notifIcon').hide();
 
@@ -56,6 +58,16 @@ $(document).ready(function () {
     else if (num > 1) {
         $('#prevBtn').show();
     }
+    //const constraints = {
+    //    audio: {
+    //        echoCancellation: { exact: true }
+    //    },
+    //    video: {
+    //        width: 480, height: 240
+    //    }
+    //};
+    //console.log('Using media constraints:', constraints);
+    //await init(constraints);
     document.getElementById('number').innerHTML = num;
     debugger;
     var QuestionVM = new Object();
@@ -306,6 +318,9 @@ function finishSegment() {
         location.reload();
     }
     else if (curSegments == segments.length - 1) {
+        //stopRecording();
+        //playVideo();
+        sessionStorage.setItem("done", true);
         var score = parseInt(sessionStorage.getItem("score"));
         for (var i = 0; i < answer.length; i++) {
             if (answer[i] == qt[i]['correctAnswer']) {
@@ -314,12 +329,20 @@ function finishSegment() {
         }
         sessionStorage.setItem("score", score);
         updateDuration();
-        updateExamDetail();
+        updateExamDetail(blob);
         Swal.fire({
             position: 'center',
             type: 'info',
             icon: 'info',
-            title: 'Your final score : ' + sessionStorage.getItem("score")
+            title: 'Your final score : ' + sessionStorage.getItem("score"),
+            confirmButtonText: 'OK'
+        }).then((resultt) => {
+            if (resultt.isConfirmed) {
+                window.location.href = "https://localhost:44311/";
+            }
+            else {
+                window.location.href = "https://localhost:44311/";
+            }
         });
     }
 }
@@ -358,6 +381,7 @@ function updateExamDetail() {
     var ExamDetailVM = new Object();
     ExamDetailVM.FinalScore = parseInt(sessionStorage.getItem("score"));
     ExamDetailVM.Id = parseInt(sessionStorage.getItem("examDetailId"));
+    ExamDetailVM.RecordVideo = blob;
     debugger;
     $.ajax({
         type: "PUT",
@@ -368,3 +392,63 @@ function updateExamDetail() {
     }).catch((error) => {
     });
 }
+
+//async function init(constraints) {
+//    try {
+//        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+//        handleSuccess(stream);
+//    } catch (e) {
+//        console.log('navigator.getUserMedia error:', e);
+//    }
+//}
+
+//function handleSuccess(stream) {
+//    console.log('getUserMedia() got stream:', stream);
+//    window.stream = stream;
+
+//    const gumVideo = document.querySelector('video#gum');
+//    gumVideo.srcObject = stream;
+//    startRecording();
+//}
+
+//function startRecording() {
+//    recordedBlobs = [];
+//    let options = { mimeType: 'video/webm;codecs=vp9,opus' };
+//    try {
+//        mediaRecorder = new MediaRecorder(window.stream, options);
+//    } catch (e) {
+//        console.error('Exception while creating MediaRecorder:', e);
+//        return;
+//    }
+
+//    console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+//    mediaRecorder.onstop = (event) => {
+//        console.log('Recorder stopped: ', event);
+//        console.log('Recorded Blobs: ', recordedBlobs);
+//    };
+//    mediaRecorder.ondataavailable = handleDataAvailable;
+//    mediaRecorder.start();
+//    console.log('MediaRecorder started', mediaRecorder);
+//}
+
+//function handleDataAvailable(event) {
+//    console.log('handleDataAvailable', event);
+//    if (event.data && event.data.size > 0) {
+//        recordedBlobs.push(event.data);
+//    }
+//}
+
+//function stopRecording() {
+//    mediaRecorder.stop();
+//}
+
+//function playVideo() {
+//    debugger;
+//    const recordedVideo = document.querySelector('video#gum');
+//    const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+//    recordedVideo.src = null;
+//    recordedVideo.srcObject = null;
+//    recordedVideo.src = window.URL.createObjectURL(superBuffer);
+//    recordedVideo.controls = true;
+//    recordedVideo.play();
+//}

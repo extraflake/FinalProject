@@ -14,10 +14,13 @@ var x = setInterval(function () {
 
     document.getElementById("demo").innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
-
+    if (distance < 0) {
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
     if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
         createDuration();
     }
+
 }, 1000);
 
 function createDuration() {
@@ -45,7 +48,6 @@ function createDuration() {
         window.sessionStorage.setItem("answer", answer);
         createExamDetail();
     }).catch((error) => {
-        console.log(error);
     });
 }
 

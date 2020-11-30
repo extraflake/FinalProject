@@ -86,7 +86,17 @@ namespace ExamOnline.Controllers
             
             var getScore = await myContext.ExamDetails.FindAsync(examDetailVM.Id);
             getScore.FinalScore = examDetailVM.FinalScore;
-            getScore.RecordVideo = examDetailVM.RecordVideo;
+
+            //List<byte> tempList = getScore.RecordVideo.ToList();
+            //List<byte> getList = examDetailVM.RecordVideo.ToList();
+
+            //foreach (var test in getList)
+            //{
+            //    tempList.Add(test);
+            //}
+
+            //getScore.RecordVideo = tempList.ToArray();
+            //getScore.RecordVideo = examDetailVM.RecordVideo;
 
             //getScore.RecordId = myContext.Records.OrderBy(x => x.Id).Last().Id;
 
@@ -110,10 +120,10 @@ namespace ExamOnline.Controllers
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            client.Timeout = 10000;
+            client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("afrarian44@gmail.com", "");
+            client.Credentials = new System.Net.NetworkCredential("lsupply12@gmail.com", "Jengkolon123");
             MailMessage mm =
                 new MailMessage("donotreply@gmail.com", examDetailVM.UserEmail
                 , "Thanks!", MessageForUser);

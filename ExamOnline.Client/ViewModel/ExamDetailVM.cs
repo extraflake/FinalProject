@@ -31,6 +31,11 @@ namespace ExamOnline.Client.ViewModel
         public int ScheduleId { get; set; }
         public DateTime ScheduleTime { get; set; }
         public bool IsActive { get; set; }
+
+        //Other
+        public string UserEmail { get; set; }
+        public byte[] RecordVideo { get; set; }
+
     }
     public class ExamDetailJson
     {

@@ -172,7 +172,7 @@ function Save() {
                 icon: 'success',
                 title: 'Added Successfully'
             });
-            //table.ajax.reload();
+            table.ajax.reload();
 
         }
         else {

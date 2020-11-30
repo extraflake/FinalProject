@@ -1,6 +1,9 @@
-﻿$(document).ready(function () {
+﻿var examDetail;
+var applicantId = sessionStorage.getItem("applicantId");
+$(document).ready(function () {
     console.log(sessionStorage.getItem("applicantId"));
     var dropdown = document.getElementById('examTime');
+    getExamDetail();
     $.ajax({
         "type": "GET",
         "url": "/Schedule/ChooseSchedule",
@@ -23,7 +26,7 @@
                 else {
                     if (objSchedule.data[i]["isActive"] == true) {
                         console.log(objSchedule.data[i]);
-                        var scheduleDatetime = new Date(objSchedule.data[i]['scheduleTime']).toUTCString();
+                        var scheduleDatetime = new Date(objSchedule.data[i]['scheduleTime']).toLocaleString();
                         dropdown.innerHTML = dropdown.innerHTML +
                             '<option value="' + objSchedule.data[i]['id'] + '">' + scheduleDatetime + '</option>';
                     }
@@ -74,4 +77,34 @@ function UpdateSchedule(id,scheduleDate) {
     }).catch((error) => {
     });
     return "";
+}
+
+function getExamDetail() {
+    $.ajax({
+        "type": "GET",
+        "url": "/ExamDetail/LoadExamDetail",
+        "contentType": "application/json; charset=utf-8",
+        "dataType": "json",
+        "success": function (data) {
+            examDetail = JSON.parse(data);
+            for (var i = 0; i < examDetail.length; i++) {
+                if (applicantId == examDetail[i]['applicantId']) {
+                    Swal.fire({
+                        position: 'center',
+                        type: 'info',
+                        icon: 'info',
+                        title: 'Sorry, you can only take the exam once!',
+                        confirmButtonText: 'OK'
+                    }).then((resultt) => {
+                        if (resultt.isConfirmed) {
+                            window.location.href = "https://localhost:44311/";
+                        }
+                        else {
+                            window.location.href = "https://localhost:44311/";
+                        }
+                    });
+                }
+            }
+        }
+    });
 }

@@ -3,6 +3,26 @@
 let mediaRecorder;
 let recordedBlobs;
 
+const gumVideo = document.querySelector('video#gum');
+
+var btn = document.getElementById('nextBtn');
+var segments = JSON.parse(sessionStorage.getItem("segments"));
+debugger;
+if (sessionStorage.getItem("done")) {
+    stopRecording();
+    playVideo();
+}
+
+function playVideo() {
+    const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+    gumVideo.src = null;
+    gumVideo.srcObject = null;
+    gumVideo.src = window.URL.createObjectURL(superBuffer);
+    gumVideo.controls = true;
+    gumVideo.play();
+}
+
+
 function handleDataAvailable(event) {
     console.log('handleDataAvailable', event);
     if (event.data && event.data.size > 0) {
@@ -37,8 +57,7 @@ function stopRecording() {
 function handleSuccess(stream) {
     console.log('getUserMedia() got stream:', stream);
     window.stream = stream;
-
-    const gumVideo = document.querySelector('video#gum');
+    startRecording();
     gumVideo.srcObject = stream;
 }
 
@@ -63,3 +82,4 @@ $(document).ready(async function () {
     console.log('Using media constraints:', constraints);
     await init(constraints);
 });
+

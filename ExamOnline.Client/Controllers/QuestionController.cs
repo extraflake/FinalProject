@@ -46,7 +46,7 @@ namespace ExamOnline.Client.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddQuestion(QuestionVM question)
+        public ActionResult AddQuestion(ExamOnline.ViewModel.QuestionVM question)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -55,17 +55,10 @@ namespace ExamOnline.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(question);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("api/questions", contentData).Result;
+                var response = client.PostAsync("api/questions/create", contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
-
-                    //var jwt = response.Content.ReadAsStringAsync().Result.ToString();
-                    //var handler = new JwtSecurityTokenHandler().ReadJwtToken(jwt.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("RoleName")).Value;
-                    //var role = handler;
-                    //HttpContext.Session.SetString(SessionEmail, role);
-                    //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
-
                     return Json(response.Content.ReadAsStringAsync().Result.ToString());
 
                 }
@@ -90,15 +83,7 @@ namespace ExamOnline.Client.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
-
-                    //var jwt = response.Content.ReadAsStringAsync().Result.ToString();
-                    //var handler = new JwtSecurityTokenHandler().ReadJwtToken(jwt.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("RoleName")).Value;
-                    //var role = handler;
-                    //HttpContext.Session.SetString(SessionEmail, role);
-                    //return Json(new { result = "Redirect", url = Url.Action("Dashboard", "Accounts") });
-
                     return Json(response.Content.ReadAsStringAsync().Result.ToString());
-
                 }
                 else
                 {

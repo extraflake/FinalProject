@@ -106,7 +106,7 @@ function DeleteSegment(id) {
             debugger;
             var ind = id;
             $.ajax({
-                type: "DELETE",
+                type: "POST",
                 url: '/Segment/DeleteSegment',
                 data: {Id : id}
             }).then((result) => {

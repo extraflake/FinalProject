@@ -25,7 +25,7 @@ namespace ExamOnline.Controllers
             dapper = _dapper;
         }
 
-        [HttpPost]
+        [HttpPost(nameof(Create))]
         public async Task<int> Create(QuestionVM questionVM)
         {
             var dbparams = new DynamicParameters();

@@ -82,7 +82,7 @@ namespace ExamOnline.Client.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string data = JsonConvert.SerializeObject(Id);
                 var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.DeleteAsync("api/segments/"+Id).Result;
+                var response = client.PostAsync("api/segments/"+Id,contentData).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     char[] trimChars = { '/', '"' };
