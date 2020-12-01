@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,5 +27,11 @@ namespace UserManagement.ViewModel
         public string Degree { get; set; }
         public string GraduateYear { get; set; }
 
+    }
+
+    public class EditProfileJson
+    {
+        [JsonProperty("data")]
+        public IList<EditProfileVM> data { get; set; }
     }
 }

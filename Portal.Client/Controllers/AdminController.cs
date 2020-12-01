@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Portal.Client.ViewModels;
 using Portal.Models;
 
@@ -383,7 +384,9 @@ namespace Portal.Client.Controllers
         [HttpGet]
         public JsonResult GetApplicant()
         {
+            EditProfileVM editProfileVM = new EditProfileVM();
             ApplicantJson applicant = null;
+
             var client = new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:44307")
@@ -393,8 +396,22 @@ namespace Portal.Client.Controllers
             var result = responseTask.Result;
             if (result.IsSuccessStatusCode)
             {
-                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
-                applicant = JsonConvert.DeserializeObject<ApplicantJson>(json);
+                var jsonString = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                applicant = JsonConvert.DeserializeObject<ApplicantJson>(jsonString);
+
+                foreach (var item in applicant.data)
+                {
+                    editProfileVM.EmployeeId = item.EmployeeId;
+
+                    var employeeData = (JsonResult)GetEmployeeName(editProfileVM);
+
+                    var name = employeeData.Value.ToString();
+
+                    dynamic deserialized = JsonConvert.DeserializeObject(name);
+
+                    item.FirstName = deserialized["firstName"] + " " + deserialized["lastName"];
+                    item.LastName = deserialized["lastName"];
+                }
             }
             else
             {
@@ -430,9 +447,10 @@ namespace Portal.Client.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult GetEmployeeData(EditProfileVM editProfileVM)
+        [HttpGet]
+        public ActionResult GetEmployeeName(EditProfileVM editProfileVM)
         {
+            var sb = new StringBuilder();
             using (HttpClient client = new HttpClient())
             {   
                 client.BaseAddress = new Uri("https://localhost:44358");
@@ -444,11 +462,22 @@ namespace Portal.Client.Controllers
                 //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
+
+                    var data = response.Content.ReadAsStringAsync().Result.ToString();
+
+                    dynamic deserialized = JsonConvert.DeserializeObject((string)data);
+                    var firstName = deserialized["data"]["firstName"];
+                    var lastName = deserialized["data"]["lastName"];
+                    //newObj = deserialized["firstName"].value;
+
+                    const string quote = "\"";
+                    string json = "{" + quote + "firstName" + quote + ":" + quote + firstName + quote + "," + quote + "lastName" + quote + ":" + quote + lastName + quote + "}";
+
+                    return Json(json);
                 }
                 else
                 {
-                    return Content("GAGAL");
+                    return Json(new {data = "gagal" });
                 }
             }
         }

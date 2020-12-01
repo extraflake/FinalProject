@@ -1,53 +1,54 @@
 ﻿var EditProfileVM = new Object();
 var table = null;
 var firstname, lastname;
-var fullname ="";
+var fullname = "";
+
+//function LoadEmployee(datarender) {
+//    return $.ajax({
+//            type: "Get",
+//            url: '/Admin/GetEmployeeData',
+//            data: datarender,
+//            success: function (response) {
+//                //debugger;
+//                var qt = JSON.parse(response.data);
+//                //console.log(qt.data['firstName']);
+//                firstname = qt.data['firstName'];
+//                //console.log(firstname);
+//                resolve = firstname;
+//                console.log(resolve);
+//                return resolve;
+//            }
+//        });
+//}
+
 $(document).ready(function () {
-    
+
     table = $('#table1').DataTable({
         "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
         "deferRender": true,
         "ajax": {
             "url": "/Admin/GetApplicant",
             "type": "GET",
-            "datatype": "json",
-            "beforeSend": function () {
-                var createLoader = document.getElementById("loader");
-                createLoader.classList.remove('hidden');
-            },
-            "complete": function () {
-                var createLoader = document.getElementById("loader");
-                createLoader.classList.add('hidden');
-            }
+            "datatype": "json"
         },
         "datasrc": "",
         //"columnDefs": [{
-        //    "render": function (data, type, row) {
+        //    "render": async function (data, type, row) {
         //        debugger;
-        //        console.log(data);
-        //        EditProfileVM.EmployeeId = data;
-
-        //        LoadEmployee(EditProfileVM);
-
-        //        return '<span>' + fullname + '<span>';
-        //        //$.ajax({
-        //        //    url: "/Admin/GetEmployeeData/",
-        //        //    type: "POST",
-        //        //    contentType: "application/json;charset=utf-8",
-        //        //    dataType: "json",
-        //        //    async: false,
-        //        //    data: EditProfileVM.EmployeeId,
-        //        //    processData: false,
-        //        //    contentType: false,
-        //        //    success: function (data) {
-        //        //        debugger;
-        //        //        var qt = JSON.parse(data);
-        //        //        console.log(qt);
-        //        //        var firstname = qt.data['firstname'];
-        //        //        var lastname = qt.data['lastname'];
-        //        //        return '<span>' + firstname + ' ' + lastname + '</span>';
-        //        //    }
-        //        //});
+        //        //console.log(data);
+        //        console.log(type);
+        //        if (type === 'type') {
+        //            //debugger;
+        //            EditProfileVM.EmployeeId = data;
+        //            //console.log(data);
+        //            //EditProfileVM.EmployeeId = data;
+        //            var dataProfile = LoadEmployee(EditProfileVM);
+        //            console.log(dataProfile);
+        //            return '<span>' + dataProfile  + '</span>';
+        //        }
+        //        else {
+        //            return '<span>' + "Data Tidak Masuk" + '<span>';
+        //        }
         //    },
         //    "targets": 4
         //}],
@@ -81,62 +82,17 @@ $(document).ready(function () {
                 "data": "fileId",
                 "visible": false
             },
-            //{
-            //    "data": "file",
-            //    "visible": false
-            //},
-            //{
-            //    "data": "position",
-            //    "visible": false
-            //},
-            //{
-            //    "data": "reference",
-            //    "visible": false
-            //},
             {
-                "data": "employeeId"
-                //"render": function (data, type, full, meta) {
-                //    if (type === 'filter') {
-                //        debugger;
-                //        console.log(data);
-                //        EditProfileVM.EmployeeId = data;
-                //        LoadEmployee(EditProfileVM);
-                //        console.log(fullname);
-                //        return '<span>' + fullname + '<span>';
-                //    }
-                //    else
-                //    {
-                //        return '<span>' + "Data Tidak Masuk" + '<span>';
-                //    }
-                //}
+                "data": "firstName"
                 //"visible": false
             }
-            //,
-            //{
-            //    "data": "skills",
-            //    "visible": false
-            //}
+
         ]
     });
+
 });
 
-function LoadEmployee(datarender) {
-    debugger;
-    $.ajax({
-        type: "POST",
-        url: '/Admin/GetEmployeeData',
-        data: datarender,
-        success: function (data) {
-            debugger;
-            var qt = JSON.parse(data);
-            firstname = qt.data['firstName'];
-            lastname = qt.data['lastName'];
-            fullname = firstname + ' ' + lastname;
-            console.log(fullname);
-        }
-    });
-    return fullname;
-}
+
 
 function Update(id) {
     debugger;
