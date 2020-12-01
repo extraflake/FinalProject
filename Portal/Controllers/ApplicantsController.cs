@@ -4,6 +4,8 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
@@ -74,7 +76,9 @@ namespace Portal.Controllers
                 File = Doc,
                 Position = Position,
                 Reference = Reference,
-                Skills = listSkills
+                Skills = listSkills,
+                EmployeeId = applicantVM.EmployeeId,
+                AlreadyCheck = true
             };
 
             await myContext.Applicants.AddAsync(data);
@@ -113,9 +117,60 @@ namespace Portal.Controllers
             return file;
         }
 
+        [HttpPost(nameof(Check))]
+        public async Task<List<bool>> Check(ApplicantVM applicantVM)
+        {
+            var check = await myContext.Applicants.Where(x => x.EmployeeId == applicantVM.EmployeeId).ToListAsync();
+            List<bool> tampung = new List<bool>();
+            foreach (var item in check)
+            {
+                tampung.Add(item.AlreadyCheck);
+            }
+            return tampung;
+        }
+
+        [HttpPost(nameof(Delete))]
+        public async Task<int> Delete(ApplicantVM applicantVM)
+        {
+            var delete = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
+            myContext.Remove(delete);
+            var remove = await myContext.SaveChangesAsync();
+            return remove;
+        }
+
+        [HttpGet(nameof(GetApplicant))]
+        public async Task<ActionResult> GetApplicant()
+        {
+            var get = await myContext.Applicants.ToListAsync();
+            foreach (var item in get)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    //string data = JsonConvert.SerializeObject(position);
+                    //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.GetAsync($"/api/employees/{item.EmployeeId}").Result;
+                    //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var nama = response.Content.ReadAsStringAsync().Result.ToString();
+                        //return Json(response.Content.ReadAsStringAsync().Result.ToString());
+                    }
+                    else
+                    {
+                        return Content("GAGAL");
+                    }
+                }
+            }
+            return Ok(new { data = get});
+        }
+
         [HttpPost(nameof(SendEmail))]
         public async Task<ActionResult> SendEmail(ApplicantVM applicantVM)
         {
+            var Applicant = await myContext.Applicants.FirstOrDefaultAsync(x => x.File.CreatedOn == applicantVM.CreatedOn);
             var Doc = await myContext.Files.FirstOrDefaultAsync(x => x.CreatedOn == applicantVM.CreatedOn);
             var Position = await myContext.Positions.FindAsync(applicantVM.PositionId);
             var Reference = await myContext.References.FindAsync(applicantVM.ReferenceId);
@@ -135,7 +190,7 @@ namespace Portal.Controllers
             };
 
             // Sending email
-            var htmlTemplate = new HTMLTemplateGenerator(data);
+            var htmlTemplate = new HTMLTemplateGenerator(data, applicantVM);
             string body = htmlTemplate.GetHTMLString();
 
             byte[] file = CreatePDF(body);
@@ -143,7 +198,7 @@ namespace Portal.Controllers
             MemoryStream fileMM = new MemoryStream(file);
             MemoryStream memorystream = new MemoryStream(data.File.DataFile);
 
-            string myEmail = "dionisiusyose11@gmail.com"; // Email dimasukkan terlebih dahulu
+            //string myEmail = "e2ftspen.ga@gmail.com"; // Email dimasukkan terlebih dahulu
 
             SmtpClient client = new SmtpClient();
             client.Port = 587;
@@ -152,15 +207,15 @@ namespace Portal.Controllers
             client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(myEmail, ""); // Password harus dimasukkan terlebih dahulu
+            client.Credentials = new NetworkCredential("dionisiusyose11@gmail.com", "gmaildion1997"); // Password harus dimasukkan terlebih dahulu
             //client.Timeout = int.MaxValue;
             //MailMessage mm = new MailMessage("donotreply@gmail.com", myEmail, "This the data of applicant", body);
             MailMessage mm = new MailMessage();
             mm.From = new MailAddress("donotreply@gmail.com");
-            mm.To.Add(myEmail);
-            mm.Subject = "Applicant Data";
+            mm.To.Add("dionisiusyose11@gmail.com");
+            mm.Subject = $"{data.Position.Name}_{Applicant.Id}_{applicantVM.FirstName} {applicantVM.LastName}";
             mm.IsBodyHtml = true;
-            mm.Body = $"Applicant data for {data.Position.Name}";
+            mm.Body = $"Applicant data for {data.Position.Name} from {applicantVM.FirstName} {applicantVM.LastName}";
 
             //foreach(var attachment in )
 
@@ -176,6 +231,17 @@ namespace Portal.Controllers
             client.Send(mm);
 
             return Ok();
+        }
+
+        [HttpPut(nameof(SetFalse))]
+        public async Task<ActionResult> SetFalse(ApplicantVM applicantVM)
+        {
+            var checkId = await myContext.Applicants.FindAsync(applicantVM.Id);
+
+            checkId.AlreadyCheck = false;
+
+            var result = myContext.SaveChangesAsync();
+            return Ok(result);
         }
     }
 }

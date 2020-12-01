@@ -19,10 +19,16 @@
                 <select class="grid-item-right" id="reference"> </select>
             </div>
 
-            <!-- Full Name -->
+            <!-- First Name -->
             <div class="grid grid-ai-c">
-                <label for="fullname" class="grid-item-left">Nama Lengkap : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="fullname" disabled>
+                <label for="fullname" class="grid-item-left">Nama Depan : </label>
+                <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="firstname" disabled>
+            </div>
+
+            <!-- Last Name -->
+            <div class="grid grid-ai-c">
+                <label for="fullname" class="grid-item-left">Nama Belakang : </label>
+                <input class="grid-item-right" type="text" placeholder="Masukkan nama lengkap anda..." id="lastname" disabled>
             </div>
 
             <!-- Alamat Email -->
@@ -46,49 +52,65 @@
             <!-- Gender -->
             <div class="grid grid-ai-c">
                 <label for="gender" class="grid-item-left">Gender : </label>
-                <select class="grid-item-right" id="gender" disabled> </select>
+                <select class="grid-item-right" id="gender" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih jenis kelamin anda...</option>
+                    <option value="Pria">L</option>
+                    <option value="Wanita">P</option>
+                    <option value="none">Tidak disebutkan</option>
+                </select>
             </div>
 
             <!-- Agama -->
             <div class="grid grid-ai-c">
                 <label for="religion" class="grid-item-left">Agama : </label>
-                <select class="grid-item-right" id="religion" disabled> </select>
+                <select class="grid-item-right" id="religion" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih agama anda...</option>
+                </select>
             </div>
 
             <!-- Sekolah/ Universitas -->
             <div class="grid grid-ai-c">
                 <label for="university" class="grid-item-left">Sekolah/ Universitas : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university" disabled>
+                <select class="grid-item-right" id="university" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih asal sekolah anda...</option>
+                </select>
+                @*<input onkeyup="validUniv();" class="form-control" type="text" placeholder="Masukkan nama sekolah terakhir anda..." id="university">*@
             </div>
 
             <!-- Jurusan -->
             <div class="grid grid-ai-c">
                 <label for="department" class="grid-item-left">Jurusan : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan nama jurusan anda..." id="department" disabled>
+                <select class="grid-item-right" id="department" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih jurusan anda...</option>
+                </select>
+                @*<input onkeyup="validDept();" class="form-control" type="text" placeholder="Masukkan nama jurusan anda..." id="department">*@
             </div>
 
             <!-- Jenjang -->
             <div class="grid grid-ai-c">
                 <label for="aclevel" class="grid-item-left">Jenjang Pendidikan : </label>
-                <select class="grid-item-right" id="aclevel" disabled> </select>
+                <select class="grid-item-right" id="degree" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih pendidikan terakhir anda...</option>
+                    <option value="SMK/SMA">SMK/SMA</option>
+                    <option value="D3">D3 (Diploma)</option>
+                    <option value="D4/S1">D4/S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
             </div>
 
             <!-- Tahun lulus -->
             <div class="grid grid-ai-c">
                 <label for="gradyear" class="grid-item-left">Tahun Kelulusan : </label>
-                <select class="grid-item-right" id="gradyear" disabled> </select>
+                <select class="grid-item-right" id="gradyear" disabled>
+                    <option value="" disabled selected hidden>Silahkan pilih tahun kelulusan anda...</option>
+                </select>
             </div>
 
             <!-- IPK Terakhir -->
             <div class="grid grid-ai-c">
                 <label for="gpa" class="grid-item-left">IPK Terakhir : </label>
                 <input class="grid-item-right" type="text" placeholder="Masukkan IPK anda..." id="gpa" disabled>
-            </div>
-
-            <!-- Kota Asal -->
-            <div class="grid grid-ai-c">
-                <label for="hometown" class="grid-item-left">Kota Asal : </label>
-                <input class="grid-item-right" type="text" placeholder="Masukkan kota asal anda..." id="hometown" disabled>
             </div>
 
             <!-- Posisi -->
@@ -119,12 +141,15 @@
 
     </div>
 
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+
 </div>
 
 @section script{
 
     <!-- Sweet Alert -->
     @*<script src="~/js/sweetalert2@10..js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
@@ -136,21 +161,19 @@
     <script src="~/voler-master/dist/assets/js/main.js"></script>
 
     <!--  registration -->
-    <script src="~/js/registration.js"></script>
-
-    <!-- Logout -->
-    @*<script src="~/js/LogoutScript.js"></script>*@
+    <script src="~/js/RegistrationPageScript.js"></script>
 
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     <!-- Dropdown -->
-    <script src="~/js/PositionScript.js"></script>
-    <script src="~/js/ReferenceScript.js"></script>
-    <script src="~/js/SkillScript.js"></script>
+    <script src="~/js/ApplicantDataScript.js"></script>
 
-
-
+    <!-- Data Load -->
+    <script src="~/js/EducationScript.js"></script>
+    @*<script src="~/js/UniversityScript.js"></script>*@
+    <script src="~/js/UserDataScript.js"></script>
+    <script src="~/js/EducationDataScript.js"></script>
 }
 
 

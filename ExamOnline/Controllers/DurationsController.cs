@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using ExamOnline.Context;
 using ExamOnline.Dapper_ORM;
+using ExamOnline.Models;
 using ExamOnline.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,13 @@ namespace ExamOnline.Controllers
     {
         public IConfiguration _configuration;
        readonly IDapper _dapper;
+        private readonly MyContext myContext;
 
-        public DurationsController(IDapper dapper, IConfiguration configuration)
+        public DurationsController(IDapper dapper, IConfiguration configuration, MyContext _myContext)
         {
             _dapper = dapper;
             _configuration = configuration;
+            myContext = _myContext;
         }
 
         [HttpPost]
@@ -58,6 +61,26 @@ namespace ExamOnline.Controllers
                 , dbparams,
                 commandType: CommandType.StoredProcedure));
             return result;
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var duration = new Duration { Id = id };
+
+            var cek = myContext.ExamDetails.Where(x => x.DurationId == duration.Id).Count();
+
+            if (cek == 0)
+            {
+                //myContext.Entry(segment).State = EntityState.Deleted;
+                myContext.Durations.Remove(duration);
+                var result = await myContext.SaveChangesAsync();
+                return Ok("Data Berhasil di Hapus");
+            }
+            else
+            {
+                return NotFound("Data tidak ditemukan atau berelasi dengan tabel lain");
+            }
         }
     }
 }

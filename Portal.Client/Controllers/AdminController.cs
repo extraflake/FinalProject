@@ -7,34 +7,39 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Portal.Client.ViewModels;
+using Portal.Models;
 
 namespace Portal.Client.Controllers
 {
     public class AdminController : Controller
     {
-        //-Referensi-//
+        ////-Referensi-//
         [HttpGet]
-        public ActionResult GetReference(Portal.Models.Reference reference)
+        public JsonResult GetReference()
         {
-            using (HttpClient client = new HttpClient())
+            ReferanceJson referance = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(reference);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/references").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/References");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                referance = JsonConvert.DeserializeObject<ReferanceJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(referance);
         }
+
+     
         [HttpPost]
         public ActionResult AddReference(Portal.Models.Reference reference)
         {
@@ -135,26 +140,26 @@ namespace Portal.Client.Controllers
 
         //-Position-//
         [HttpGet]
-        public ActionResult GetPosition(Portal.Models.Position position)
+        public JsonResult GetPosition()
         {
-            using (HttpClient client = new HttpClient())
+            PositionJson position = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(position);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/positions").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Positions");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                position = JsonConvert.DeserializeObject<PositionJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(position);
         }
         [HttpPost]
         public ActionResult AddPosition(Portal.Models.Position position)
@@ -256,26 +261,26 @@ namespace Portal.Client.Controllers
 
         //-Skill-//
         [HttpGet]
-        public ActionResult GetSkill(Portal.Models.Skill skill)
+        public JsonResult GetSkill()
         {
-            using (HttpClient client = new HttpClient())
+            SkillJson skill = null;
+            var client = new HttpClient
             {
-                client.BaseAddress = new Uri("https://localhost:44307");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(skill);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.GetAsync("/api/skills").Result;
-                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return Json(response.Content.ReadAsStringAsync().Result.ToString());
-                }
-                else
-                {
-                    return Content("GAGAL");
-                }
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Skills");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var json = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                skill = JsonConvert.DeserializeObject<SkillJson>(json);
             }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(skill);
         }
         [HttpPost]
         public ActionResult AddSkill(Portal.Models.Skill skill)
@@ -372,6 +377,109 @@ namespace Portal.Client.Controllers
         public IActionResult Skill()
         {
             return View();
+        }
+
+
+        //--Admin Check--//
+        [HttpGet]
+        public JsonResult GetApplicant()
+        {
+            EditProfileVM editProfileVM = new EditProfileVM();
+            ApplicantJson applicant = null;
+
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44307")
+            };
+            var responseTask = client.GetAsync("/api/Applicants/getapplicant");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var jsonString = JsonConvert.DeserializeObject(result.Content.ReadAsStringAsync().Result).ToString();
+                applicant = JsonConvert.DeserializeObject<ApplicantJson>(jsonString);
+
+                foreach (var item in applicant.data)
+                {
+                    editProfileVM.EmployeeId = item.EmployeeId;
+
+                    var employeeData = (JsonResult)GetEmployeeName(editProfileVM);
+
+                    var name = employeeData.Value.ToString();
+
+                    dynamic deserialized = JsonConvert.DeserializeObject(name);
+
+                    item.FirstName = deserialized["firstName"] + " " + deserialized["lastName"];
+                    item.LastName = deserialized["lastName"];
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server error try after some time.");
+            }
+            return Json(applicant);
+        }
+
+        [HttpPut]
+        public ActionResult UpdateCheck(ApplicantVM applicantVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44307");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(applicantVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PutAsync("/api/applicants/SetFalse", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { data = "sukses"});
+                }
+                else
+                {
+                    return Json(new { data = "gagal"});
+                }
+
+            }
+        }
+        public IActionResult AdminCheck()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetEmployeeName(EditProfileVM editProfileVM)
+        {
+            var sb = new StringBuilder();
+            using (HttpClient client = new HttpClient())
+            {   
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                //string data = JsonConvert.SerializeObject(position);
+                //var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.GetAsync($"/api/employees/{editProfileVM.EmployeeId}").Result;
+                //ViewBag.Message = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var data = response.Content.ReadAsStringAsync().Result.ToString();
+
+                    dynamic deserialized = JsonConvert.DeserializeObject((string)data);
+                    var firstName = deserialized["data"]["firstName"];
+                    var lastName = deserialized["data"]["lastName"];
+                    //newObj = deserialized["firstName"].value;
+
+                    const string quote = "\"";
+                    string json = "{" + quote + "firstName" + quote + ":" + quote + firstName + quote + "," + quote + "lastName" + quote + ":" + quote + lastName + quote + "}";
+
+                    return Json(json);
+                }
+                else
+                {
+                    return Json(new {data = "gagal" });
+                }
+            }
         }
     }
 }

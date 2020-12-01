@@ -6,6 +6,8 @@
 
 <div id="auth">
 
+    
+
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-12 mx-auto">
@@ -19,9 +21,11 @@
                         </div>
                         <div>
                             <div class="form-group position-relative has-icon-left">
-                                <label for="username">Username</label>
+                                <label for="username-column">Username</label>
                                 <div class="position-relative">
-                                    <input type="text" class="form-control" id="user" placeholder="Type your email, username or phone number here...">
+                                    <input onchange="validUserName();"
+                                           onkeyup="validUserName();"
+                                           type="text" class="form-control" id="username-column" placeholder="Type your email, username or phone number here...">
                                     <div class="form-control-icon">
                                         <i data-feather="user"></i>
                                     </div>
@@ -29,13 +33,15 @@
                             </div>
                             <div class="form-group position-relative has-icon-left ">
                                 <div class="clearfix">
-                                    <label for="password">Password</label>
+                                    <label for="password-column">Password</label>
                                     <a href="@Url.Action("Forgot", "Account")" class='float-right'>
                                         <small>Forgot password?</small>
                                     </a>
                                 </div>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password" placeholder="Type your password here...">
+                                    <input onchange="validPassword();"
+                                           onkeyup="validPassword();"
+                                           type="password" class="form-control" id="password-column" placeholder="Type your password here...">
                                     <div class="form-control-icon">
                                         <i data-feather="lock"></i>
                                     </div>
@@ -43,10 +49,10 @@
                             </div>
 
                             <div class='form-check clearfix my-4'>
-                                <div class="checkbox float-left">
-                                    <input type="checkbox" id="checkbox1" class='form-check-input'>
-                                    <label for="checkbox1">Remember me</label>
-                                </div>
+                                        @*<div class="checkbox float-left">
+                        <input type="checkbox" id="checkbox1" class='form-check-input'>
+                        <label for="checkbox1">Remember me</label>
+                    </div>*@
                                 <div class="float-right">
                                     <a href="@Url.Action("Register", "Account")">Don't have an account?</a>
                                 </div>
@@ -54,14 +60,17 @@
                             <div class="clearfix">
                                 <button class="btn btn-primary float-right" onclick="SignIn();">Submit</button>
                             </div>
+
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
 </div>
+
 
 @section script{
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -75,6 +84,8 @@
     <script src="~/voler-master/dist/assets/js/main.js"></script>
 
     <!-- Registrasi -->
-    <script src="~/js/AccountLogin.js"></script>
+    @*<link href="~/css/extra.css" rel="stylesheet" />*@
+    <script src="~/js/SetValidity.js"></script>
+    <script src="~/js/AccountScript.js"></script>
 }
 

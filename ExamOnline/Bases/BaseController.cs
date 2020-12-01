@@ -61,15 +61,15 @@ namespace ExamOnline.Bases
             await this.repository.Put(entity);
             return Ok();
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TEntity>> Delete(int id)
-        {
-            var result = await this.repository.Delete(id);
-            if (result != null)
-            {
-                return result;
-            }
-            return NotFound("Id : " +id+ " tidak dapat dihapus");
-        }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<TEntity>> Delete(int id)
+        //{
+        //    var result = await this.repository.Delete(id);
+        //    if (result != null)
+        //    {
+        //        return result;
+        //    }
+        //    return NotFound();
+        //}
     }
 }

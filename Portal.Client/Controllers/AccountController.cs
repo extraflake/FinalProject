@@ -48,8 +48,10 @@ namespace Portal.Client.Controllers
         {
             try
             {
+                HttpContext.Session.SetString("Password", registerVM.User_Password);
                 using (HttpClient client = new HttpClient())
                 {
+                //http://haidaraldi-001-site1.htempurl.com
                     client.BaseAddress = new Uri("https://localhost:44358");
                     MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                     client.DefaultRequestHeaders.Accept.Add(contentType);
@@ -65,31 +67,81 @@ namespace Portal.Client.Controllers
                         string Username = GetUsername(token);
                         string UserID = GetUserID(token);
                         string Email = GetEmail(token);
+                        string EmployeeId = GetEmployeeId(token);
+
+                        
 
                         HttpContext.Session.SetString("Application", Application);
                         HttpContext.Session.SetString("Username", Username);
                         HttpContext.Session.SetString("UserId", UserID);
                         HttpContext.Session.SetString("Token", token);
                         HttpContext.Session.SetString("Email", Email);
-
+                        HttpContext.Session.SetString("EmployeeId", EmployeeId);
+                        try
+                        {
+                            string EducationId = GetEducationId(token);
+                            string UniversityId = GetUniversityId(token);
+                            string DepartmentId = GetDepartmentId(token);
+                            HttpContext.Session.SetString("EducationId", EducationId);
+                            HttpContext.Session.SetString("UniversityId", UniversityId);
+                            HttpContext.Session.SetString("DepartmentId", DepartmentId);
+                        }
+                        catch (Exception)
+                        {
+                            HttpContext.Session.SetString("EducationId", "");
+                            HttpContext.Session.SetString("UniversityId", "");
+                            HttpContext.Session.SetString("DepartmentId", "");
+                        }
                         if (token.Equals("Error"))
                         {
-                            return Json(new { data = "gagal" });
+                            return Json(new { data = "Login Gagal" });
                         }
-                        return Json(new { data = "berhasil", token = Application, url = Url.Action("Index", "Registration") });
+                        return Json(new { data = "berhasil", token = token, url = Url.Action("Index", "Registration") });
                     }
                     else
                     {
-                        return Json(new { data = "gagal" });
+                        return Json(new { data = "Login Gagal" });
                     }
                     //return View();
                 }
             }
             catch (Exception)
             {
-                return Json(new { data = "gagal" });
+                return Json(new { data = "Cek kembali Username dan Password yang anda Isikan" });
             }
-            
+
+        }
+
+        protected string GetEmployeeId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EmployeeId")).Value;
+            return handler;
+        }
+
+        protected string GetEducationId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("EducationID")).Value;
+            return handler;
+        }
+
+        protected string GetUniversityId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UniversityID")).Value;
+            return handler;
+        }
+
+        protected string GetDepartmentId(string token)
+        {
+            char[] trimChars = { '/', '"' };
+
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("DepartmentID")).Value;
+            return handler;
         }
 
         protected string GetEmail(string token)
@@ -104,8 +156,13 @@ namespace Portal.Client.Controllers
         {
             char[] trimChars = { '/', '"' };
 
-            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("Application")).Value;
-            return handler;
+            var handler = new JwtSecurityTokenHandler().ReadJwtToken(token.Trim(trimChars)).Claims.FirstOrDefault(x => x.Type.Equals("UserApplication")).Value;
+
+            string[] words = handler.Split(',');
+
+            string application = words[0];
+
+            return application;
         }
 
         protected string GetUsername(string token)
@@ -133,32 +190,39 @@ namespace Portal.Client.Controllers
         [HttpPatch]
         public ActionResult Forgot(RegisterVM registerVM)
         {
-            using (HttpClient client = new HttpClient())
+            if (registerVM.User_Email.Equals("admin@admin.com"))
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
-                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
-                client.DefaultRequestHeaders.Accept.Add(contentType);
-                string data = JsonConvert.SerializeObject(registerVM);
-                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = client.PatchAsync("/API/Accounts", contentData).Result;
-                if (response.IsSuccessStatusCode)
+                return Json(new { data = "Silahkan tanya Manajemen untuk mereset akun" });
+            }
+            else
+            {
+                using (HttpClient client = new HttpClient())
                 {
-                    char[] trimChars = { '/', '"' };
-                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
+                    client.BaseAddress = new Uri("https://localhost:44358");
+                    MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                    client.DefaultRequestHeaders.Accept.Add(contentType);
+                    string data = JsonConvert.SerializeObject(registerVM);
+                    var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                    var response = client.PatchAsync("/API/Accounts", contentData).Result;
+                    if (response.IsSuccessStatusCode)
                     {
-                        return Json(new { data = "gagal" });
+                        char[] trimChars = { '/', '"' };
+                        if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("404"))
+                        {
+                            return Json(new { data = "Email Invalid" });
+                        }
+                        return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
                     }
-                    return Json(new { data = "berhasil", url = Url.Action("Index", "Account") });
+                    else
+                    {
+                        return Json(new { data = "Email Tidak Terdaftar" });
+                    }
+                    //return View();
                 }
-                else
-                {
-                    return Json(new { data = "gagal" });
-                }
-                //return View();
             }
         }
 
-        
+
 
         //Register
         [HttpPost]
@@ -173,7 +237,7 @@ namespace Portal.Client.Controllers
                     {
                         string phone = CheckPhone(registerVM);
                         if (phone.Equals("berhasil"))
-                        {
+                        { 
                             using (HttpClient client = new HttpClient())
                             {
                                 client.BaseAddress = new Uri("https://localhost:44358");
@@ -184,7 +248,7 @@ namespace Portal.Client.Controllers
                                 var response = client.PostAsync("/API/Accounts/RegisterBC", contentData).Result;
                                 if (response.IsSuccessStatusCode)
                                 {
-                                    return Json(new { data = "berhasil", result = "Redirect", url = Url.Action("Index", "Account") });
+                                    return Json(new { data = "berhasil", result = "Redirect", url = Url.Action("Index", "Account"), dataBack = response.Content.ReadAsStringAsync().Result.ToString() });
                                 }
                                 else
                                 {
@@ -195,12 +259,12 @@ namespace Portal.Client.Controllers
                         else return Json(new { data = "No HP sudah digunakan" });
                     }
                     else return Json(new { data = "Username sudah digunakan" });
-                } 
+                }
             }
             else return Json(new { data = "Email sudah digunakan" });
         }
 
-        
+
 
         //Cek Email
         [HttpPost]
@@ -225,7 +289,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Email Invalid";
                 }
                 //return View();
             }
@@ -254,7 +318,34 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Username Invalid";
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CheckAvailUser(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Accounts/CheckUsername", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
+                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("Username bisa digunakan"))
+                    {
+                        return Json(new {data = "berhasil" });
+                    }
+                    else return Json(new {data = "gagal" });
+                }
+                else
+                {
+                    return Json(new {data = "Username Invalid" });
                 }
             }
         }
@@ -282,7 +373,7 @@ namespace Portal.Client.Controllers
                 }
                 else
                 {
-                    return "gagal";
+                    return "Phone Invalid";
                 }
                 //return View();
             }
@@ -302,7 +393,7 @@ namespace Portal.Client.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44358");
+                client.BaseAddress = new Uri("http://haidaraldi-001-site1.htempurl.com");
                 MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
 
@@ -324,6 +415,11 @@ namespace Portal.Client.Controllers
                 }
                 //return View();
             }
+        }
+
+        public IActionResult Update()
+        {
+            return View();
         }
     }
 }
