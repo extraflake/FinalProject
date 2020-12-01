@@ -23,6 +23,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="fname-column">First Name</label>
+                                        <span id="fname-checker" class="input-checker checker-hidden">First name tidak boleh kosong</span>
                                         <input onchange="validfName();"
                                                onkeyup="validfName();"
                                                type="text" id="fname-column" class="form-control" name="fn-column" placeholder="Masukkan nama depan anda ...">
@@ -33,6 +34,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="last-name-column">Last Name</label>
+                                        <span id="lname-checker" class="input-checker checker-hidden">Last name tidak boleh kosong</span>
                                         <input onchange="validlName();" onkeyup="validlName();"
                                                type="text" id="last-name-column" class="form-control" name="ln-column" placeholder="Masukkan nama belakang anda ...">
                                     </div>
@@ -42,7 +44,8 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email-column">Email</label>
-                                        <input onchange="ValidateEmail();"
+                                        <span id="email-checker" class="input-checker checker-hidden">Email sudah digunakan</span>
+                                        <input onfocusout="checkEmail();"
                                                onkeyup="ValidateEmail();"
                                                type="email" id="email-column" class="form-control" name="email-id-column" placeholder="Masukkan email anda ...">
                                     </div>
@@ -63,6 +66,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="password-column">Password</label>
+                                        <span id="password-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                         <input onchange="validPassword();"
                                                onkeyup="validPassword();"
                                                type="password" id="password-column" class="form-control" name="password-id-column" placeholder="Masukkan password anda ...">
@@ -73,6 +77,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="confirm-column">Confirm Password</label>
+                                        <span id="confirm-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                         <input onchange="Confirm();"
                                                onkeyup="Confirm();"
                                                type="password" id="confirm-column" class="form-control" name="confirm-id-column" placeholder="Masukkan ulang password anda ...">
@@ -83,7 +88,8 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="phone-column">Phone</label>
-                                        <input onchange="validPhone();"
+                                        <span id="phone-checker" class="input-checker checker-hidden">Nomor Hp sudah digunakan</span>
+                                        <input onfocusout="checkPhone();"
                                                onkeyup="validPhone();"
                                                type="number" id="phone-column" class="form-control" name="phone-column" placeholder="Masukkan nomor telepon anda ...">
                                     </div>
@@ -93,6 +99,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="birthdate-column">BirthDate</label>
+                                        <span id="birthdate-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                         <input onchange="validBirth();"
                                                onkeyup="validBirth();"
                                                placeholder="dd-mm-yyyy"
@@ -104,6 +111,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="gender-floating">Gender</label>
+                                        <span id="gender-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                         <select id="gender-floating" class="extra" onchange="genderValid();">
                                             <option value="" disabled selected hidden>Silahkan pilih jenis kelamin anda...</option>
                                             <option value="Pria">L</option>
@@ -117,6 +125,7 @@
                                 <!-- Agama -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
+                                        <span id="agama-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                         <label for="religion">Religion</label>
                                         <select id="religion" class="extra" onchange="religionValid();">
                                             <option value="" disabled selected hidden>Silahkan pilih agama anda...</option>

@@ -350,6 +350,34 @@ namespace Portal.Client.Controllers
             }
         }
 
+
+        [HttpPost]
+        public ActionResult CheckAvailEmail(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Accounts/CheckEmail", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
+                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("Email bisa digunakan"))
+                    {
+                        return Json(new { data = "berhasil" });
+                    }
+                    else return Json(new { data = "gagal" });
+                }
+                else
+                {
+                    return Json(new { data = "Email Invalid" });
+                }
+            }
+        }
+
         //Cek Phone
         [HttpPost]
         public string CheckPhone(RegisterVM registerVM)
@@ -376,6 +404,34 @@ namespace Portal.Client.Controllers
                     return "Phone Invalid";
                 }
                 //return View();
+            }
+        }
+
+
+
+        public ActionResult CheckAvailPhone(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Accounts/CheckPhone", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
+                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("No HP bisa digunakan"))
+                    {
+                        return Json(new { data = "berhasil" });
+                    }
+                    else return Json(new { data = "gagal" });
+                }
+                else
+                {
+                    return Json(new { data = "Phone Invalid" });
+                }
             }
         }
 

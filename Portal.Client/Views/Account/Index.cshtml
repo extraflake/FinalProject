@@ -22,9 +22,9 @@
                         <div>
                             <div class="form-group position-relative has-icon-left">
                                 <label for="username-column">Username</label>
+                                <span id="username-checker" class="input-checker checker-hidden">Username sudah digunakan</span>
                                 <div class="position-relative">
-                                    <input onchange="validUserName();"
-                                           onkeyup="validUserName();"
+                                    <input onkeyup="validUserName();"
                                            type="text" class="form-control" id="username-column" placeholder="Type your email, username or phone number here...">
                                     <div class="form-control-icon">
                                         <i data-feather="user"></i>
@@ -34,13 +34,13 @@
                             <div class="form-group position-relative has-icon-left ">
                                 <div class="clearfix">
                                     <label for="password-column">Password</label>
+                                    <span id="password-checker" class="input-checker checker-hidden">Password boleh kosong</span>
                                     <a href="@Url.Action("Forgot", "Account")" class='float-right'>
                                         <small>Forgot password?</small>
                                     </a>
                                 </div>
                                 <div class="position-relative">
-                                    <input onchange="validPassword();"
-                                           onkeyup="validPassword();"
+                                    <input onkeyup="loginPassword();"
                                            type="password" class="form-control" id="password-column" placeholder="Type your password here...">
                                     <div class="form-control-icon">
                                         <i data-feather="lock"></i>
@@ -60,8 +60,6 @@
                             <div class="clearfix">
                                 <button class="btn btn-primary float-right" onclick="SignIn();">Submit</button>
                             </div>
-
-                            
                         </div>
                     </div>
                 </div>

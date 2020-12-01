@@ -19,8 +19,8 @@
                         <div>
                             <div class="form-group">
                                 <label for="first-name-column">Email</label>
-                                <input onchange="ValidateEmail();"
-                                       onkeyup="ValidateEmail();"
+                                <span id="email-checker" class="input-checker checker-hidden" style="color:red"></span>
+                                <input onkeyup="validEmail();"
                                        type="email" id="email-column"
                                        class="form-control" name="fname-column" placeholder="Type your email here...">
                             </div>
