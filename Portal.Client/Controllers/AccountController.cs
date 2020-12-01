@@ -323,6 +323,33 @@ namespace Portal.Client.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult CheckAvailUser(RegisterVM registerVM)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44358");
+                MediaTypeWithQualityHeaderValue contentType = new MediaTypeWithQualityHeaderValue("application/json");
+                client.DefaultRequestHeaders.Accept.Add(contentType);
+                string data = JsonConvert.SerializeObject(registerVM);
+                var contentData = new StringContent(data, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("/API/Accounts/CheckUsername", contentData).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    char[] trimChars = { '/', '"' };
+                    if (response.Content.ReadAsStringAsync().Result.ToString().Trim(trimChars).Equals("Username bisa digunakan"))
+                    {
+                        return Json(new {data = "berhasil" });
+                    }
+                    else return Json(new {data = "gagal" });
+                }
+                else
+                {
+                    return Json(new {data = "Username Invalid" });
+                }
+            }
+        }
+
         //Cek Phone
         [HttpPost]
         public string CheckPhone(RegisterVM registerVM)

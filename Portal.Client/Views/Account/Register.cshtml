@@ -52,9 +52,10 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="username-column">User Name</label>
-                                        <input onchange="validUserName();"
+                                        <span id="username-checker" class="input-checker checker-hidden" >Username sudah digunakan</span>
+                                        <input onfocusout="checkUserName();"
                                                onkeyup="validUserName();"
-                                               type="text" id="username-column" class="form-control" name="username-id-column" placeholder="Masukkan username anda ...">
+                                               type="text" id="username-column" class="form-control input" name="username-id-column" placeholder="Masukkan username anda ...">
                                     </div>
                                 </div>
 

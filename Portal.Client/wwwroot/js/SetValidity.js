@@ -10,6 +10,9 @@ var birthdate = document.getElementById('birthdate-column');
 var gender = document.getElementById('gender-floating');
 var religion = document.getElementById('religion');
 
+// Checker
+var userNameCheck = document.getElementById('username-checker');
+
 function genderValid() {
     if (gender.value == '') {
         gender.classList.remove("dropdown-valid");
@@ -69,11 +72,48 @@ function validUserName() {
     if (userName.value == '') {
         userName.classList.remove("is-valid");
         userName.classList.add("is-invalid");
+        
     }
     else {
         userName.classList.remove("is-invalid");
         userName.classList.add("is-valid");
+        userNameCheck.classList.add("checker-hidden");
     }
+}
+
+function checkUserName() {
+    debugger;
+    var RegisterVM = new Object();
+    RegisterVM.Username = userName.value;
+
+    $.ajax({
+        type: "POST",
+        url: '/Account/CheckAvailUser',
+        data: RegisterVM
+    }).then((result) => {
+        if (result.data == "berhasil") {
+            if (userName.value == '') {
+                //userNameCheck.innerHTML = "Username tidak boleh kosong";
+                userName.classList.remove("is-valid");
+                userName.classList.add("is-invalid");
+                //userNameCheck.classList.add("checker-hidden");
+                userNameCheck.classList.remove("checker-hidden");
+                userNameCheck.innerHTML = "Username tidak boleh kosong";
+            }
+            else {
+                userName.classList.remove("is-invalid");
+                userName.classList.add("is-valid");
+                userNameCheck.classList.add("checker-hidden");
+            }
+            
+        }
+        else {
+            userName.classList.remove("is-valid");
+            userName.classList.add("is-invalid");
+            userNameCheck.classList.remove("checker-hidden");
+            userNameCheck.innerHTML = "Username sudah digunakan";
+        }
+    });
 }
 
 function validPassword() {
@@ -105,6 +145,8 @@ function Confirm() {
         }
     }
 }
+
+
 
 function ValidateEmail() {
     var mailformat = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i

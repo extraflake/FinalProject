@@ -88,3 +88,13 @@
         transform: rotate(360deg);
     }
 }
+
+.input-checker {
+    font-size: 0.7rem;
+    color: #dc3545;
+    opacity: 1;
+}
+
+.checker-hidden{
+    opacity: 0;
+}
