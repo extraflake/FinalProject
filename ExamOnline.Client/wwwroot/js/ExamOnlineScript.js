@@ -20,7 +20,7 @@ Date.prototype.addMins = function (min) {
 var limit = new Date();
 limit.addMins(segments[curSegments]['duration']);
 
-var x = setInterval(function () {
+/*var x = setInterval(function () {
     now = new Date();
     var distance = limit - now;
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -39,7 +39,7 @@ var x = setInterval(function () {
         //    $('#notif').delay(5000).fadeOut();
         //});
     }
-}, 1000);
+}, 1000);*/
 
 //window.console.log = function () {
 //    console.error("sepertinya anda mengerti cara ngoding!");
@@ -49,8 +49,8 @@ var x = setInterval(function () {
 //}
 
 $(document).ready(async function () {
-    $('#badge').hide();
-    $('#notifIcon').hide();
+    //$('#badge').hide();
+    //$('#notifIcon').hide();
 
     if (num == 1) {
         $('#prevBtn').hide();
@@ -125,7 +125,7 @@ $(document).ready(async function () {
 function nextQuestion() {
     if (num == totalQuestion) {
         answer[num - 1] = getRadioCheckedValue("choices");
-        document.getElementById(num - 1).className = 'btn btn-primary ml-2';
+        document.getElementById(num - 1).className = 'btn btn-success ml-2';
         setRadioCheckedValue("choices");
         console.log(answer);
         finishSegment();
@@ -134,13 +134,12 @@ function nextQuestion() {
         answer[num - 1] = getRadioCheckedValue("choices");
         if (change) {
             document.getElementById(num - 1).className = 'btn btn-warning ml-2';
-
+            
         }
         else {
-            document.getElementById(num - 1).className = 'btn btn-primary ml-2';
+            document.getElementById(num - 1).className = 'btn btn-success ml-2';
         }
         change = false;
-
 
         num++;
         isFinalQuestion(num);
@@ -170,7 +169,9 @@ function nextQuestion() {
 }
 
 function previousQuestion() {
+    answer[num - 1] = getRadioCheckedValue("choices");
     num--;
+    setRadioCheckedValue("choices");
     isNotFirstQuestion(num);
     isFinalQuestion(num);
     document.getElementById('number').innerHTML = num;
@@ -347,7 +348,7 @@ function finishSegment() {
     }
 }
 
-function updateDuration() {
+function updateDuration()   {
     var ExamDetailVM = new Object();
     ExamDetailVM.DurationId = parseInt(sessionStorage.getItem("durationId"));
     var date = new Date();

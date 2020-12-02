@@ -96,7 +96,7 @@ namespace Portal.Client.Controllers
             }
         }
 
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Application").Equals("Portal"))
             {
@@ -104,7 +104,7 @@ namespace Portal.Client.Controllers
             }
             else return Redirect("~/Account/Index");
         }
-
+*/
         // Update Data
         //Update Skill Dropdown
         [HttpGet]

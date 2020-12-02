@@ -113,8 +113,8 @@ namespace ExamOnline.Controllers
 
             var result = myContext.SaveChangesAsync();
 
-            string MessageForUser = "Thanks for attempt the exam. Finish at " +DateTime.Now;
-            string MessageForAdmin = "ApplicantId : " +examDetailVM.ApplicantId+ " has finish the exam. " +DateTime.Now;
+            string MessageForUser = "Thanks for attempt the exam. \n Finish at " +DateTime.Now + " and your final score : " + examDetailVM.FinalScore;
+            string MessageForAdmin = "Email : " +examDetailVM.UserEmail+ "\n has finish the exam : " +DateTime.Now + ".\n with the final score : " + examDetailVM.FinalScore;
 
             SmtpClient client = new SmtpClient();
             client.Port = 587;
@@ -123,19 +123,19 @@ namespace ExamOnline.Controllers
             client.Timeout = 100000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("lsupply12@gmail.com", "Jengkolon123");
-            MailMessage mm =
-                new MailMessage("donotreply@gmail.com", examDetailVM.UserEmail
-                , "Thanks!", MessageForUser);
-            mm.BodyEncoding = UTF8Encoding.UTF8;
-            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-            client.Send(mm);
+            client.Credentials = new System.Net.NetworkCredential("Recruitmentapao3@gmail.com", "magangBatch3");
             MailMessage mm1 =
                 new MailMessage("donotreply@gmail.com", "kevinhendrawiliam@gmail.com"
-                , "ExamADMIN", MessageForAdmin);
+                , examDetailVM.UserEmail+ " finish test "+DateTime.Now, MessageForAdmin);
             mm1.BodyEncoding = UTF8Encoding.UTF8;
             mm1.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
             client.Send(mm1);
+            MailMessage mm =
+                new MailMessage("donotreply@gmail.com", examDetailVM.UserEmail
+                , "Thanks! You Finish Exam Online " + DateTime.Now, MessageForUser);
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            client.Send(mm);
 
             return Ok(result);
         }

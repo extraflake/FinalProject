@@ -63,6 +63,8 @@ function Save() {
     Segment.Title = $('#title').val();
     Segment.Duration = $('#duration').val();
     Segment.QuestionQuantity = $('#questionQty').val();
+/*    var status = document.getElementById('status');
+    segment.IsSegmentActive = (status == (status));*/
     debugger;
     $.ajax({
         type: "Post",
@@ -140,13 +142,14 @@ function DeleteSegment(id) {
 }
 
 function UpdateSegment() {
+    debugger;
     var Segment = new Object();
     Segment.Id = $("#Id").val();
     Segment.Title = $('#title').val();
     Segment.Duration = $('#duration').val();
     Segment.QuestionQuantity = $('#questionQty').val();
-    var status = document.getElementById('status');
-    Segment.IsSegmentActive = (status == (status));
+/*    var status = document.getElementById('Status');*/
+    Segment.IsSegmentActive = $('#status').val();
     debugger;
     $.ajax({
         type: "PUT",
